@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 
+# FLASK_APP=main.py FLASK_ENV=development flask run
 
 app = Flask(__name__)
 
