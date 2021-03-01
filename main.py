@@ -10,18 +10,18 @@ def home():
     print("Hit the route!")
     return render_template("index.html")
 
-
-@app.route("/search/")
-def home():
+@app.route("/search")
+def search():
     """Return a simple HTML page."""
     print("Hit the route!")
     return render_template("index.html")
 
 @app.route("/profile")
-def home():
+def profile():
     """Return a simple HTML page."""
     print("Hit the route!")
     return render_template("index.html")
+
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8080, debug=True) 
