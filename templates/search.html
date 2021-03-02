@@ -1,0 +1,22 @@
+<head>
+  <title>Which Wings</title>
+  <link href="/static/style.css" rel="stylesheet">
+</head>
+<body>
+  <h1>Search</h1>
+  <p>Please type in a wing name or flavor preference to search for.</p>
+  <div class="search-container">
+    <form action="/search-results/" method="POST">
+      <input type="text" placeholder="Search..." name="searchterm">
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <ul>
+    {% for w in wings %}
+        <li>{{ w['name'] }}</li>
+        <p>Description: {{ w['description'] }}</p>  
+    {% endfor %}
+  </ul>
+</body>
+</html>
