@@ -18,28 +18,37 @@ def search():
     return render_template("search.html", wings=[])
 
 
-all_wings = [{"name": "Ain't My Faulks", "description": "Butter, Dry BBQ, Dry Garlic, Dry Ranch"},{"name": "B.A.D.", "description": "Buttered Atomic Dust"}]
+all_wings = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ranch"},   
+                {"name": "Ain't My Faulks", "description": "Butter, Dry BBQ, Dry Garlic, Dry Ranch"},
+                {"name": "B.A.D.", "description": "Buttered Atomic Dust"}]
 @app.route("/search-results/", methods=["POST"])
 def search_results():
     """Return a simple HTML page."""
     print("Searching!")
     test_wings = []
     s_term = request.form['searchterm']
+    s_term = s_term.split(',')
     print(s_term)
     #comp_term = "Ain't My Faulks"
 
     for w in all_wings:
-        print("Enter Loop:")
-        print(w["name"].lower())        
-        name_PR = fuzz.partial_ratio(s_term.lower(),w["name"].lower())
-        des_PR = fuzz.partial_ratio(s_term.lower(),w["description"].lower())
-        if name_PR > 65 or des_PR >75:
-            print("passed!")
+        name_PR = 0
+        des_PR = 0
+        tot_des_PR = 0
+        if len(s_term) == 1:    
+            name_PR = fuzz.partial_ratio(s_term[0].lower(),w["name"].lower())
+
+        for s in range(len(s_term)):
+            des_PR = fuzz.partial_ratio(s_term[s].lower(),w["description"].lower())
+            tot_des_PR = tot_des_PR + des_PR
+
+        tot_des_PR = tot_des_PR/(len(s_term))
+        print(tot_des_PR)
+        if name_PR > 65 or tot_des_PR > 65:
+            #print("passed!")
             #print(w["name"])
             test_wings.append(w)
 
-    #PR = fuzz.partial_ratio(s_term.lower(),comp_term.lower())
-    #print(PR)
     return render_template("search.html", wings=test_wings)
 
 @app.route("/profile")
