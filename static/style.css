@@ -26,3 +26,10 @@ body {
   background-color: #7f7ee0;
   color: white;
 }
+
+.topnav-right {
+  float: right;
+  overflow: hidden;
+  background-color: #181761;
+  font-family: "Trebuchet MS";
+}

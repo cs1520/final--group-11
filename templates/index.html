@@ -1,17 +1,83 @@
 <html>
+
 <head>
   <title>Which Wings</title>
   <link href="/static/style.css" rel="stylesheet">
 </head>
 
+<style>
+    .container {
+    padding: 16px;
+    }
+       
+    .popUpLogin {  /* The popUpLogin (background) */
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+    }
+        
+    .popUpLogin-content { /* Modal Content/Box */
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+    .navbar-right{
+    float: right;
+    overflow: hidden;
+    background-color: #181761;
+    font-family: "Trebuchet MS";
+    }
+</style>
+
 <div class="topnav">
   <a class="active" href="/">Home</a>
   <a href="/search">Search</a>
   <a href="/profile">Profile</a>
+  <div class = "navbar-right">
+    <a onclick="document.getElementById('popUpLogin').style.display='block'">Login</a>
+  </div>
 </div>
 
 <body>
   <h1>Welcome to Which Wings</h1>
   <p>Start building your project from this template</p>
+
+    <div id="popUpLogin" class="popUpLogin">
+        <form class="popUpLogin-content" method="post">
+            <div class="container">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Username" name="uname" required>
+                    <br>
+                <label for="psw"><b>Password  </b></label>
+                <input type="password" placeholder="Password" name="psw" required>
+                    <br>
+                <label><input type="checkbox" checked="checked" name="remember"> Remember me </label>
+                    <br>
+                <button type="submit">Login</button>
+                    <br>
+                
+                <span class="psw"><a href="#">Forgot password?</a></span>
+            </div>
+        </form>
+    </div>
+
+    <script>//close login popup if user clicks outside of it
+    var popUpLogin = document.getElementById('popUpLogin');
+    window.onclick = function(event) {
+        if (event.target == popUpLogin) {
+            popUpLogin.style.display = "none";
+        }
+    }
+    </script>
+
 </body>
 </html>
