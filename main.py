@@ -21,6 +21,7 @@ def search():
 all_wings = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ranch"},   
                 {"name": "Ain't My Faulks", "description": "Butter, Dry BBQ, Dry Garlic, Dry Ranch"},
                 {"name": "B.A.D.", "description": "Buttered Atomic Dust"}]
+
 @app.route("/search-results/", methods=["POST"])
 def search_results():
     """Return a simple HTML page."""
@@ -62,6 +63,12 @@ def survey():
     """Return a simple HTML page."""
     print("Hit the route!")
     return render_template("survey.html")
+
+@app.route("/surveyMax")
+def surveyMax():
+    """Test Survey Page with Popups"""
+    print("Im taking a survey")
+    return render_template("surveyMax.html")
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8080, debug=True) 
