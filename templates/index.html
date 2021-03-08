@@ -6,6 +6,8 @@
 </head>
 
 <!-- I hate this but it didn't work when I put it in style.css--> 
+<!-- Also I havn't moved this to other pages bc its ugly and I dont like it but also bc 
+I assume we're gonna make a base html template-->
 <style> 
     .container {
     padding: 16px;
@@ -13,22 +15,22 @@
        
     .popUpLogin {  /* The popUpLogin (background) */
     display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    position: fixed; 
+    z-index: 1; 
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
     padding-top: 60px;
     }
         
-    .popUpLogin-content { /* Modal Content/Box */
+    .popUpLogin-content { 
     background-color: #fefefe;
-    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    margin: 5% auto 15% auto; 
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 80%; 
     }
 
     .navbar-right{
@@ -61,19 +63,22 @@
                 <label for="psw"><b>Password  </b></label>
                 <input type="password" placeholder="Password" name="psw" required>
                     <br>
-                <label><input type="checkbox" checked="checked" name="remember"> Remember me </label>
+                <!-- <label><input type="checkbox" checked="checked" name="remember"> Remember me </label>
                     <br>
+                -->
                 <button type="submit">Login</button>
                     <br>
-                
-                <span class="psw"><a href="#">Forgot password?</a></span>
+                <span class="newAccount"><a href="/">Create account</a></span>
+                    <br>
+                <span class="psw"><a href="/">Forgot password?</a></span>
             </div>
         </form>
     </div>
 
     <script>//close login popup if user clicks outside of it
     var popUpLogin = document.getElementById('popUpLogin');
-    window.onclick = function(event) {
+    window.onclick = function(event) 
+    {
         if (event.target == popUpLogin) {
             popUpLogin.style.display = "none";
         }
