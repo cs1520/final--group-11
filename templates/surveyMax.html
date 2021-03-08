@@ -18,7 +18,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 
 /* The popup form - hidden by default */
-.form-popup {
+.form-popup-radio {
   display: none;
   position: fixed;
   bottom: 20%;
@@ -28,21 +28,21 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 
 /* Add styles to the form container */
-.form-container {
-  max-width: 300px;
+.form-container-radio {
+  width: 250px;
   padding: 10px;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
 }
 
 /* When the inputs get focus, do something */
-.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+.form-container-radio input[type=text]:focus, .form-container-radio input[type=password]:focus {
   background-color: #ddd;
   outline: none;
 }
 
 /* Set a style for the submit/login button */
-.form-container .btn {
-  background-color: #4CAF50;
+.form-container-radio .btn {
+  background-color: rgb(30, 200, 235);
   color: white;
   padding: 16px 20px;
   border: none;
@@ -52,13 +52,65 @@ body {font-family: Arial, Helvetica, sans-serif;}
   opacity: 0.8;
 }
 
+/* The popup form - hidden by default */
+.form-popup-button-list {
+  display: none;
+  position: fixed;
+  bottom: 15%;
+  right: 10%;
+  height: 70%;
+  width: 80%;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container-button-list {
+  display:block;  
+  padding: 10px;
+  background-color: rgb(255, 255, 255);
+}
+
+/* When the inputs get focus, do something */
+.form-container-button-list input[type=text]:focus, .form-container-button-list input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+.form-container-button-list .flavorBtn {
+  background-color: rgb(241, 210, 255);
+  color: rgb(0, 0, 0);
+  padding: 16px 30px;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;  
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Set a style for the submit/login button */
+.form-container-button-list .btn {
+  background-color: rgb(30, 200, 235);
+  color: white;
+    display: block;  
+  margin: auto;
+  max-width: 51%;
+  align-items: center;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
 /* Add a red background color to the cancel button */
-.form-container .cancel {
-  background-color: red;
+.form-container-radio .cancel {
+  background-color: rgb(175, 175, 175);
 }
 
 /* Add some hover effects to buttons */
-.form-container .btn:hover, .open-button:hover {
+.form-container-radio .btn:hover, .open-button:hover {
   opacity: 1;
 }
 </style>
@@ -84,8 +136,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
     <button class="open-button" onclick="openSpiceForm()">Open Form</button>
 
 
-    <div class="form-popup" id="spiceForm">
-        <form action="/action_page.php" class="form-container">
+    <div class="form-popup-radio" id="spiceForm">
+        <form action="/action_page.php" class="form-container-radio">
             <h1>Wing Survey</h1>
             <h2>Spice Level</h2>
 
@@ -101,8 +153,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
         </form>
     </div>
 
-    <div class="form-popup" id="wetnessForm">
-        <form action="/action_page.php" class="form-container">
+    <div class="form-popup-radio" id="wetnessForm">
+        <form action="/action_page.php" class="form-container-radio">
             <h1>Wing Survey</h1>
             <h2>Wetness Level</h2>
 
@@ -113,8 +165,49 @@ body {font-family: Arial, Helvetica, sans-serif;}
             <input type="radio" id="noPref" name="moistLvl" value="noPref">
             <label for="noPref">No Preference</label>
             <p></p>
-            <button type="submit" class="btn">Next Question</button>
+            <button type="button" class="btn" onclick="openFlavorChoicesForm()"">Next Question</button>
             <button type="button" class="btn cancel" onclick="closeWetnessForm()">Previous Question</button>
+        </form>
+    </div>
+
+    <div class="form-popup-button-list" id="flavorsForm">
+        <form action="/action_page.php" class="form-container-button-list">
+            <h1>Wing Survey</h1>
+            <h3>Please select which of the following flavors you enjoy</h3>
+            <button id="selectButton" display="block" type="button" class="flavorBtn" onclick="selectAll()">Select All</button>
+            <button id="deselectButton" display="block" type="button" class="flavorBtn" onclick="deselectAll()">Deselect All</button>
+            <button id="1" type="button" class="flavorBtn" onclick="selectMe(this.id)">Atomic Dust</button>
+            <button id="2" type="button" class="flavorBtn" onclick="selectMe(this.id)">Barbeque</button>
+            <button id="3" type="button" class="flavorBtn" onclick="selectMe(this.id)">Black Magic</button>
+            <button id="4" type="button" class="flavorBtn" onclick="selectMe(this.id)">Blue Cheese</button>
+            <button id="5" type="button" class="flavorBtn" onclick="selectMe(this.id)">Big Shot Bob Seasoning</button>
+            <button id="6" type="button" class="flavorBtn" onclick="selectMe(this.id)">Buffalo</button>
+            <button id="7" type="button" class="flavorBtn" onclick="selectMe(this.id)">Butter</button>
+            <button id="8" type="button" class="flavorBtn" onclick="selectMe(this.id)">Cajun</button>
+            <button id="9" type="button" class="flavorBtn" onclick="selectMe(this.id)">Cayenne</button>
+            <button id="10" type="button" class="flavorBtn" onclick="selectMe(this.id)">Chili</button>
+            <button id="11" type="button" class="flavorBtn" onclick="selectMe(this.id)">Dijon</button>
+            <button id="12" type="button" class="flavorBtn" onclick="selectMe(this.id)">Garlic</button>
+            <button id="13" type="button" class="flavorBtn" onclick="selectMe(this.id)">Honey</button>
+            <button id="14" type="button" class="flavorBtn" onclick="selectMe(this.id)">Honey Mustard</button>
+            <button id="15" type="button" class="flavorBtn" onclick="selectMe(this.id)">Jalapeno</button>
+            <button id="16" type="button" class="flavorBtn" onclick="selectMe(this.id)">Jerk Seasoning</button>
+            <button id="17" type="button" class="flavorBtn" onclick="selectMe(this.id)">Lawry's Seasoned Salt</button>
+            <button id="18" type="button" class="flavorBtn" onclick="selectMe(this.id)">Lemon</button>
+            <button id="19" type="button" class="flavorBtn" onclick="selectMe(this.id)">Montreal</button>
+            <button id="20" type="button" class="flavorBtn" onclick="selectMe(this.id)">Old Bay</button>
+            <button id="21" type="button" class="flavorBtn" onclick="selectMe(this.id)">Parmesan</button>
+            <button id="22" type="button" class="flavorBtn" onclick="selectMe(this.id)">Pepper</button>
+            <button id="23" type="button" class="flavorBtn" onclick="selectMe(this.id)">Ranch</button>
+            <button id="24" type="button" class="flavorBtn" onclick="selectMe(this.id)">Raspberry</button>
+            <button id="25" type="button" class="flavorBtn" onclick="selectMe(this.id)">Seasoned</button>
+            <button id="26" type="button" class="flavorBtn" onclick="selectMe(this.id)">Sweet</button>
+            <button id="27" type="button" class="flavorBtn" onclick="selectMe(this.id)">Teriyaki</button>
+            <button id="28" type="button" class="flavorBtn" onclick="selectMe(this.id)">Vinegar</button>
+            
+            <p></p>
+            <button type="button" class="btn" onclick="finishSurvey()">Complete Survey</button>
+            <button type="button" class="btn cancel" onclick="closeFlavorChoicesForm()">Previous Question</button>
         </form>
     </div>
 
@@ -124,16 +217,62 @@ body {font-family: Arial, Helvetica, sans-serif;}
         }
             
         function closeSpiceForm() {
-        document.getElementById("spiceForm").style.display = "none";
+            document.getElementById("spiceForm").style.display = "none";
         }
 
         
         function openWetnessForm() {
-        document.getElementById("wetnessForm").style.display = "block";
+            if (!document.querySelectorAll('input[name=SpiceLvl]:checked').length) {
+                alert("Please answer the question.");
+                return;
+            }
+            document.getElementById("wetnessForm").style.display = "block";
         }
             
         function closeWetnessForm() {
-        document.getElementById("wetnessForm").style.display = "none";
+            document.getElementById("wetnessForm").style.display = "none";
         }
+
+        function openFlavorChoicesForm() {
+            if (!document.querySelectorAll('input[name=moistLvl]:checked').length) {
+                alert("Please answer the question.");
+                return;
+            }
+            document.getElementById("flavorsForm").style.display = "block";
+            deselectAll();
+        }
+
+        function closeFlavorChoicesForm() {
+            document.getElementById("flavorsForm").style.display = "none";
+        }
+
+        function finishSurvey() {
+            closeFlavorChoicesForm();
+            closeWetnessForm();
+            closeSpiceForm();
+        }
+
+        function selectMe(buttonID) {
+            document.getElementById(buttonID).style.backgroundColor = "rgb(30, 200, 235)";
+        }
+        
+        function deselectMe(buttonID) {
+            document.getElementById(buttonID).style.backgroundColor = "rgb(241, 210, 255)";
+        }
+
+        function selectAll() {
+            document.getElementById("selectButton").style.display = "none";
+            document.getElementById("deselectButton").style.display = "block";
+            for (i=1; i<=29; i++)
+                selectMe(i);
+        }
+
+        function deselectAll() {
+            document.getElementById("deselectButton").style.display = "none";
+            document.getElementById("selectButton").style.display = "block";
+            for (i=1; i<=29; i++)
+                deselectMe(i);
+        }
+        
     </script>
 </html>
