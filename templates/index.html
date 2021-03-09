@@ -5,40 +5,6 @@
   <link href="/static/style.css" rel="stylesheet">
 </head>
 
-<!-- I hate this but it didn't work when I put it in style.css--> 
-<style> 
-    .container {
-    padding: 16px;
-    }
-       
-    .popUpLogin {  /* The popUpLogin (background) */
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    padding-top: 60px;
-    }
-        
-    .popUpLogin-content { /* Modal Content/Box */
-    background-color: #fefefe;
-    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-    }
-
-    .navbar-right{
-    float: right;
-    overflow: hidden;
-    background-color: #181761;
-    font-family: "Trebuchet MS";
-    }
-</style>
-
 <div class="topnav">
   <a class="active" href="/">Home</a>
   <a href="/search">Search</a>
@@ -61,21 +27,49 @@
                 <label for="psw"><b>Password  </b></label>
                 <input type="password" placeholder="Password" name="psw" required>
                     <br>
-                <label><input type="checkbox" checked="checked" name="remember"> Remember me </label>
+                <!-- <label><input type="checkbox" checked="checked" name="remember"> Remember me </label>
                     <br>
+                -->
                 <button type="submit">Login</button>
+                    <br><br>
+                <span class="psw"><a href="/">Forgot password?</a></span>
+                <button onclick="document.getElementById('popUpCreateAccount').style.display='block'" class="newAccount">Create Account</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="popUpCreateAccount" class="popUpCreateAccount">
+        <form class="popUpCreateAccount-content" method="post">
+            <div class="container">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Username" name="uname" required>
                     <br>
-                
-                <span class="psw"><a href="#">Forgot password?</a></span>
+                <label for="psw"><b>Password  </b></label>
+                <input type="password" placeholder="Password" name="psw" required>
+                    <br>
+                <label for="psw"><b>Confirm Password  </b></label>
+                <input type="password" placeholder="Password" name="psw" required>
+                    <br>
+                <!-- <label><input type="checkbox" checked="checked" name="remember"> Remember me </label>
+                    <br>
+                -->
+                <button type="submit">Create Account</button>
+                    <br>
             </div>
         </form>
     </div>
 
     <script>//close login popup if user clicks outside of it
     var popUpLogin = document.getElementById('popUpLogin');
-    window.onclick = function(event) {
+    var popUpCreateAccount = document.getElementById('popUpCreateAccount');
+    window.onclick = function(event) 
+    {
         if (event.target == popUpLogin) {
             popUpLogin.style.display = "none";
+        }
+        if (event.target == popUpCreateAccount) {
+            popUpLogin.style.display = "none";
+            popUpCreateAccount.style.display = "none";
         }
     }
     </script>
