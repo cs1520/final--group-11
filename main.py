@@ -38,8 +38,7 @@ def search_results():
     test_wings = []
     s_term = request.form['searchterm']
     s_term = s_term.split(',')
-    print(s_term)
-    #comp_term = "Ain't My Faulks"
+    #print(s_term)
 
     for w in all_wings:
         name_PR = 0
@@ -53,8 +52,8 @@ def search_results():
             tot_des_PR = tot_des_PR + des_PR
 
         tot_des_PR = tot_des_PR/(len(s_term))
-        print(tot_des_PR)
-        if name_PR > 65 or tot_des_PR > 65:
+        #print(tot_des_PR)
+        if name_PR > 75 or tot_des_PR > 75:
             #print("passed!")
             #print(w["name"])
             test_wings.append(w)
