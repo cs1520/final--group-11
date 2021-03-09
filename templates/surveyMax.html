@@ -1,123 +1,12 @@
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-* {box-sizing: border-box;}
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body {font-family: Arial, Helvetica, sans-serif;}
+            * {box-sizing: border-box;}
+        </style>
+    </head>
 
-/* Button used to open the contact form - fixed at the bottom of the page */
-.open-button {
-  display: block;
-  margin: auto;
-  background-color: #555;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  opacity: 0.8;
-}
-
-/* The popup form - hidden by default */
-.form-popup-radio {
-  display: none;
-  position: fixed;
-  bottom: 20%;
-  right: 40%;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
-}
-
-/* Add styles to the form container */
-.form-container-radio {
-  width: 250px;
-  padding: 10px;
-  background-color: rgb(255, 255, 255);
-}
-
-/* When the inputs get focus, do something */
-.form-container-radio input[type=text]:focus, .form-container-radio input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-/* Set a style for the submit/login button */
-.form-container-radio .btn {
-  background-color: rgb(30, 200, 235);
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom:10px;
-  opacity: 0.8;
-}
-
-/* The popup form - hidden by default */
-.form-popup-button-list {
-  display: none;
-  position: fixed;
-  bottom: 15%;
-  right: 10%;
-  height: 70%;
-  width: 80%;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
-}
-
-/* Add styles to the form container */
-.form-container-button-list {
-  display:block;  
-  padding: 10px;
-  background-color: rgb(255, 255, 255);
-}
-
-/* When the inputs get focus, do something */
-.form-container-button-list input[type=text]:focus, .form-container-button-list input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-.form-container-button-list .flavorBtn {
-  background-color: rgb(241, 210, 255);
-  color: rgb(0, 0, 0);
-  padding: 16px 30px;
-  border: none;
-  cursor: pointer;
-  margin-left: 5px;  
-  margin-bottom:10px;
-  opacity: 0.8;
-}
-
-/* Set a style for the submit/login button */
-.form-container-button-list .btn {
-  background-color: rgb(30, 200, 235);
-  color: white;
-    display: block;  
-  margin: auto;
-  max-width: 51%;
-  align-items: center;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom:10px;
-  opacity: 0.8;
-}
-
-/* Add a red background color to the cancel button */
-.form-container-radio .cancel {
-  background-color: rgb(175, 175, 175);
-}
-
-/* Add some hover effects to buttons */
-.form-container-radio .btn:hover, .open-button:hover {
-  opacity: 1;
-}
-</style>
-</head>
-<body>
-
-<html>
     <head>
         <title>Which Wings</title>
         <link href="/static/style.css" rel="stylesheet">
@@ -133,8 +22,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
         <h1>Welcome to Which Wings</h1>
         <p>This is a test of the survey</p>
     </body>
-    <button class="open-button" onclick="openSpiceForm()">Open Form</button>
 
+    <!--HERE DOWN NEEDED FOR MY THING TO WORK-->
+    <button class="open-button" onclick="openSpiceForm()">Open Survey</button>
 
     <div class="form-popup-radio" id="spiceForm">
         <form action="/action_page.php" class="form-container-radio">
@@ -173,54 +63,54 @@ body {font-family: Arial, Helvetica, sans-serif;}
     <div class="form-popup-button-list" id="flavorsForm">
         <form action="/action_page.php" class="form-container-button-list">
             <h1>Wing Survey</h1>
-            <h3>Please select which of the following flavors you enjoy</h3>
+            <h3>Please select which of the following flavors you would like included in your wing options.</h3>
             <button id="selectButton" display="block" type="button" class="flavorBtn" onclick="selectAll()">Select All</button>
             <button id="deselectButton" display="block" type="button" class="flavorBtn" onclick="deselectAll()">Deselect All</button>
-            <button id="1" type="button" class="flavorBtn" onclick="selectMe(this.id)">Atomic Dust</button>
-            <button id="2" type="button" class="flavorBtn" onclick="selectMe(this.id)">Barbeque</button>
-            <button id="3" type="button" class="flavorBtn" onclick="selectMe(this.id)">Black Magic</button>
-            <button id="4" type="button" class="flavorBtn" onclick="selectMe(this.id)">Blue Cheese</button>
-            <button id="5" type="button" class="flavorBtn" onclick="selectMe(this.id)">Big Shot Bob Seasoning</button>
-            <button id="6" type="button" class="flavorBtn" onclick="selectMe(this.id)">Buffalo</button>
-            <button id="7" type="button" class="flavorBtn" onclick="selectMe(this.id)">Butter</button>
-            <button id="8" type="button" class="flavorBtn" onclick="selectMe(this.id)">Cajun</button>
-            <button id="9" type="button" class="flavorBtn" onclick="selectMe(this.id)">Cayenne</button>
-            <button id="10" type="button" class="flavorBtn" onclick="selectMe(this.id)">Chili</button>
-            <button id="11" type="button" class="flavorBtn" onclick="selectMe(this.id)">Dijon</button>
-            <button id="12" type="button" class="flavorBtn" onclick="selectMe(this.id)">Garlic</button>
-            <button id="13" type="button" class="flavorBtn" onclick="selectMe(this.id)">Honey</button>
-            <button id="14" type="button" class="flavorBtn" onclick="selectMe(this.id)">Honey Mustard</button>
-            <button id="15" type="button" class="flavorBtn" onclick="selectMe(this.id)">Jalapeno</button>
-            <button id="16" type="button" class="flavorBtn" onclick="selectMe(this.id)">Jerk Seasoning</button>
-            <button id="17" type="button" class="flavorBtn" onclick="selectMe(this.id)">Lawry's Seasoned Salt</button>
-            <button id="18" type="button" class="flavorBtn" onclick="selectMe(this.id)">Lemon</button>
-            <button id="19" type="button" class="flavorBtn" onclick="selectMe(this.id)">Montreal</button>
-            <button id="20" type="button" class="flavorBtn" onclick="selectMe(this.id)">Old Bay</button>
-            <button id="21" type="button" class="flavorBtn" onclick="selectMe(this.id)">Parmesan</button>
-            <button id="22" type="button" class="flavorBtn" onclick="selectMe(this.id)">Pepper</button>
-            <button id="23" type="button" class="flavorBtn" onclick="selectMe(this.id)">Ranch</button>
-            <button id="24" type="button" class="flavorBtn" onclick="selectMe(this.id)">Raspberry</button>
-            <button id="25" type="button" class="flavorBtn" onclick="selectMe(this.id)">Seasoned</button>
-            <button id="26" type="button" class="flavorBtn" onclick="selectMe(this.id)">Sweet</button>
-            <button id="27" type="button" class="flavorBtn" onclick="selectMe(this.id)">Teriyaki</button>
-            <button id="28" type="button" class="flavorBtn" onclick="selectMe(this.id)">Vinegar</button>
-            
+            <button id="0" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Atomic Dust</button>
+            <button id="1" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Barbeque</button>
+            <button id="2" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Black Magic</button>
+            <button id="3" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Blue Cheese</button>
+            <button id="4" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Big Shot Bob Seasoning</button>
+            <button id="5" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Buffalo</button>
+            <button id="6" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Butter</button>
+            <button id="7" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Cajun</button>
+            <button id="8" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Cayenne</button>
+            <button id="9" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Chili</button>
+            <button id="10" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Dijon</button>
+            <button id="11" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Garlic</button>
+            <button id="12" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Honey</button>
+            <button id="13" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Honey Mustard</button>
+            <button id="14" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Jalapeno</button>
+            <button id="15" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Jerk Seasoning</button>
+            <button id="16" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Lawry's Seasoned Salt</button>
+            <button id="17" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Lemon</button>
+            <button id="18" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Montreal</button>
+            <button id="19" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Old Bay</button>
+            <button id="20" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Parmesan</button>
+            <button id="21" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Pepper</button>
+            <button id="22" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Ranch</button>
+            <button id="23" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Raspberry</button>
+            <button id="24" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Seasoned</button>
+            <button id="25" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Sweet</button>
+            <button id="26" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Teriyaki</button>
+            <button id="27" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Vinegar</button>
             <p></p>
-            <button type="button" class="btn" onclick="finishSurvey()">Complete Survey</button>
             <button type="button" class="btn cancel" onclick="closeFlavorChoicesForm()">Previous Question</button>
+            <button type="button" class="btn" onclick="finishSurvey()">Complete Survey</button>
         </form>
     </div>
 
     <script>
         function openSpiceForm() {
-        document.getElementById("spiceForm").style.display = "block";
+            //Insert Blur here
+            //document.getElement(body).blur = "4px";         
+            document.getElementById("spiceForm").style.display = "block";
         }
             
         function closeSpiceForm() {
             document.getElementById("spiceForm").style.display = "none";
         }
 
-        
         function openWetnessForm() {
             if (!document.querySelectorAll('input[name=SpiceLvl]:checked').length) {
                 alert("Please answer the question.");
@@ -250,29 +140,57 @@ body {font-family: Arial, Helvetica, sans-serif;}
             closeFlavorChoicesForm();
             closeWetnessForm();
             closeSpiceForm();
+            calculateWingNumbers();
+            //Remove blur here
         }
 
-        function selectMe(buttonID) {
-            document.getElementById(buttonID).style.backgroundColor = "rgb(30, 200, 235)";
+        function iveBeenClicked(pressedButton) {          
+            if (pressedButton.getAttribute("data-binary") == "1") {
+                selectMe(pressedButton)
+            }
+            else {
+                deselectMe(pressedButton)
+            }
+        }
+
+        function selectMe(pressedButton) {
+            document.getElementById(pressedButton.id).style.backgroundColor = "rgb(30, 200, 235)";
+            pressedButton.setAttribute("data-binary","0")
         }
         
-        function deselectMe(buttonID) {
-            document.getElementById(buttonID).style.backgroundColor = "rgb(241, 210, 255)";
+        function deselectMe(pressedButton) {
+            document.getElementById(pressedButton.id).style.backgroundColor = "rgb(241, 210, 255)";
+            pressedButton.setAttribute("data-binary","1")
         }
 
         function selectAll() {
             document.getElementById("selectButton").style.display = "none";
             document.getElementById("deselectButton").style.display = "block";
-            for (i=1; i<=29; i++)
-                selectMe(i);
+            for (i=0; i<=27; i++)
+                selectMe(document.getElementById(i));
         }
 
         function deselectAll() {
             document.getElementById("deselectButton").style.display = "none";
             document.getElementById("selectButton").style.display = "block";
-            for (i=1; i<=29; i++)
-                deselectMe(i);
+            for (i=0; i<=27; i++)
+                deselectMe(document.getElementById(i));
         }
         
+        function calculateWingNumbers() {
+            //Magic Wing Number
+            mWN = 0;
+            for (i=0; i<=27; i++) {
+                mWN = mWN + checkWingNumber(i);
+            }
+            //alert(mWN);            
+        }
+
+        function checkWingNumber(idNumber) {
+            numString = document.getElementById(idNumber).getAttribute("data-binary");
+            binNum = parseInt(numString);
+            powNum = parseInt(idNumber);
+            return binNum*(2**powNum);
+        }
     </script>
 </html>

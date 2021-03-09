@@ -26,3 +26,102 @@ body {
   background-color: #7f7ee0;
   color: white;
 }
+
+/* Button used to open the survey */
+.open-button {
+  display: block;
+  margin: auto;
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+/* The popup forms - start invisible*/
+.form-popup-radio {
+  display: none;
+  position: fixed;
+  bottom: 20%;
+  right: 40%;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+.form-popup-button-list {
+  display: none;
+  position: fixed;
+  bottom: 15%;
+  right: 10%;
+  height: 70%;
+  width: 80%;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container-radio {
+  width: 250px;
+  padding: 10px;
+  background-color: rgb(255, 255, 255);
+}
+.form-container-button-list {
+  display:block;  
+  padding: 10px;
+  background-color: rgb(255, 255, 255);
+}
+
+/* Set a style for the next question buttons */
+.form-container-radio .btn {
+  background-color: rgb(30, 200, 235);
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+/* Set a style for the submit button */
+.form-container-button-list .btn {
+  background-color: rgb(30, 200, 235);
+  color: white;
+  width: 49.5%;
+  align-items: center;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+/* Set style for flavor buttons */
+.form-container-button-list .flavorBtn {
+  background-color: rgb(241, 210, 255);
+  color: rgb(0, 0, 0);
+  padding: 16px 30px;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;  
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a background color to the close/previous question buttons */
+.form-container-radio .cancel {
+  background-color: rgb(175, 175, 175);
+}
+.form-container-button-list .cancel {
+  background-color: rgb(175, 175, 175);
+}
+
+/* Add some hover effects to buttons */
+.form-container-radio .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+.form-container-button-list .flavorBtn:hover, .open-button:hover {
+  opacity: 1;
+}
+.form-container-button-list .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
