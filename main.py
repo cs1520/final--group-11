@@ -18,18 +18,18 @@ def search():
     return render_template("search.html", wings=[])
 
 
-all_wings = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ranch", "magicNumber": "4194372"},   
-                {"name": "Ain't My Faulks", "description": "Butter, Dry BBQ, Dry Garlic, Dry Ranch", "magicNumber": "4196418"},
-                {"name": "B.A.D.", "description": "Butter, Atomic Dust", "magicNumber": "65"},
-                {"name": "Black Magic", "description": "Black Magic, Cajun, Butter", "magicNumber": "196"},
-                {"name": "The Big Picture", "description": "Salt, Butter, Parmesan", "magicNumber": "1048640"},
-                {"name": "Flossin' Season", "description": "Ranch, Lawry's Seasoned Salt", "magicNumber": "4259840"},
-                {"name": "Baby Blues", "description": "Blue Cheese, Frank's Red Hot, Cayenne", "magicNumber": "264"},
-                {"name": "Big Easy", "description": "Big Shot Bob's Louisiana Licker", "magicNumber": "144"},
-                {"name": "BigFineWoman2000", "description": "Dark BBQ, Black Magic", "magicNumber": "6"},
-                {"name": "The Color Purple", "description": "Raspberry, Garlic", "magicNumber": "8390656"},
-                {"name": "Black and Gold", "description": "Gold BBQ, Black Magic", "magicNumber": "6"},
-                {"name": "Cash Club", "description": "Ranch, Garlic, Butter, Parmesan", "magicNumber": "5244992"}]
+all_wings = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ranch", "magicNumber": "4194372", "spiceMoistNumber": "9"},   
+                {"name": "Ain't My Faulks", "description": "Butter, Dry BBQ, Dry Garlic, Dry Ranch", "magicNumber": "4196418", "spiceMoistNumber": "5"},
+                {"name": "B.A.D.", "description": "Butter, Atomic Dust", "magicNumber": "65", "spiceMoistNumber": "9"},
+                {"name": "Black Magic", "description": "Black Magic, Cajun, Butter", "magicNumber": "196", "spiceMoistNumber": "9"},
+                {"name": "The Big Picture", "description": "Salt, Butter, Parmesan", "magicNumber": "1048640", "spiceMoistNumber": "5"},
+                {"name": "Flossin' Season", "description": "Ranch, Lawry's Seasoned Salt", "magicNumber": "4259840", "spiceMoistNumber": "5"},
+                {"name": "Baby Blues", "description": "Blue Cheese, Frank's Red Hot, Cayenne", "magicNumber": "264", "spiceMoistNumber": "10"},
+                {"name": "Big Easy", "description": "Big Shot Bob's Louisiana Licker", "magicNumber": "144", "spiceMoistNumber": "6"},
+                {"name": "BigFineWoman2000", "description": "Dark BBQ, Black Magic", "magicNumber": "6", "spiceMoistNumber": "10"},
+                {"name": "The Color Purple", "description": "Raspberry, Garlic", "magicNumber": "8390656", "spiceMoistNumber": "6"},
+                {"name": "Black and Gold", "description": "Gold BBQ, Black Magic", "magicNumber": "6", "spiceMoistNumber": "10"},
+                {"name": "Cash Club", "description": "Ranch, Garlic, Butter, Parmesan", "magicNumber": "5244992", "spiceMoistNumber": "6"}]
 
 @app.route("/search-results/", methods=["POST"])
 def search_results():
