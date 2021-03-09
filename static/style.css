@@ -33,3 +33,54 @@ body {
   background-color: #181761;
   font-family: "Trebuchet MS";
 }
+
+.container {
+padding: 16px;
+}
+    
+.popUpLogin {  /* The popUpLogin (background) */
+display: none; /* Hidden by default */
+position: fixed; 
+z-index: 1; 
+left: 0;
+top: 0;
+width: 100%; 
+height: 100%; 
+overflow: auto; 
+background-color: rgba(0,0,0,0.4); 
+padding-top: 60px;
+}
+    
+.popUpLogin-content { 
+background-color: #fefefe;
+margin: 5% auto 15% auto; 
+border: 1px solid #888;
+width: 80%; 
+}
+
+.navbar-right{
+float: right;
+overflow: hidden;
+background-color: #181761;
+font-family: "Trebuchet MS";
+}
+
+.popUpCreateAccount {  /* The popUpLogin (background) */
+display: none; /* Hidden by default */
+position: fixed; 
+z-index: 1; 
+left: 0;
+top: 0;
+width: 100%; 
+height: 100%; 
+overflow: auto; 
+background-color: rgba(0,0,0,0.4); 
+padding-top: 60px;
+}
+    
+.popUpCreateAccount-content { 
+background-color: #fefefe;
+margin: 5% auto 15% auto; 
+border: 1px solid #888;
+width: 80%; 
+}
