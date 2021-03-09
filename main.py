@@ -18,28 +18,47 @@ def search():
     return render_template("search.html", wings=[])
 
 
-all_wings = [{"name": "Ain't My Faulks", "description": "Butter, Dry BBQ, Dry Garlic, Dry Ranch"},{"name": "B.A.D.", "description": "Buttered Atomic Dust"}]
+all_wings = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ranch", "magicNumber": "4194372"},   
+                {"name": "Ain't My Faulks", "description": "Butter, Dry BBQ, Dry Garlic, Dry Ranch", "magicNumber": "4196418"},
+                {"name": "B.A.D.", "description": "Butter, Atomic Dust", "magicNumber": "65"},
+                {"name": "Black Magic", "description": "Black Magic, Cajun, Butter", "magicNumber": "196"},
+                {"name": "The Big Picture", "description": "Salt, Butter, Parmesan", "magicNumber": "1048640"},
+                {"name": "Flossin' Season", "description": "Ranch, Lawry's Seasoned Salt", "magicNumber": "4259840"},
+                {"name": "Baby Blues", "description": "Blue Cheese, Frank's Red Hot, Cayenne", "magicNumber": "264"},
+                {"name": "Big Easy", "description": "Big Shot Bob's Louisiana Licker", "magicNumber": "144"},
+                {"name": "BigFineWoman2000", "description": "Dark BBQ, Black Magic", "magicNumber": "6"},
+                {"name": "The Color Purple", "description": "Raspberry, Garlic", "magicNumber": "8390656"},
+                {"name": "Black and Gold", "description": "Gold BBQ, Black Magic", "magicNumber": "6"},
+                {"name": "Cash Club", "description": "Ranch, Garlic, Butter, Parmesan", "magicNumber": "5244992"}]
+
 @app.route("/search-results/", methods=["POST"])
 def search_results():
     """Return a simple HTML page."""
     print("Searching!")
     test_wings = []
     s_term = request.form['searchterm']
+    s_term = s_term.split(',')
     print(s_term)
     #comp_term = "Ain't My Faulks"
 
     for w in all_wings:
-        print("Enter Loop:")
-        print(w["name"].lower())        
-        name_PR = fuzz.partial_ratio(s_term.lower(),w["name"].lower())
-        des_PR = fuzz.partial_ratio(s_term.lower(),w["description"].lower())
-        if name_PR > 65 or des_PR >75:
-            print("passed!")
+        name_PR = 0
+        des_PR = 0
+        tot_des_PR = 0
+        if len(s_term) == 1:    
+            name_PR = fuzz.partial_ratio(s_term[0].lower(),w["name"].lower())
+
+        for s in range(len(s_term)):
+            des_PR = fuzz.partial_ratio(s_term[s].lower(),w["description"].lower())
+            tot_des_PR = tot_des_PR + des_PR
+
+        tot_des_PR = tot_des_PR/(len(s_term))
+        print(tot_des_PR)
+        if name_PR > 65 or tot_des_PR > 65:
+            #print("passed!")
             #print(w["name"])
             test_wings.append(w)
 
-    #PR = fuzz.partial_ratio(s_term.lower(),comp_term.lower())
-    #print(PR)
     return render_template("search.html", wings=test_wings)
 
 @app.route("/profile")
@@ -53,6 +72,12 @@ def survey():
     """Return a simple HTML page."""
     print("Hit the route!")
     return render_template("survey.html")
+
+@app.route("/surveyMax")
+def surveyMax():
+    """Test Survey Page with Popups"""
+    print("Im taking a survey")
+    return render_template("surveyMax.html")
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8080, debug=True) 
