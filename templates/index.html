@@ -29,14 +29,10 @@
       </div>
   </div>
 
-    <button type="button"> <a href="/survey">Take survey </a></button> 
-
   
-  
-  <p>Start building your project from this template</p>
 
     <div id="popUpLogin" class="popUpLogin">
-        <form class="popUpLogin-content" method="post">
+        <form class="popUpLogin-content">
             <div class="container">
                 <label for="uname"><b>Username</b></label>
                 <input type="text" placeholder="Username" name="uname" required>
@@ -47,7 +43,7 @@
                 <!-- <label><input type="checkbox" checked="checked" name="remember"> Remember me </label>
                     <br>
                 -->
-                <button type="submit">Login</button>
+                <button><a href="/">Login</a></button>
                     <br><br>
                 <span class="psw"><a href="/">Forgot password?</a></span>
                 <button onclick="document.getElementById('popUpCreateAccount').style.display='block'" class="newAccount">Create Account</button>
@@ -56,7 +52,7 @@
     </div>
 
     <div id="popUpCreateAccount" class="popUpCreateAccount">
-        <form class="popUpCreateAccount-content" method="post">
+        <form class="popUpCreateAccount-content">
             <div class="container">
                 <label for="uname"><b>Username</b></label>
                 <input type="text" placeholder="Username" name="uname" required>
@@ -70,7 +66,7 @@
                 <!-- <label><input type="checkbox" checked="checked" name="remember"> Remember me </label>
                     <br>
                 -->
-                <button type="submit">Create Account</button>
+                <button><a href="/profile">Create Account</a></button>
                     <br>
             </div>
         </form>
