@@ -4,18 +4,22 @@ from fuzzywuzzy import fuzz
 
 app = Flask(__name__)
 
+dummy = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ranch"},   
+                {"name": "Ain't My Faulks", "description": "Butter, Dry BBQ, Dry Garlic, Dry Ranch"},
+                {"name": "B.A.D.", "description": "Buttered Atomic Dust"}]
 
 @app.route("/")
 def home():
     """Return a simple HTML page."""
     print("Hit the route!")
-    return render_template("index.html")
+    return render_template("index.html", picks=dummy)
 
 @app.route("/search")
 def search():
     """Return a simple HTML page."""
     print("Search route!")
     return render_template("search.html", wings=[])
+
 
 
 all_wings = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ranch"},   

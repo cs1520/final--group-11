@@ -2,6 +2,8 @@ body {
     font-family: "Trebuchet MS";
 }
 
+
+
 .topnav {
   overflow: hidden;
   background-color: #181761;
@@ -25,4 +27,13 @@ body {
 .topnav a.active {
   background-color: #7f7ee0;
   color: white;
+}
+
+
+
+.card {
+  background-color: rgb(212, 221, 235);
+  color: black;
+  padding: .5px .5px; 
+  width: 20%;
 }

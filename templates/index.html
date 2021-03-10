@@ -12,6 +12,22 @@
 
 <body>
   <h1>Welcome to Which Wings</h1>
-  <p>Start building your project from this template</p>
+
+  <div>
+      <h2>Your top picks:</h2>
+      <div>
+      {% for i in picks %}
+        <div class = "card">
+            <h3><b>{{i.name}} </b></h3>
+            <p> {{i.description}} </p>
+        </div>
+      {% endfor %}
+      </div>
+  </div>
+
+    <button type="button"> <a href="/survey">Take survey </a></button> 
+
+  
+  
 </body>
 </html>
