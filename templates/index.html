@@ -1,4 +1,5 @@
 <html>
+
 <head>
   <title>Which Wings</title>
   <link href="/static/style.css" rel="stylesheet">
@@ -8,6 +9,9 @@
   <a class="active" href="/">Home</a>
   <a href="/search">Search</a>
   <a href="/profile">Profile</a>
+  <div class = "navbar-right">
+    <a onclick="document.getElementById('popUpLogin').style.display='block'">Login</a>
+  </div>
 </div>
 
 <body>
@@ -29,5 +33,63 @@
 
   
   
+  <p>Start building your project from this template</p>
+
+    <div id="popUpLogin" class="popUpLogin">
+        <form class="popUpLogin-content" method="post">
+            <div class="container">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Username" name="uname" required>
+                    <br>
+                <label for="psw"><b>Password  </b></label>
+                <input type="password" placeholder="Password" name="psw" required>
+                    <br>
+                <!-- <label><input type="checkbox" checked="checked" name="remember"> Remember me </label>
+                    <br>
+                -->
+                <button type="submit">Login</button>
+                    <br><br>
+                <span class="psw"><a href="/">Forgot password?</a></span>
+                <button onclick="document.getElementById('popUpCreateAccount').style.display='block'" class="newAccount">Create Account</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="popUpCreateAccount" class="popUpCreateAccount">
+        <form class="popUpCreateAccount-content" method="post">
+            <div class="container">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Username" name="uname" required>
+                    <br>
+                <label for="psw"><b>Password  </b></label>
+                <input type="password" placeholder="Password" name="psw" required>
+                    <br>
+                <label for="psw"><b>Confirm Password  </b></label>
+                <input type="password" placeholder="Password" name="psw" required>
+                    <br>
+                <!-- <label><input type="checkbox" checked="checked" name="remember"> Remember me </label>
+                    <br>
+                -->
+                <button type="submit">Create Account</button>
+                    <br>
+            </div>
+        </form>
+    </div>
+
+    <script>//close login popup if user clicks outside of it
+    var popUpLogin = document.getElementById('popUpLogin');
+    var popUpCreateAccount = document.getElementById('popUpCreateAccount');
+    window.onclick = function(event) 
+    {
+        if (event.target == popUpLogin) {
+            popUpLogin.style.display = "none";
+        }
+        if (event.target == popUpCreateAccount) {
+            popUpLogin.style.display = "none";
+            popUpCreateAccount.style.display = "none";
+        }
+    }
+    </script>
+
 </body>
 </html>

@@ -1,30 +1,30 @@
-<html>
-    <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            body {font-family: Arial, Helvetica, sans-serif;}
-            * {box-sizing: border-box;}
-        </style>
-    </head>
+<head>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        * {box-sizing: border-box;} 
+    </style>
+</head>
 
-    <head>
-        <title>Which Wings</title>
-        <link href="/static/style.css" rel="stylesheet">
-    </head>
+<head>
+  <title>Which Wings</title>
+  <link href="/static/style.css" rel="stylesheet">
+</head>
 
-    <div class="topnav">
-        <a href="/">Home</a>
-        <a href="/search">Search</a>
-        <a href="/profile">Profile</a>
-    </div>
+<div class="topnav">
+  <a href="/">Home</a>
+  <a href="/search">Search</a>
+  <a class="active" href="/profile">Profile</a>
+</div>
 
-    <body>
-        <h1>Welcome to Which Wings</h1>
-        <p>This is a test of the survey</p>
-    </body>
-
-    <!--HERE DOWN NEEDED FOR MY THING TO WORK-->
-    <button class="open-button" onclick="openSpiceForm()">Open Survey</button>
+<body>
+  <h1>Profile</h1>
+  <p>Username = fakeUser</p>
+  <p>Top Flavor Choices: Hot, Honey, Barbeque </p>
+  <p>Favorite Classic Wings: Honey Barbeque, Honey Old Bay, Gold Barbeque </p>
+  <p>Favorite Signature Wings: Gold Fire, Black Magic, Big Easy </p>
+  
+  <button class="open-button" onclick="openSpiceForm()">Take Survey</button>
 
     <div class="form-popup-radio" id="spiceForm">
         <form action="/action_page.php" class="form-container-radio">
@@ -35,7 +35,7 @@
             <label for="male">Hot</label><br>
             <input type="radio" id="notHot" name="SpiceLvl" value="notHot">
             <label for="notHot">Not Hot</label><br>
-            <input type="radio" id="noPref" name="SpiceLvl" value="noPref">
+            <input type="radio" id="noSpicePref" name="SpiceLvl" value="noPref">
             <label for="noPref">No Preference</label>
             <p></p>
             <button type="button" class="btn" onclick="openWetnessForm()">Next Question</button>
@@ -52,7 +52,7 @@
             <label for="wet">Wet</label><br>
             <input type="radio" id="Dry" name="moistLvl" value="dry">
             <label for="dry">Dry</label><br>
-            <input type="radio" id="noPref" name="moistLvl" value="noPref">
+            <input type="radio" id="noMoistPref" name="moistLvl" value="noPref">
             <label for="noPref">No Preference</label>
             <p></p>
             <button type="button" class="btn" onclick="openFlavorChoicesForm()"">Next Question</button>
@@ -140,7 +140,8 @@
             closeFlavorChoicesForm();
             closeWetnessForm();
             closeSpiceForm();
-            calculateWingNumbers();
+            magicWingNumber = calculateWingNumbers();
+            spiceMositurePreference = calculateSpiceMositurePreferences();
             //Remove blur here
         }
 
@@ -183,7 +184,8 @@
             for (i=0; i<=27; i++) {
                 mWN = mWN + checkWingNumber(i);
             }
-            //alert(mWN);            
+            //alert(mWN);  
+            return mWN;          
         }
 
         function checkWingNumber(idNumber) {
@@ -191,6 +193,29 @@
             binNum = parseInt(numString);
             powNum = parseInt(idNumber);
             return binNum*(2**powNum);
+        }
+
+        function calculateSpiceMositurePreferences() {
+            sMP = 0
+            if (document.getElementById("Hot").checked) {
+                //set notHot to "1"
+                sMP = sMP + 4;
+            }
+            else if (document.getElementById("notHot").checked) {
+                //set Hot to "1"
+                sMP = sMP + 8;
+            }
+
+            if (document.getElementById("Wet").checked) {
+                //set dry to "1"
+                sMP = sMP + 2;
+            }
+            else if (document.getElementById("Dry").checked) {
+                //set wet to "1"
+                sMP = sMP + 1;
+            }
+            
+            return sMP;
         }
     </script>
 </html>
