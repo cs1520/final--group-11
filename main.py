@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from fuzzywuzzy import fuzz
 # FLASK_APP=main.py FLASK_ENV=development flask run
 
@@ -80,6 +80,28 @@ def surveyMax():
     """Test Survey Page with Popups"""
     print("Im taking a survey")
     return render_template("surveyMax.html")
+
+@app.route("/profile-results", methods=["POST"])
+def profile_results():
+    magic_num = request.args.get('mwn')
+    spice_num = request.args.get('smp')
+    print(magic_num)
+    print(spice_num)
+    do_you_like_these_wings(magic_num, spice_num)
+    return redirect("/")
+
+def do_you_like_these_wings(mwn, smp):
+    user = session.get("user", None) 
+    q = datastore_client.query(kind="Wings")
+    all_the_wings = q.fetch()
+    #pull list of wings from database
+    #for all wings
+    for w in all_the_wings:
+        w["smp"]
+    #if smp XXXXX dont add wing
+    #else
+        if (w["mwn"] & mwn) == 0:
+            store_wing_pref(user,w["name"],w["description"])
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8080, debug=True) 

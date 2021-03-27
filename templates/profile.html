@@ -1,3 +1,4 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <head>
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <style>
@@ -140,8 +141,21 @@
             closeFlavorChoicesForm();
             closeWetnessForm();
             closeSpiceForm();
-            magicWingNumber = calculateWingNumbers();
+            magicWingNumber = calculateWingNumbers();            
             spiceMositurePreference = calculateSpiceMositurePreferences();
+            $.ajax(
+                {
+                    type:'POST',
+                    url:'/profile-results?mwn='+magicWingNumber+'&smp='+spiceMositurePreference,
+                    dataType: "json",
+                    success:function(data){
+                        alert("it worked!")                        
+                    }
+                }
+            ).done(function(){
+                alert("were here")
+            });            
+            //Send numbers back
             //Remove blur here
         }
 
