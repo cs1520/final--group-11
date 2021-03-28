@@ -64,7 +64,7 @@
     <div class="form-popup-button-list" id="flavorsForm">
         <form action="/action_page.php" class="form-container-button-list">
             <h1>Wing Survey</h1>
-            <h3>Please select which of the following flavors you would like included in your wing options.</h3>
+            <h3>Please select all of the following flavors you would be open to in your wing options.</h3>
             <button id="selectButton" display="block" type="button" class="flavorBtn" onclick="selectAll()">Select All</button>
             <button id="deselectButton" display="block" type="button" class="flavorBtn" onclick="deselectAll()">Deselect All</button>
             <button id="0" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Atomic Dust</button>
@@ -95,6 +95,8 @@
             <button id="25" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Sweet</button>
             <button id="26" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Teriyaki</button>
             <button id="27" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Vinegar</button>
+            <button id="28" data-binary="1" type="button" class="flavorBtn" onclick="iveBeenClicked(this)">Open to Surprises</button>
+            
             <p></p>
             <button type="button" class="btn cancel" onclick="closeFlavorChoicesForm()">Previous Question</button>
             <button type="button" class="btn" onclick="finishSurvey()">Complete Survey</button>
@@ -141,19 +143,17 @@
             closeFlavorChoicesForm();
             closeWetnessForm();
             closeSpiceForm();
-            magicWingNumber = calculateWingNumbers();            
+            magicWingNumber = calculateWingNumbers();           
             spiceMositurePreference = calculateSpiceMositurePreferences();
             $.ajax(
                 {
                     type:'POST',
                     url:'/profile-results?mwn='+magicWingNumber+'&smp='+spiceMositurePreference,
                     dataType: "json",
-                    success:function(data){
-                        alert("it worked!")                        
+                    success:function(data){                      
                     }
                 }
             ).done(function(){
-                alert("were here")
             });            
             //Send numbers back
             //Remove blur here
@@ -181,21 +181,21 @@
         function selectAll() {
             document.getElementById("selectButton").style.display = "none";
             document.getElementById("deselectButton").style.display = "block";
-            for (i=0; i<=27; i++)
+            for (i=0; i<=28; i++)
                 selectMe(document.getElementById(i));
         }
 
         function deselectAll() {
             document.getElementById("deselectButton").style.display = "none";
             document.getElementById("selectButton").style.display = "block";
-            for (i=0; i<=27; i++)
+            for (i=0; i<=28; i++)
                 deselectMe(document.getElementById(i));
         }
         
         function calculateWingNumbers() {
             //Magic Wing Number
             mWN = 0;
-            for (i=0; i<=27; i++) {
+            for (i=0; i<=28; i++) {
                 mWN = mWN + checkWingNumber(i);
             }
             //alert(mWN);  
