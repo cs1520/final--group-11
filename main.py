@@ -91,7 +91,8 @@ def profile_results():
     return redirect("/")
 
 def do_you_like_these_wings(mwn, smp):
-    user = session.get("user", None) 
+    #user = session.get("user", None) 
+    user = test_user
     q = datastore_client.query(kind="Wings")
     all_the_wings = q.fetch()
     #pull list of wings from database
