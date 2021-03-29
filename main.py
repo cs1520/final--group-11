@@ -98,8 +98,9 @@ def search_results():
     s_term = request.form['searchterm']
     s_term = s_term.split(',')
     #print(s_term)
-
-    for w in all_wings:
+    q = datastore_client.query(kind="Wings")
+    all_the_wings = q.fetch()
+    for w in all_the_wings:
         name_PR = 0
         des_PR = 0
         tot_des_PR = 0
@@ -156,7 +157,7 @@ def do_you_like_these_wings(mwn, smp):
                 store_wing_pref(user,w["name"],w["description"])
                 print(w["name"])
 
-# DELETE: store user's wing preferences
+# ONLY USED FOR TESTING/MANUAL INPUT: store user's wing preferences
 @app.route("/store-wings/", methods=["POST"])
 def store_wings():
     # get input wing_preferences
