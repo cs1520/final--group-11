@@ -1,1 +1,13 @@
 Flask==1.1.2
+fuzzywuzzy==0.18.0
+google-cloud-datastore==2.1.0
+
+python-instagram==0.8
+google-auth==1.27.0
+google-auth-oauthlib==0.4.2
+oauthlib==3.1.0
+pyOpenSSL==19.0.0
+requests==2.25.1
+Flask-Login==0.4.1
+google-api-python-client
+google-oauth 

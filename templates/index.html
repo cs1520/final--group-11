@@ -1,78 +1,37 @@
 <html>
 
 <head>
-  <title>Which Wings</title>
-  <link href="/static/style.css" rel="stylesheet">
+    <title>Which Wings</title>
+    <link href="/static/style.css" rel="stylesheet">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="1092993779160-b5l7640cfd4e0te7b50o3sopu4ledgjo.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="/static/logout.js"></script>
 </head>
 
 <div class="topnav">
-  <a class="active" href="/">Home</a>
-  <a href="/search">Search</a>
-  <a href="/profile">Profile</a>
-  <div class = "navbar-right">
-    <a onclick="document.getElementById('popUpLogin').style.display='block'">Login</a>
-  </div>
+    <a class="active" href="/">Home</a>
+    <a href="/search">Search</a>
+    <a href="/profile">Profile</a>
+    <div class = "navbar-right">
+        <a href="/login">Login</a>
+        <a href="/logout" onclick="signOut();">Logout</a>
+    </div>
 </div>
 
 <body>
   <h1>Welcome to Which Wings</h1>
-  <p>Start building your project from this template</p>
 
-    <div id="popUpLogin" class="popUpLogin">
-        <form class="popUpLogin-content" method="post">
-            <div class="container">
-                <label for="uname"><b>Username</b></label>
-                <input type="text" placeholder="Username" name="uname" required>
-                    <br>
-                <label for="psw"><b>Password  </b></label>
-                <input type="password" placeholder="Password" name="psw" required>
-                    <br>
-                <!-- <label><input type="checkbox" checked="checked" name="remember"> Remember me </label>
-                    <br>
-                -->
-                <button type="submit">Login</button>
-                    <br><br>
-                <span class="psw"><a href="/">Forgot password?</a></span>
-                <button onclick="document.getElementById('popUpCreateAccount').style.display='block'" class="newAccount">Create Account</button>
-            </div>
-        </form>
-    </div>
-
-    <div id="popUpCreateAccount" class="popUpCreateAccount">
-        <form class="popUpCreateAccount-content" method="post">
-            <div class="container">
-                <label for="uname"><b>Username</b></label>
-                <input type="text" placeholder="Username" name="uname" required>
-                    <br>
-                <label for="psw"><b>Password  </b></label>
-                <input type="password" placeholder="Password" name="psw" required>
-                    <br>
-                <label for="psw"><b>Confirm Password  </b></label>
-                <input type="password" placeholder="Password" name="psw" required>
-                    <br>
-                <!-- <label><input type="checkbox" checked="checked" name="remember"> Remember me </label>
-                    <br>
-                -->
-                <button type="submit">Create Account</button>
-                    <br>
-            </div>
-        </form>
-    </div>
-
-    <script>//close login popup if user clicks outside of it
-    var popUpLogin = document.getElementById('popUpLogin');
-    var popUpCreateAccount = document.getElementById('popUpCreateAccount');
-    window.onclick = function(event) 
-    {
-        if (event.target == popUpLogin) {
-            popUpLogin.style.display = "none";
-        }
-        if (event.target == popUpCreateAccount) {
-            popUpLogin.style.display = "none";
-            popUpCreateAccount.style.display = "none";
-        }
-    }
-    </script>
-
+  <div>
+      <h2>Your top picks:</h2>
+      <div>
+      {% for i in picks %}
+        <div class = "card">
+            <h3><b>{{i.name}} </b></h3>
+            <p> {{i.description}} </p>
+        </div>
+      {% endfor %}
+      </div>
+  </div>
 </body>
 </html>
