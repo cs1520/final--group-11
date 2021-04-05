@@ -8,23 +8,39 @@
 </head>
 
 <head>
-  <title>Which Wings</title>
-  <link href="/static/style.css" rel="stylesheet">
+    <title>Which Wings</title>
+    <link href="/static/style.css" rel="stylesheet">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="1092993779160-b5l7640cfd4e0te7b50o3sopu4ledgjo.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="/static/logout.js"></script>
 </head>
 
 <div class="topnav">
   <a href="/">Home</a>
   <a href="/search">Search</a>
   <a class="active" href="/profile">Profile</a>
+  <div class = "navbar-right">
+        <a href="/login">Login</a>
+        <a href="/logout" onclick="signOut();">Logout</a>
+    </div>
 </div>
 
 <body>
   <h1>Profile</h1>
-  <p>Username = fakeUser</p>
-  <p>Top Flavor Choices: Hot, Honey, Barbeque </p>
-  <p>Favorite Classic Wings: Honey Barbeque, Honey Old Bay, Gold Barbeque </p>
-  <p>Favorite Signature Wings: Gold Fire, Black Magic, Big Easy </p>
-
+  <h2>Username = {{user_name}}</h2>
+  <h3>Top Flavor Choices: </h3>
+    {% for i in picks%}
+    <p>
+        {{i.description}}
+    </p>
+    {% endfor %}
+  <h4>Favorite Wings: </h4>
+    {% for i in picks%}
+    <p>
+        {{i.name}}
+    </p>
+    {% endfor %}
   <button class="open-button" onclick="openSpiceForm()">Take Survey</button>
 
     <div class="form-popup-radio" id="spiceForm">
@@ -231,5 +247,5 @@
             
             return sMP;
         }
-    </script>
+    </script>    
 </html>

@@ -1,9 +1,91 @@
-from flask import Flask, render_template, request, redirect
-from fuzzywuzzy import fuzz
+from flask import Flask, Response, render_template, request, redirect, session, url_for, g, abort
 from google.cloud import datastore
+from google.oauth2 import id_token
+from fuzzywuzzy import fuzz
+import http.client
+import json 
+from google.auth.transport import requests 
+from user import User, UserStore, generate_credentials
+
 # FLASK_APP=main.py FLASK_ENV=development flask run
 
 app = Flask(__name__)
+datastore_client = datastore.Client("whichwings")
+
+user = "test_user"
+
+dummy = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ranch"},   
+                {"name": "Ain't My Faulks", "description": "Butter, Dry BBQ, Dry Garlic, Dry Ranch"},
+                {"name": "B.A.D.", "description": "Buttered Atomic Dust"}]
+                
+all_wings = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ranch", "magicNumber": "4194372", "spiceMoistNumber": "10"},   
+                {"name": "Ain't My Faulks", "description": "Butter, Dry BBQ, Dry Garlic, Dry Ranch", "magicNumber": "4196418", "spiceMoistNumber": "6"},
+                {"name": "B.A.D.", "description": "Butter, Atomic Dust", "magicNumber": "65", "spiceMoistNumber": "10"},
+                {"name": "Baby Blues", "description": "Blue Cheese, Frank's Red Hot, Cayenne", "magicNumber": "264", "spiceMoistNumber": "9"},
+                {"name": "Big Easy", "description": "Big Shot Bob's Louisiana Licker", "magicNumber": "268435456", "spiceMoistNumber": "5"},
+                {"name": "BigFineWoman2000", "description": "Dark BBQ, Black Magic", "magicNumber": "6", "spiceMoistNumber": "9"},
+                {"name": "BigFineWoman3000", "description": "Dark BBQ, Black Magic, Upgraded", "magicNumber": "6", "spiceMoistNumber": "9"},
+                {"name": "The Big Picture", "description": "Salt, Butter, Parmesan", "magicNumber": "1048640", "spiceMoistNumber": "6"},
+                {"name": "Big Sexy", "description": "Mark's Signature Flavor", "magicNumber": "268435456", "spiceMoistNumber": "5"},
+                {"name": "Black and Gold", "description": "Gold BBQ, Black Magic", "magicNumber": "6", "spiceMoistNumber": "9"},
+                {"name": "Black and Mild", "description": "Black Magic, Mild Sauce", "magicNumber": "4", "spiceMoistNumber": "9"},
+                {"name": "Black and Yellow", "description": "Black Magic, Sweet, Honey Mustard", "magicNumber": "33562628", "spiceMoistNumber": "9"},
+                {"name": "Black Frank White", "description": "Black Magic, Frank's Red Hot, Ranch", "magicNumber": "4194308", "spiceMoistNumber": "9"},
+                {"name": "Black Magic", "description": "Black Magic, Cajun, Butter", "magicNumber": "196", "spiceMoistNumber": "10"},
+                {"name": "Black Opts", "description": "The Special Wing Sauce of Cory Freeman", "magicNumber": "268435456", "spiceMoistNumber": "5"},
+                {"name": "Cash Club", "description": "Ranch, Garlic, Butter, Parmesan", "magicNumber": "5244992", "spiceMoistNumber": "5"},
+                {"name": "The Color Purple", "description": "Raspberry, Garlic", "magicNumber": "8390656", "spiceMoistNumber": "5"},
+                {"name": "Cool Runnings", "description": "Jamaican Jerk, Ranch", "magicNumber": "4227136", "spiceMoistNumber": "5"},
+                {"name": "Coraopolis Cajun", "description": "Cajun, Mild", "magicNumber": "128", "spiceMoistNumber": "10"},
+                {"name": "Coraopolis Gunslinger", "description": "Jalapeno, Ranch", "magicNumber": "4210688", "spiceMoistNumber": "5"},
+                {"name": "Eye of the Tiger", "description": "Talk of Beaver Falls, Ranch", "magicNumber": "272629760", "spiceMoistNumber": "5"},
+                {"name": "Flaming Flamingo", "description": "Garlic, Chili, Ranch, Hot", "magicNumber": "4196864", "spiceMoistNumber": "9"},
+                {"name": "Flossin' Season", "description": "Ranch, Lawry's Seasoned Salt", "magicNumber": "4259840", "spiceMoistNumber": "6"},
+                {"name": "Frank Sinatra", "description": "Frank's Red Hot, Blue Cheese, Parmesan", "magicNumber": "1048584", "spiceMoistNumber": "9"},
+                {"name": "Frank White", "description": "Frank's Red Hot, Ranch", "magicNumber": "4194304", "spiceMoistNumber": "9"},
+                {"name": "Frankie Valli", "description": "Frank's Red Hot, Ranch, Parmesan", "magicNumber": "5242880", "spiceMoistNumber": "9"},
+                {"name": "Game Changer", "description": "Butter, Parmesan, Ranch", "magicNumber": "5242944", "spiceMoistNumber": "6"},
+                {"name": "Gold Fire", "description": "Hot, Gold BBQ", "magicNumber": "2", "spiceMoistNumber": "9"},
+                {"name": "Honey Bunny", "description": "Sweet, Hot, Chili, Ranch", "magicNumber": "37749248", "spiceMoistNumber": "9"},
+                {"name": "Jamaican Frank", "description": "Hot, Jamaican Jerk", "magicNumber": "32832", "spiceMoistNumber": "9"},
+                {"name": "Jamaican Jerk", "description": "Jerk Seasoning, Butter", "magicNumber": "32832", "spiceMoistNumber": "6"},
+                {"name": "Lady Luck", "description": "Hot Sauce, Ranch", "magicNumber": "4194304", "spiceMoistNumber": "9"},
+                {"name": "Lake Show", "description": "Raspberry, Honey Mustard", "magicNumber": "8396800", "spiceMoistNumber": "5"},
+                {"name": "Lebron to the Lakers", "description": "Black Magic, Raspberry, Honey Mustard", "magicNumber": "8396804", "spiceMoistNumber": "9"},
+                {"name": "Magic Man", "description": "Hot Sauce, Black Magic", "magicNumber": "4", "spiceMoistNumber": "9"},
+                {"name": "Mean Joe Greene", "description": "Black Magic, Gold BBQ, Jalapeno", "magicNumber": "16390", "spiceMoistNumber": "9"},
+                {"name": "Mister C's", "description": "Black Magic, Parmesan", "magicNumber": "1048580", "spiceMoistNumber": "10"},
+                {"name": "The Most Interesting Flavor in the World", "description": "Not Hot, Very Interesting", "magicNumber": "268435456", "spiceMoistNumber": "5"},
+                {"name": "Mr. Northside", "description": "Honey Mustard, BBQ", "magicNumber": "8194", "spiceMoistNumber": "5"},
+                {"name": "Napoleon", "description": "Sweet, Buffalo", "magicNumber": "33554464", "spiceMoistNumber": "5"},
+                {"name": "Napoleon Cajun", "description": "Sweet, Buffalo, Cajun", "magicNumber": "33554592", "spiceMoistNumber": "9"},
+                {"name": "Napoleon Complex", "description": "Sweet, Buffalo, Big Shot Bobs Seasoning", "magicNumber": "33554480", "spiceMoistNumber": "5"},
+                {"name": "Napoleon Dynamite", "description": "Sweet, Buffalo, Cayenne", "magicNumber": "33554720", "spiceMoistNumber": "9"},
+                {"name": "Napoleon Garlic", "description": "Sweet, Buffalo, Garlic", "magicNumber": "33556512", "spiceMoistNumber": "9"},
+                {"name": "Ole School", "description": "Big Shot Bobs Seasoning, Medium", "magicNumber": "16", "spiceMoistNumber": "5"},
+                {"name": "Ox's", "description": "BBQ, Jerk Seasoning", "magicNumber": "32770", "spiceMoistNumber": "5"},
+                {"name": "Pigeon Wings", "description": "Sweet, Buffalo, Garlic, Parmesan", "magicNumber": "34605088", "spiceMoistNumber": "5"},
+                {"name": "Polish Hill Strangler", "description": "Honey Mustard, Cayenne", "magicNumber": "8448", "spiceMoistNumber": "9"},
+                {"name": "Pookie", "description": "Talk of Beaver Falls, Sweet, Buffalo, Garlic, Parmesan", "magicNumber": "303040544", "spiceMoistNumber": "5"},
+                {"name": "Primetime", "description": "Sweet, Hot, Garlic, Golds BBQ", "magicNumber": "33556482", "spiceMoistNumber": "9"},
+                {"name": "Showtime", "description": "Salt, Butter", "magicNumber": "64", "spiceMoistNumber": "6"},
+                {"name": "Steel City", "description": "Mild, Buffalo, Ranch, Parmesan", "magicNumber": "5242912", "spiceMoistNumber": "5"},
+                {"name": "Superfly T.N.T.", "description": "Hot, Jamaican Jerk, Ranch", "magicNumber": "4227072", "spiceMoistNumber": "10"},
+                {"name": "Talk of Beaver Falls", "description": "Hot, Tangy", "magicNumber": "268435456", "spiceMoistNumber": "9"},
+                {"name": "Three Rivers", "description": "Honey Mustard, Ranch, BBQ", "magicNumber": "4202498", "spiceMoistNumber": "5"},
+                {"name": "Thunderlips", "description": "Ranch, Atomic Dust", "magicNumber": "4194305", "spiceMoistNumber": "9"},
+                {"name": "Too Easy", "description": "Salt, Pepper, Hot Sauce", "magicNumber": "2097152", "spiceMoistNumber": "9"},
+                {"name": "Uncle Nick's", "description": "Hot, Spicy, Garlic, Honey, BBQ", "magicNumber": "6146", "spiceMoistNumber": "9"},
+                {"name": "Uncle Rico's", "description": "Sweet, Spicy, Garlic, Honey Mustard", "magicNumber": "33564672", "spiceMoistNumber": "9"},
+                {"name": "Walk of Beaver Falls", "description": "Talk of Beaver Falls, Hot", "magicNumber": "268435456", "spiceMoistNumber": "9"},
+                {"name": "Westview Connection", "description": "Big Shot Bobs Seasoning, Cajun, Garlic, Jalapeno", "magicNumber": "18576", "spiceMoistNumber": "9"},
+                {"name": "William Henry Harrison", "description": "Jamaican Jerk, Parmesan", "magicNumber": "1081408", "spiceMoistNumber": "6"},
+                {"name": "Wink & Gun", "description": "Hot, Sweet, Ranch", "magicNumber": "37748736", "spiceMoistNumber": "9"}]
+
+app.secret_key = "donttellanyone123qwertyuiopasdfghjklzxcvbnm"
+GOOGLE_CLIENT_ID = "1092993779160-54l6ss5eajl9fd6aluj3a12lmk8ddfom.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET = "2SKveyYZqJ1rHmNKpOh8jeGl"
+
 datastore_client = datastore.Client("whichwings")
 
 user = "test_user"
@@ -123,8 +205,17 @@ def search_results():
 @app.route("/profile")
 def profile():
     """Return a simple HTML page."""    
-    print("Hit the route!")   
-    return render_template("profile.html")
+    print("Hit the route!") 
+    #this is stupid but it works, just like me :)
+    try:  
+        user = session['user']
+    except:
+        user = None
+
+    if user == None:
+        return render_template("login.html")
+    users_wings = get_3wings()
+    return render_template("profile.html", user_name=user, picks=users_wings)
 
 @app.route("/survey")
 def survey():
@@ -189,6 +280,21 @@ def get_wings():
     #print(users_wings)
     return users_wings
 
+def get_3wings():
+    #user = session.get("user", None) 
+    q = datastore_client.query(kind="Wing Pref")
+    q.add_filter("user", "=", user)
+    wings = q.fetch()
+    users_wings = []
+    count = 1
+    for w in wings:
+        if count<3:
+            wing_entry = {"name":w["wing_name"], "description":w["wing_description"]}        
+            users_wings.append(wing_entry)
+            count = count + 1
+    #print(users_wings)
+    return users_wings
+
 # delete user's wing preferences        
 def delete_wings():
     #user = session.get("user", None) 
@@ -208,7 +314,74 @@ def store_allwings():
         wing["description"] = w["description"]
         wing["magicNumber"] = w["magicNumber"]
         wing["spiceMoistNumber"] = w["spiceMoistNumber"] 
-        datastore_client.put(wing)
+        datastore_client.put(wing) 
+
+@app.route('/login', methods = ['GET'])
+def login():     
+    print('Hit login GET route!')
+    user = session.get("user", None)
+    if user:
+        redirect("/")        
+    return render_template('login.html') #auth =true ? 
+
+@app.route('/login-user', methods = ['POST'])
+def login_user(): 
+    print('Hit login-user POST route!')
+    username = request.form.get('Username')
+    print(username)
+    password = request.form.get('Password')
+    print(password)
+    usrStore = UserStore(datastore_client)        
+    user = usrStore.verify_password(username, password)
+    if not user:
+        print("not user")
+        return render_template("login.html")
+    session["user"] = username
+    print("yes user")
+    return redirect('/profile')   
+
+@app.route('/create-user', methods = ['POST'])
+def create_user(): 
+    uname = request.args.get('new_Username') or request.form.get('new_Username')
+    print(uname)
+    password = request.args.get('new_Password') or request.form.get('new_Password')
+    print(password)
+    userstore = UserStore(datastore_client)
+    if uname in userstore.list_existing_users():
+        print('a user with that name already exists')
+        return redirect('/login')
+    userstore.store_new_credentials(generate_credentials(uname, password))
+    session['user']=uname
+    return redirect('/profile')
+
+@app.route("/google-login-results", methods=["POST"])
+def google_login_results():
+    name = request.args.get('name')
+    session['user']=name
+    print(name)
+    email = request.args.get('email')
+    print(email)
+    password = "thisIsAUnhackableAndUnguessablePasswordButItsStillABadIdeaOhWell"
+    store_google_login(name, password, email)
+    print('this doesnt redirect to profile but idk why cuz this prints')
+    return redirect('/profile')
+
+def store_google_login(name, password, email):
+    userstore = UserStore(datastore_client)
+    if email not in userstore.list_existing_users():
+        login_key = datastore_client.key("Login")
+        login = datastore.Entity(key=login_key)
+        login["name"] = name
+        login["password_hash"] = password
+        login["salt"] = "google"
+        login["username"] = email
+        datastore_client.put(login)    
+    
+@app.route("/logout")
+def logout():
+    print("hit logout route!")
+    session.clear()
+    return redirect("/login")
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8080, debug=True) 
