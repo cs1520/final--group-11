@@ -20,10 +20,12 @@
 
 <body>
   <h1>Profile</h1>
-  <p>Username = fakeUser</p>
-  <p>Top Flavor Choices: Hot, Honey, Barbeque </p>
-  <p>Favorite Classic Wings: Honey Barbeque, Honey Old Bay, Gold Barbeque </p>
-  <p>Favorite Signature Wings: Gold Fire, Black Magic, Big Easy </p>
+    <p>Username: {{ user }}</p>
+    <p>Spice Level: {{ spice }}</p>
+    <p>Wetness Level: {{ wetness }}</p>
+    <!--<p>Top Flavor Choices: Hot, Honey, Barbeque </p>
+    <p>Favorite Classic Wings: Honey Barbeque, Honey Old Bay, Gold Barbeque </p>
+    <p>Favorite Signature Wings: Gold Fire, Black Magic, Big Easy </p>-->
 
   <button class="open-button" onclick="openSpiceForm()">Take Survey</button>
 

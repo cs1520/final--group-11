@@ -123,8 +123,11 @@ def search_results():
 @app.route("/profile")
 def profile():
     """Return a simple HTML page."""    
-    print("Hit the route!")   
-    return render_template("profile.html")
+    print("Hit the route!")
+    survey = get_survey()
+    spice = [ s["spice"] for s in survey]
+    wetness = [ s["wetness"] for s in survey]       
+    return render_template("profile.html", user=user, spice=spice, wetness=wetness)
 
 @app.route("/survey")
 def survey():
@@ -143,7 +146,41 @@ def profile_results():
     magic_num = request.args.get('mwn')
     spice_num = request.args.get('smp')
     do_you_like_these_wings(magic_num, spice_num)
+    store_survey(magic_num, spice_num)
     return redirect("/")
+
+def store_survey(magic_num, spice_num):
+    wing_survey_key = datastore_client.key("Wing Survey")   
+    wing_survey = datastore.Entity(key=wing_survey_key)
+    #user = session.get("user", None)
+    wing_pref["user"] = user
+    wing_survey["spice"] = spice_calc(spice_num)
+    wing_survey["wetness"] = wetness_calc(spice_num)
+    #wing_survey["flavors"] = flavors
+    datastore_client.put(wing_survey)
+
+def spice_calc(spice_num):
+    if spice_num < 4:
+        return "No preference"
+    elif spice_num < 8:
+        return "Not Hot"
+    else:
+        return "Hot"
+ 
+def wetness_calc(spice_num):
+    if spice_num = 0:
+        return "No preference"
+    elif spice_num < 2:
+        return "Wet"
+    else:
+        return "Dry"
+
+def get_survey():
+    #user = session.get("user", None) 
+    q = datastore_client.query(kind="Wing Survey")
+    q.add_filter("user", "=", user)
+    survey = q.fetch()
+    return survey
 
 def do_you_like_these_wings(mwn, smp):
     delete_wings()
@@ -198,6 +235,13 @@ def delete_wings():
     wings = q.fetch()
     for w in wings:
         datastore_client.delete(w)
+
+    q2 = datastore_client.query(kind="Wing Survey")
+    q2.add_filter("user", "=", user)
+    q2.keys_only()
+    survey = q2.fetch()
+    for s in survey:
+        datastore_client.delete(s)
 
 # store all the wings       
 def store_allwings():
