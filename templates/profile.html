@@ -1,4 +1,6 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 <head>
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -43,7 +45,8 @@
         <div class="row justify-content-center"><a href="/search">Search</a></div>
         <div class="row justify-content-center"><a href="/profile">Profile</a></div>
         <div class = "row navbar-right justify-content-center">
-            <a onclick="document.getElementById('popUpLogin').style.display='block'">Login</a>
+            <a href="/login">Login</a>
+            <a href="/logout" onclick="signOut();">Logout</a>
         </div>        
     
     </div>
@@ -207,7 +210,8 @@
                     type:'POST',
                     url:'/profile-results?mwn='+magicWingNumber+'&smp='+spiceMositurePreference,
                     dataType: "json",
-                    success:function(data){                      
+                    success:function(data){   
+                        alert("nice nice nice");                  
                     }
                 }
             ).done(function(){
