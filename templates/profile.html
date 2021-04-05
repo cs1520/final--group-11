@@ -1,5 +1,6 @@
 <head>
    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    <style>
         body {font-family: Arial, Helvetica, sans-serif;}
         * {box-sizing: border-box;} 
@@ -11,21 +12,56 @@
   <link href="/static/style.css" rel="stylesheet">
 </head>
 
-<div class="topnav">
-  <a href="/">Home</a>
-  <a href="/search">Search</a>
-  <a class="active" href="/profile">Profile</a>
-</div>
+
 
 <body>
-  <h1>Profile</h1>
-  <p>Username = fakeUser</p>
-  <p>Top Flavor Choices: Hot, Honey, Barbeque </p>
-  <p>Favorite Classic Wings: Honey Barbeque, Honey Old Bay, Gold Barbeque </p>
-  <p>Favorite Signature Wings: Gold Fire, Black Magic, Big Easy </p>
+    <div id = "sidebar" class = "sidebar">
+        <div class="tBars" onclick="toggleSideBar()">
+            <span></span> 
+            <span></span>
+            <span></span>            
+        </div>
+        
+        <div class="row justify-content-center"><a href="/">Home</a></div>
+        <div class="row justify-content-center"><a href="/search">Search</a></div>
+        <div class="row justify-content-center"><a href="/profile">Profile</a></div>
+        <div class = "row navbar-right justify-content-center">
+            <a onclick="document.getElementById('popUpLogin').style.display='block'">Login</a>
+        </div>        
+    
+    </div>
 
+    
+  <div class= "profileMid">
+
+    <div class = "top">    
+        <div class = "topleft" >
+            <div class = "profPic"></div>
+        </div>
+        <div class = "topright">
+            <h>Username</h>
+            <p>FirstName LastName</p>            
+        </div>
+        
+        
+    </div>
+    <div class ="bot">
+        <div class = "topFlavs" style = "border-style:solid; text-align: center"> 
+            <h style = "font-size: 20px">Top Flavor Choices: </h>
+        </div>
+        <div class = "favClassic" style = "border-style:solid; text-align:center">
+            <h style = "font-size: 20px">Favorite Classic Wings: </h>
+        </div>
+        <div class = "favSign" style = "border-style:solid; text-align:center">
+            <h style = "font-size: 20px">Favorite Signature Wings: </h>
+        </div>
+
+
+    </div>
+    <div style = "margin: 20px"></div>
   <button class="open-button" onclick="openSpiceForm()">Take Survey</button>
 
+  </div>
     <div class="form-popup-radio" id="spiceForm">
         <form action="/action_page.php" class="form-container-radio">
             <h1>Wing Survey</h1>
@@ -218,4 +254,29 @@
             return sMP;
         }
     </script>
+
+    <script>
+        var on = false;
+        function toggleSideBar(){
+            var side = document.getElementById('sidebar');
+            
+            if(on)
+            {
+                console.log("off");
+                side.style.left = "-200px";
+                on = false;
+            }
+            else{
+                console.log("on");
+                side.style.left = "0px";
+                on = true;
+            }        
+        }
+        
+    </script>
+
+    <!-- Bootstrap stuff -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </html>
