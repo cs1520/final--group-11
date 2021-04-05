@@ -1,8 +1,73 @@
 body {
     font-family: "Trebuchet MS";
+    background-image: url(BSB.jpg);
+     min-height : 100%;
+     min-width : 100%;
+     background-size:100% 100%;
+    background-repeat:no-repeat;
+    overflow-y: hidden;
+     overflow-x: hidden;
+}
+
+.sidebar{
+    position:fixed;
+    width:200px;
+    height:100%;
+    background: #3e4144;
+    left:-200px;
+    transition:all 200ms linear;
+    z-index: 100; 
+}
+.sidebar a {
+  width:200px;
+  float: center;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+ 
+}
+.sidebar a:hover {
+  background-color: rgb(228, 228, 228);
+  color: black;
+}
+.sidebar .tBars{
+    position:absolute;
+    left:230px;
+    top:20px;
+    cursor: pointer;
+
+}
+
+.sidebar .tBars span{
+    display:block;
+    width:30px;
+    height:5px;
+    background: black;
+    margin: 5px 0px;
+    
+}
+.sidebar.active {
+    left:0px;
+}
+
+.searchMid
+{
+    max-width: 40%;
+    margin: 0 auto;
+    height: 100%;
+
+
 }
 
 
+
+
+#textContainer .outline {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(255, 255, 255);
+}   
 
 .topnav {
   overflow: hidden;
@@ -32,11 +97,32 @@ body {
 
 
 .card {
-  background-color: rgb(212, 221, 235);
+  background-color: rgb(215, 219, 224);
   color: black;
   padding: .5px .5px; 
-  width: 20%;
+  text-align: center;
+  padding-top:10px;
 }
+.circButtRow{
+    padding-top:20px;    
+    padding-bottom:20px;
+}
+.circButt{
+    background-color: rgba(247, 128, 231, 0.856);
+    border-style: solid;  
+    border-radius: 50%;
+    width:100px;
+    height:100px;
+    text-align: center;
+    line-height: 90px;
+    font-size:12px
+}
+
+
+.circButt:hover{
+    background-color: rgba(244, 173, 253, 0.856)
+}
+
 .topnav-right {
   float: right;
   overflow: hidden;
@@ -54,6 +140,48 @@ body {
   cursor: pointer;
   opacity: 0.8;
 }
+
+.profileMid
+{
+    /* may make more sense for width to be px instead of */    
+    max-width:40%;
+    margin: 0 auto;
+    background:#bdbcf3;
+    height: 100%;
+}
+.profileMid .top{
+    display:grid;
+    grid-template-columns: 30% 40% 30%;
+    height: 20%;
+}
+.profileMid .topLeft{
+    padding-top:5%;
+    border-style: solid;
+    border-color: #3e4144;
+}
+.profileMid .profPic{
+    
+    vertical-align:middle;
+    margin:auto;
+    border-style:solid;
+    border-radius: 50%;
+    width:150px;
+    max-width:150px;
+    height:150px;
+    max-height:150px;
+}
+.profileMid .topRight{
+    border-style: solid;
+    border-color: #3e4144; 
+}
+
+.profileMid .bot{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: 50%;
+}
+
+
 
 /* The popup forms - start invisible*/
 .form-popup-radio {
@@ -167,9 +295,10 @@ width: 80%;
 }
 
 .navbar-right{
+    
 float: right;
 overflow: hidden;
-background-color: #181761;
+background-color: #bdbcf3;
 font-family: "Trebuchet MS";
 }
 
