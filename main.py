@@ -87,7 +87,7 @@ all_wings = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ran
 @app.route("/")
 def home():
     """Return a simple HTML page."""
-    print("Hit the route!")
+    print("Home Page route!")
     users_wings = get_wings()
     return render_template("index.html", picks=users_wings)
 
@@ -130,7 +130,7 @@ def search_results():
 @app.route("/profile")
 def profile():
     """Return a simple HTML page."""    
-    print("Hit the route!") 
+    print("Profile Page") 
     #this is stupid but it works, just like me :)
     try:  
         user = session['user']
@@ -140,12 +140,13 @@ def profile():
     if user == None:
         return render_template("login.html")
     users_wings = get_3wings()
-    return render_template("profile.html", user_name=user, picks=users_wings)
+    results = get_survey()   
+    return render_template("profile.html", user_name=user, picks=users_wings, results=results)
 
 @app.route("/survey")
 def survey():
     """Return a simple HTML page."""
-    print("Hit the route!")
+    print("Survey Page")
     return render_template("survey.html")
 
 @app.route("/surveyMax")
@@ -160,10 +161,52 @@ def profile_results():
     spice_num = request.args.get('smp')
     print("Inside profile results"  )    
     do_you_like_these_wings(magic_num, spice_num)
-    return redirect("/")
+    store_survey(magic_num, spice_num)
 
 def get_user():
     return session.get("user", None)
+
+def store_survey(magic_num, spice_num):
+    wing_survey_key = datastore_client.key("Wing Survey")   
+    wing_survey = datastore.Entity(key=wing_survey_key)
+    user = get_user()
+    wing_survey["user"] = user
+    wing_survey["spice"] = spice_calc(spice_num)
+    wing_survey["wetness"] = wetness_calc(spice_num)
+    #wing_survey["flavors"] = flavors
+    datastore_client.put(wing_survey)
+
+def spice_calc(spice_num):
+    print(spice_num)
+    spice =(int(spice_num)) & 12
+    print(spice)    
+    if spice < 4:
+        return "None"
+    elif spice < 8:
+        return "Hot"
+    else:
+        return "Not Hot"
+ 
+def wetness_calc(spice_num):
+    print(spice_num)
+    wet =(int(spice_num)) & 3
+    print(wet)
+    if wet == 0:
+        return "None"
+    elif wet < 2:
+        return "Dry"
+    else:
+        return "Wet"
+
+def get_survey():
+    user = get_user()
+    q = datastore_client.query(kind="Wing Survey")
+    q.add_filter("user", "=", user)
+    survey = q.fetch()
+    results = None
+    for s in survey:
+        results = {"spice":s["spice"], "wetness":s["wetness"]} 
+    return results
 
 def do_you_like_these_wings(mwn, smp):
     delete_wings()
@@ -200,8 +243,6 @@ def store_wing_pref(user, name, description):
 
 # get user's preferences
 def get_wings():
-    
-    
     user = get_user() 
     #print(user)
     q = datastore_client.query(kind="Wing Pref")
@@ -238,6 +279,13 @@ def delete_wings():
     wings = q.fetch()
     for w in wings:
         datastore_client.delete(w)
+
+    q2 = datastore_client.query(kind="Wing Survey")
+    q2.add_filter("user", "=", user)
+    q2.keys_only()
+    survey = q2.fetch()
+    for s in survey:
+        datastore_client.delete(s)
 
 # store all the wings       
 def store_allwings():
