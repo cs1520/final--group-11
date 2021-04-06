@@ -261,7 +261,7 @@ def get_3wings():
     q.add_filter("user", "=", user)
     wings = q.fetch()
     users_wings = []
-    count = 1
+    count = 0
     for w in wings:
         if count<3:
             wing_entry = {"name":w["wing_name"], "description":w["wing_description"]}        
