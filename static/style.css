@@ -1,10 +1,10 @@
 body {
     font-family: "Trebuchet MS";
-    background-image: url(BSB.jpg);
+    background-image: url(BSB3.jpg);
      min-height : 100%;
      min-width : 100%;
-     background-size:100% 100%;
-    background-repeat:no-repeat;
+     background-size:100% 80%;
+    background-repeat:repeat-y;
     overflow-y: hidden;
      overflow-x: hidden;
 }
@@ -54,13 +54,29 @@ body {
 
 .searchMid
 {
-    max-width: 40%;
-    margin: 0 auto;
-    height: 100%;
-
+    background-color: #FCFCFC; 
+    margin: auto;
+    width: 55%;
+    border: 10px solid #eff0f1;
+    padding: 10px;
+    opacity: 0.9;        
 
 }
+.loginMid
+{
+    background-color: #FCFCFC; 
+    margin: auto;
+    width: 40%;
+    border: 10px solid #eff0f1;
+    padding: 10px;
+    opacity: 0.9;        
+}
 
+.loginMid > h1
+{
+    text-align: center;
+           
+}
 
 
 
@@ -217,7 +233,7 @@ body {
 
 /* Set a style for the next question buttons */
 .form-container-radio .btn {
-  background-color: rgb(30, 200, 235);
+  background-color: #bdbcf3;
   color: white;
   padding: 16px 20px;
   border: none;
@@ -228,7 +244,7 @@ body {
 }
 /* Set a style for the submit button */
 .form-container-button-list .btn {
-  background-color: rgb(30, 200, 235);
+  background-color: #bdbcf3;
   color: white;
   width: 49.5%;
   align-items: center;
@@ -240,7 +256,7 @@ body {
 }
 /* Set style for flavor buttons */
 .form-container-button-list .flavorBtn {
-  background-color: rgb(241, 210, 255);
+  background-color: rgb(189, 236, 182);
   color: rgb(0, 0, 0);
   padding: 16px 30px;
   border: none;
@@ -320,4 +336,39 @@ background-color: #fefefe;
 margin: 5% auto 15% auto; 
 border: 1px solid #888;
 width: 80%; 
+}
+
+
+.item1 { grid-area: header; }
+.item2 { grid-area: main; }
+.item3 { grid-area: right; }
+.item4 { grid-area: footer; }
+.item5 { grid-area: survey; }
+
+.grid-container {
+  display: grid;
+    grid-template-areas:
+        'header header header header header header'
+        'main main main right right right'
+        'footer footer footer footer footer footer'
+        'survey survey survey survey survey survey';
+    grid-gap: 10px;
+    background-color: #eff0f1;
+    padding: 10px;
+    margin: auto;
+    width: 55%;
+    opacity: 0.9; 
+}
+
+.grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+    padding: 10px 10px;
+}
+
+.grid-container .item1{
+    text-align: center;
+}
+.grid-container .item5{
+    text-align: center;
 }

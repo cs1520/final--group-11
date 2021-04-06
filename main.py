@@ -8,6 +8,7 @@ from google.auth.transport import requests
 from user import User, UserStore, generate_credentials
 
 # FLASK_APP=main.py FLASK_ENV=development flask run
+#http://whichwings.ue.r.appspot.com
 
 app = Flask(__name__)
 datastore_client = datastore.Client("whichwings")

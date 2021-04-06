@@ -51,8 +51,29 @@
     
     </div>
 
-    
-  <div class= "profileMid">
+    <div class="grid-container">
+        <div class="item1">
+            <h1>Hi {{user_name}}</h1>
+        </div>
+        <div class="item2">
+            <h4>Spice Preference:</h4>
+        </div>  
+        <div class="item3">
+            <h4>Wetness Preference:</h4>
+        </div>
+        <div class="item4">
+            <h4>Favorite Wings:</h4>
+            {% for i in picks%}
+            <p>{{i.name}}</p>
+            {% endfor %}            
+        </div>
+        <div class="item5">
+            <p>Take the survey again to update your wing preferences!</p>
+            <button class="open-button" onclick="openSpiceForm()">Take Survey</button>
+        </div>
+    </div>    
+
+  <!--<div class= "profileMid">
 
     <div class = "top">    
         <div class = "topleft" >
@@ -82,11 +103,8 @@
         </div>
 
 
-    </div>
-    <div style = "margin: 20px"></div>
-  <button class="open-button" onclick="openSpiceForm()">Take Survey</button>
-
-  </div>
+    </div>-->
+    
     <div class="form-popup-radio" id="spiceForm">
         <form action="/action_page.php" class="form-container-radio">
             <h1>Wing Survey</h1>
@@ -230,12 +248,12 @@
         }
 
         function selectMe(pressedButton) {
-            document.getElementById(pressedButton.id).style.backgroundColor = "rgb(30, 200, 235)";
+            document.getElementById(pressedButton.id).style.backgroundColor = "rgb(	189, 188, 243)";
             pressedButton.setAttribute("data-binary","0")
         }
         
         function deselectMe(pressedButton) {
-            document.getElementById(pressedButton.id).style.backgroundColor = "rgb(241, 210, 255)";
+            document.getElementById(pressedButton.id).style.backgroundColor = "rgb(189, 236, 182)";
             pressedButton.setAttribute("data-binary","1")
         }
 
