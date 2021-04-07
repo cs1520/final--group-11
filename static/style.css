@@ -216,6 +216,7 @@ body {
   width: 80%;
   border: 3px solid #f1f1f1;
   z-index: 9;
+  overflow: auto;
 }
 
 /* Add styles to the form container */
@@ -227,7 +228,8 @@ body {
 .form-container-button-list {
   display:block;  
   padding: 10px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255); 
+  overflow: auto; 
 }
 
 /* Set a style for the next question buttons */
