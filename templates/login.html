@@ -11,6 +11,7 @@
     <script src="/static/logout.js"></script>
 </head> 
 
+<!--
 <div class="topnav">
     <a href="/">Home</a>
     <a href="/search">Search</a>
@@ -20,8 +21,26 @@
         <a href="/logout" onclick="signOut();">Logout</a>
     </div>  
 </div>
+-->
 
 <body>
+<div id = "sidebar" class = "sidebar">
+    <div class="tBars" onclick="toggleSideBar()">
+        <span></span> 
+        <span></span>
+        <span></span>            
+    </div>
+    
+    <div class="row justify-content-center"><a href="/">Home</a></div>
+    <div class="row justify-content-center"><a href="/search">Search</a></div>
+    <div class="row justify-content-center"><a href="/profile">Profile</a></div>
+    <div class = "row navbar-right justify-content-center">
+        <a href="/login">Login</a>
+        <a href="/logout" onclick="signOut();">Logout</a>
+    </div>        
+    
+</div>
+
 <h1>Welcome to Which Wings</h1>
 <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
 <br>
@@ -107,6 +126,31 @@ function onSignIn(googleUser) {
     <script>
         var new_Username = document.getElementById("new_Username")        
         var new_Password = document.getElementById("new_Password")
-    </script>   
+    </script> 
+    
+    <script>
+        var on = false;
+        function toggleSideBar(){
+            var side = document.getElementById('sidebar');
+            
+            if(on)
+            {
+                console.log("off");
+                side.style.left = "-200px";
+                on = false;
+            }
+            else{
+                console.log("on");
+                side.style.left = "0px";
+                on = true;
+            }        
+        }
+        
+    </script>
+
+    <!-- Bootstrap stuff -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 </body>
 </html>

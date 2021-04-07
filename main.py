@@ -250,7 +250,7 @@ def login():
     print('Hit login GET route!')
     user = session.get("user", None)
     if user:
-        redirect("/")        
+        redirect("/") 
     return render_template('login.html') #auth =true ? 
 
 @app.route('/login-user', methods = ['POST'])
@@ -266,6 +266,7 @@ def login_user():
         print("not user")
         return render_template("login.html")
     session["user"] = username
+    session['logged_in'] = True
     print("yes user")
     return redirect('/profile')   
 
@@ -287,6 +288,7 @@ def create_user():
 def google_login_results():
     name = request.args.get('name')
     session['user']=name
+    session['logged_in'] = True
     print(name)
     email = request.args.get('email')
     print(email)

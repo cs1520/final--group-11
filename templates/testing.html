@@ -15,15 +15,34 @@
     <script src="/static/logout.js"></script>
 </head>
 
-<div class="topnav">
-  <a href="/">Home</a>
-  <a href="/search">Search</a>
-  <a class="active" href="/profile">Profile</a>
-  <div class = "navbar-right">
-        <a href="/login">Login</a>
-        <a href="/logout" onclick="signOut();">Logout</a>
+    <!--
+    <div class="topnav">
+    <a href="/">Home</a>
+    <a href="/search">Search</a>
+    <a class="active" href="/profile">Profile</a>
+    <div class = "navbar-right">
+            <a href="/login">Login</a>
+            <a href="/logout" onclick="signOut();">Logout</a>
+        </div>
     </div>
-</div>
+    -->
+
+    <div id = "sidebar" class = "sidebar">
+        <div class="tBars" onclick="toggleSideBar()">
+            <span></span> 
+            <span></span>
+            <span></span>            
+        </div>
+        
+        <div class="row justify-content-center"><a href="/">Home</a></div>
+        <div class="row justify-content-center"><a href="/search">Search</a></div>
+        <div class="row justify-content-center"><a href="/profile">Profile</a></div>
+        <div class = "row navbar-right justify-content-center">
+            <a href="/login">Login</a>
+            <a href="/logout" onclick="signOut();">Logout</a>
+        </div>        
+        
+    </div>
 
 <body>
   <h1>Profile</h1>
