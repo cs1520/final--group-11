@@ -5,7 +5,10 @@ from fuzzywuzzy import fuzz
 import http.client
 import json 
 from google.auth.transport import requests 
-from user import User, UserStorage, generate_credentials
+from user import User, UserStorage
+import datetime
+import hashlib
+import os
 
 # FLASK_APP=main.py FLASK_ENV=development flask run
 #http://whichwings.ue.r.appspot.com
@@ -319,11 +322,18 @@ def login_user():
         print("not user")
         return render_template("login.html")
     session["user"] = username
+    session['logged_in'] = True
     print("yes user")
     print(get_user())
     print("not yes user")
     return redirect('/profile')   
 
+def generate_user(username, password):
+    salt = hashlib.sha256(os.urandom(60)).hexdigest().encode("utf-8")
+    encoded = password.encode("utf-8")
+    password_hash = hashlib.pbkdf2_hmac("sha256", encoded, salt, 100000)
+    return User(username, password_hash, salt)
+    
 @app.route('/create-user', methods = ['POST'])
 def create_user(): 
     uname = request.args.get('new_Username') or request.form.get('new_Username')
@@ -333,8 +343,14 @@ def create_user():
     userstorage = UserStorage(datastore_client)
     if uname in userstorage.list_existing_users():
         print('a user with that name already exists')
-        return redirect('/login')
-    userstorage.store_new_credentials(generate_credentials(uname, password))
+        return redirect('/login') 
+    user_to_store = generate_user(uname, password)
+    user_key = datastore_client.key("Login", user_to_store.username)
+    user = datastore.Entity(key=user_key)
+    user["username"] = user_to_store.username
+    user["password_hash"] = user_to_store.password_hash
+    user["salt"] = user_to_store.salt
+    datastore_client.put(user)
     session['user']=uname
     return redirect('/profile')
 
@@ -342,6 +358,7 @@ def create_user():
 def google_login_results():
     name = request.args.get('name')
     session['user']=name
+    session['logged_in'] = True
     print(name)
     email = request.args.get('email')
     print(email)
