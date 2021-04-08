@@ -6,6 +6,7 @@ body {
     background-repeat:repeat;
     overflow-y: auto;
     overflow-x: hidden;
+    font-family: "Trebuchet MS";
 }
 
 .sidebar{
@@ -53,6 +54,17 @@ body {
 
 .searchMid
 {
+    max-width: 40%;
+    margin: 0 auto;
+    height: 100%;
+
+
+}
+
+
+
+.searchMid
+{
     background-color: #FCFCFC; 
     margin: auto;
     width: 55%;
@@ -78,6 +90,11 @@ body {
 }
 
 
+
+#textContainer .outline {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(255, 255, 255);
+}   
 
 #textContainer .outline {
     -webkit-text-stroke-width: 1px;

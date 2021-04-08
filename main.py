@@ -306,7 +306,7 @@ def login():
     print('Hit login GET route!')
     user = get_user() 
     if user:
-        redirect("/")        
+        redirect("/") 
     return render_template('login.html') #auth =true ? 
 
 @app.route('/login-user', methods = ['POST'])
