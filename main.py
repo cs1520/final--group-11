@@ -5,7 +5,7 @@ from fuzzywuzzy import fuzz
 import http.client
 import json 
 from google.auth.transport import requests 
-from user import User, UserStore, generate_credentials
+from user import User, UserStorage, generate_credentials
 
 # FLASK_APP=main.py FLASK_ENV=development flask run
 
@@ -264,12 +264,13 @@ def login_user():
     
     password = request.form.get('Password')
     #print(password)
-    usrStore = UserStore(datastore_client)        
+    usrStore = UserStorage(datastore_client)        
     user = usrStore.verify_password(username, password)
     if not user:
         print("not user")
         return render_template("login.html")
     session["user"] = username
+    session['logged_in'] = True
     print("yes user")
     print(get_user())
     print("not yes user")
@@ -281,11 +282,11 @@ def create_user():
     print(uname)
     password = request.args.get('new_Password') or request.form.get('new_Password')
     print(password)
-    userstore = UserStore(datastore_client)
-    if uname in userstore.list_existing_users():
+    userstorage = UserStorage(datastore_client)
+    if uname in userstorage.list_existing_users():
         print('a user with that name already exists')
         return redirect('/login')
-    userstore.store_new_credentials(generate_credentials(uname, password))
+    userstorage.store_new_credentials(generate_credentials(uname, password))
     session['user']=uname
     return redirect('/profile')
 
@@ -293,6 +294,7 @@ def create_user():
 def google_login_results():
     name = request.args.get('name')
     session['user']=name
+    session['logged_in'] = True
     print(name)
     email = request.args.get('email')
     print(email)
@@ -302,8 +304,8 @@ def google_login_results():
     return redirect('/profile')
 
 def store_google_login(name, password, email):
-    userstore = UserStore(datastore_client)
-    if email not in userstore.list_existing_users():
+    userstorage = UserStorage(datastore_client)
+    if email not in userstorage.list_existing_users():
         login_key = datastore_client.key("Login")
         login = datastore.Entity(key=login_key)
         login["name"] = name
