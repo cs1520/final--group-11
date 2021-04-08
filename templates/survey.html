@@ -12,11 +12,8 @@
   <a href="/search">Search</a>
   <a href="/profile">Profile</a>
   <div class = "navbar-right">
-        {% if session['logged_in'] %}
-        <a href="/logout" onclick="signOut();">Logout</a>
-        {% else %}
         <a href="/login">Login</a>
-        {% endif %}
+        <a href="/logout" onclick="signOut();">Logout</a>
     </div>
 </div>
 

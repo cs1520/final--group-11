@@ -8,6 +8,7 @@ from google.auth.transport import requests
 from user import User, UserStorage, generate_credentials
 
 # FLASK_APP=main.py FLASK_ENV=development flask run
+#http://whichwings.ue.r.appspot.com
 
 app = Flask(__name__)
 datastore_client = datastore.Client("whichwings")
@@ -86,7 +87,7 @@ all_wings = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ran
 @app.route("/")
 def home():
     """Return a simple HTML page."""
-    print("Hit the route!")
+    print("Home Page route!")
     users_wings = get_wings()
     return render_template("index.html", picks=users_wings)
 
@@ -129,7 +130,7 @@ def search_results():
 @app.route("/profile")
 def profile():
     """Return a simple HTML page."""    
-    print("Hit the route!") 
+    print("Profile Page") 
     #this is stupid but it works, just like me :)
     try:  
         user = session['user']
@@ -139,12 +140,13 @@ def profile():
     if user == None:
         return render_template("login.html")
     users_wings = get_3wings()
-    return render_template("profile.html", user_name=user, picks=users_wings)
+    results = get_survey()   
+    return render_template("profile.html", user_name=user, picks=users_wings, results=results)
 
 @app.route("/survey")
 def survey():
     """Return a simple HTML page."""
-    print("Hit the route!")
+    print("Survey Page")
     return render_template("survey.html")
 
 @app.route("/surveyMax")
@@ -159,10 +161,52 @@ def profile_results():
     spice_num = request.args.get('smp')
     print("Inside profile results"  )    
     do_you_like_these_wings(magic_num, spice_num)
-    return redirect("/")
+    store_survey(magic_num, spice_num)
 
 def get_user():
     return session.get("user", None)
+
+def store_survey(magic_num, spice_num):
+    wing_survey_key = datastore_client.key("Wing Survey")   
+    wing_survey = datastore.Entity(key=wing_survey_key)
+    user = get_user()
+    wing_survey["user"] = user
+    wing_survey["spice"] = spice_calc(spice_num)
+    wing_survey["wetness"] = wetness_calc(spice_num)
+    #wing_survey["flavors"] = flavors
+    datastore_client.put(wing_survey)
+
+def spice_calc(spice_num):
+    print(spice_num)
+    spice =(int(spice_num)) & 12
+    print(spice)    
+    if spice < 4:
+        return "None"
+    elif spice < 8:
+        return "Hot"
+    else:
+        return "Not Hot"
+ 
+def wetness_calc(spice_num):
+    print(spice_num)
+    wet =(int(spice_num)) & 3
+    print(wet)
+    if wet == 0:
+        return "None"
+    elif wet < 2:
+        return "Dry"
+    else:
+        return "Wet"
+
+def get_survey():
+    user = get_user()
+    q = datastore_client.query(kind="Wing Survey")
+    q.add_filter("user", "=", user)
+    survey = q.fetch()
+    results = None
+    for s in survey:
+        results = {"spice":s["spice"], "wetness":s["wetness"]} 
+    return results
 
 def do_you_like_these_wings(mwn, smp):
     delete_wings()
@@ -199,8 +243,6 @@ def store_wing_pref(user, name, description):
 
 # get user's preferences
 def get_wings():
-    
-    
     user = get_user() 
     #print(user)
     q = datastore_client.query(kind="Wing Pref")
@@ -219,7 +261,7 @@ def get_3wings():
     q.add_filter("user", "=", user)
     wings = q.fetch()
     users_wings = []
-    count = 1
+    count = 0
     for w in wings:
         if count<3:
             wing_entry = {"name":w["wing_name"], "description":w["wing_description"]}        
@@ -237,6 +279,13 @@ def delete_wings():
     wings = q.fetch()
     for w in wings:
         datastore_client.delete(w)
+
+    q2 = datastore_client.query(kind="Wing Survey")
+    q2.add_filter("user", "=", user)
+    q2.keys_only()
+    survey = q2.fetch()
+    for s in survey:
+        datastore_client.delete(s)
 
 # store all the wings       
 def store_allwings():
@@ -264,13 +313,12 @@ def login_user():
     
     password = request.form.get('Password')
     #print(password)
-    usrStore = UserStorage(datastore_client)        
-    user = usrStore.verify_password(username, password)
+    userstorage = UserStorage(datastore_client)        
+    user = userstorage.verify_password(username, password)
     if not user:
         print("not user")
         return render_template("login.html")
     session["user"] = username
-    session['logged_in'] = True
     print("yes user")
     print(get_user())
     print("not yes user")
@@ -294,7 +342,6 @@ def create_user():
 def google_login_results():
     name = request.args.get('name')
     session['user']=name
-    session['logged_in'] = True
     print(name)
     email = request.args.get('email')
     print(email)
@@ -321,4 +368,4 @@ def logout():
     return redirect("/login")
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=8080, debug=True) 
+    app.run(host='127.0.0.1', port=8080, debug=True)
