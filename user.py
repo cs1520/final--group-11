@@ -26,4 +26,4 @@ class UserStorage:
     def list_existing_users(self):
         query = self.datastore_client.query(kind="Login")
         users = query.fetch()
-        return [u["username"] for u in users if "username" in u]
+        return [user["username"] for user in users if "username" in user]
