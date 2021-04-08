@@ -45,7 +45,7 @@
         <div class="row justify-content-center"><a href="/search">Search</a></div>
         <div class="row justify-content-center"><a href="/profile">Profile</a></div>
         <div class = "row navbar-right justify-content-center">
-            {% if session['logged_in'] %}
+            {% if session['logged_in']  %}
             <a href="/logout" onclick="signOut();">Logout</a>
             {% else %}
             <a href="/login">Login</a>

@@ -25,7 +25,7 @@
 </div>
 -->
 
-<body>
+<body {% if not session['logged_in'] %} onload='signOut()' {% endif %} >
     <div id = "sidebar" class = "sidebar">
         <div class="tBars" onclick="toggleSideBar()">
             <span></span> 

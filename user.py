@@ -4,19 +4,19 @@ import hashlib
 import os
 
 class User:
-    def __init__(self,username, password_hash, salt):
+    def __init__(self,username, password_hash, salt ):
         self.username = username
         self.password_hash = password_hash
         self.salt = salt
 
 class UserStorage:
     def __init__(self, datastore_client):
-        self.datastore_c = datastore_client
+        self.datastore_client = datastore_client
     
     def verify_password(self, username, password):
-        user_key = self.datastore_c.key("Login", username)
-        user = self.datastore_c.get(user_key)
-        if user != False:
+        user_key = self.datastore_client.key("Login", username)
+        user = self.datastore_client.get(user_key)
+        if user:   
             encoded = password.encode("utf-8")
             hash_attempt = hashlib.pbkdf2_hmac("sha256", encoded, user["salt"], 100000)
             if hash_attempt == user["password_hash"]:
@@ -24,7 +24,6 @@ class UserStorage:
         return None
 
     def list_existing_users(self):
-        query = self.datastore_c.query(kind="Login")
+        query = self.datastore_client.query(kind="Login")
         users = query.fetch()
         return [u["username"] for u in users if "username" in u]
-        
