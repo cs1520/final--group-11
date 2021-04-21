@@ -168,7 +168,7 @@ def search_results():
 
 @app.route("/profile")
 def profile():
-    """Return a simple HTML page."""
+    """Return a simple HTML page."""    
     print("Hit the route!")   
     return render_template("profile.html")
 
