@@ -210,6 +210,10 @@ def profile_results():
     do_you_like_these_wings(magic_num, spice_num)
     store_survey(magic_num, spice_num)
 
+@app.route("/help")
+def help():
+    return render_template("help.html")
+    
 def get_user():
     return session.get("user", None)
 

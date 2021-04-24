@@ -33,6 +33,7 @@
         <div class="row justify-content-center"><a href="/">Home</a></div>
         <div class="row justify-content-center"><a href="/search">Search</a></div>
         <div class="row justify-content-center"><a href="/profile">Profile</a></div>
+        <div class="row justify-content-center"><a href="/help">Help</a></div>
         <div class = "row navbar-right justify-content-center">
             {% if session['logged_in']  %}
             <a href="/logout" onclick="signOut();">Logout</a>
@@ -45,17 +46,39 @@
 
   <div class = "searchMid">
     <h1>Search</h1>
-    <p>Please type in a wing name or flavor preferences to search for. Flavor preferences must be separate by a comma.</p>
+    <p>Please type in a wing name or flavor preferences to search for. Flavor preferences must be separated by a comma.</p>
     <div class="search-container">
         <form action="/search-results/" method="POST">
         <input type="text" placeholder="Search..." name="searchterm">
         <button type="submit">Submit</button>
+        <br>
+        <br>
+        <a onclick="sortWings(wingsN, wings, wingsR)" href="#"><img src="/static/sort.png">Sort by Name</a>
+        <a onclick="sortWings(wingsR, wings, wingsN)" href="#"><img src="/static/sort.png">Sort by Rating</a>
         </form>
     </div>
   
 
-    <div class = "row justify-content-center">
+    <div id=wings class = "row justify-content-center" style="display:block">
         {% for w in wings %}
+            <div class ="col-sm-6 mb-3" > <div class= "card">
+            <div>{{ w['name'] }}</div>
+            <p>Description: {{ w['description'] }}</p> 
+            </div></div>
+        {% endfor %}
+    </div>
+
+    <div id=wingsN class = "row justify-content-center" style="display:none">
+        {% for w in wings | sort(attribute='name')%}
+            <div class ="col-sm-6 mb-3" > <div class= "card">
+            <div>{{ w['name'] }}</div>
+            <p>Description: {{ w['description'] }}</p> 
+            </div></div>
+        {% endfor %}
+    </div>
+
+    <div id=wingsR class = "row justify-content-center"style="display:none">
+        {% for w in wings | sort(attribute='name')%}
             <div class ="col-sm-6 mb-3" > <div class= "card">
             <div>{{ w['name'] }}</div>
             <p>Description: {{ w['description'] }}</p> 
@@ -66,6 +89,14 @@
 </body>
 
 <script>
+    function sortWings(showWings, hideWings1, hideWings2){
+        document.getElementById(showWings).style.display="block";
+        document.getElementById(hideWings1).style.display="none";
+        document.getElementById(hideWings2).style.display="none";
+    }
+
+    
+    
         var on = false;
         function toggleSideBar(){
             var side = document.getElementById('sidebar');
