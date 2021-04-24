@@ -53,13 +53,13 @@
         <button type="submit">Submit</button>
         <br>
         <br>
-        <a onclick="sortWings(wingsN, wings, wingsR)" href="#"><img src="/static/sort.png">Sort by Name</a>
-        <a onclick="sortWings(wingsR, wings, wingsN)" href="#"><img src="/static/sort.png">Sort by Rating</a>
+        <a onclick="sortWings('wingsN', 'wings')" href="#"><img src="/static/sort.png">Sort by Name</a>
+        <a onclick="sortWings('wings', 'wingsN')" href="#"><img src="/static/sort.png">Sort by Rating</a>
         </form>
     </div>
   
 
-    <div id=wings class = "row justify-content-center" style="display:block">
+    <div id=wings class = "row justify-content-center" style="display:inline-flex">
         {% for w in wings %}
             <div class ="col-sm-6 mb-3" > <div class= "card">
             <div>{{ w['name'] }}</div>
@@ -77,22 +77,14 @@
         {% endfor %}
     </div>
 
-    <div id=wingsR class = "row justify-content-center"style="display:none">
-        {% for w in wings | sort(attribute='name')%}
-            <div class ="col-sm-6 mb-3" > <div class= "card">
-            <div>{{ w['name'] }}</div>
-            <p>Description: {{ w['description'] }}</p> 
-            </div></div>
-        {% endfor %}
-    </div>
   </div>
 </body>
 
 <script>
-    function sortWings(showWings, hideWings1, hideWings2){
-        document.getElementById(showWings).style.display="block";
-        document.getElementById(hideWings1).style.display="none";
-        document.getElementById(hideWings2).style.display="none";
+    
+    function sortWings(showWings, hideWings){
+        document.getElementById(showWings).style.display="inline-flex";
+        document.getElementById(hideWings).style.display="none";
     }
 
     
