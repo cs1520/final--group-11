@@ -209,7 +209,13 @@ def profile_results():
     print("Inside profile results"  )    
     do_you_like_these_wings(magic_num, spice_num)
     store_survey(magic_num, spice_num)
+    users_wings = get_wings()
+    return redirect("/")
 
+@app.route("/help")
+def help():
+    return render_template("help.html")
+    
 def get_user():
     return session.get("user", None)
 

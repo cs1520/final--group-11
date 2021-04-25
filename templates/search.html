@@ -33,6 +33,7 @@
         <div class="row justify-content-center"><a href="/">Home</a></div>
         <div class="row justify-content-center"><a href="/search">Search</a></div>
         <div class="row justify-content-center"><a href="/profile">Profile</a></div>
+        <div class="row justify-content-center"><a href="/help">Help</a></div>
         <div class = "row navbar-right justify-content-center">
             {% if session['logged_in']  %}
             <a href="/logout" onclick="signOut();">Logout</a>
@@ -45,7 +46,7 @@
 
   <div class = "searchMid">
     <h1>Search</h1>
-    <div>Please type in a wing name or flavor preferences to search for. Flavor preferences must be separate by a comma.</div>
+    <p>Please type in a wing name or flavor preferences to search for. Flavor preferences must be separated by a comma.</p>
     <div class="search-container">
         <form action="/search-results/" method="POST">           
                 <table class = "row justify-content-center">    
@@ -65,11 +66,15 @@
                 <p></p>
         <input type="text" placeholder="Search..." name="searchterm">
         <button type="submit">Submit</button>
+        <br>
+        <br>
+        <a onclick="sortWings('wingsN', 'wings')" href="#"><img src="/static/sort.png">Sort by Name</a>
+        <a onclick="sortWings('wings', 'wingsN')" href="#"><img src="/static/sort.png">Sort by Rating</a>
         </form>
     </div>
   
 
-    <div class = "row justify-content-center">
+    <div id=wings class = "row justify-content-center" style="display:inline-flex">
         {% for w in wings %}
             <div class ="col-sm-6 mb-3" > <div class= "card">
             <div>{{ w['name'] }}</div>
@@ -113,10 +118,28 @@
             </div></div>
         {% endfor %}
     </div>
+
+    <div id=wingsN class = "row justify-content-center" style="display:none">
+        {% for w in wings | sort(attribute='name')%}
+            <div class ="col-sm-6 mb-3" > <div class= "card">
+            <div>{{ w['name'] }}</div>
+            <p>Description: {{ w['description'] }}</p> 
+            </div></div>
+        {% endfor %}
+    </div>
+
   </div>
 </body>
 
 <script>
+    
+    function sortWings(showWings, hideWings){
+        document.getElementById(showWings).style.display="inline-flex";
+        document.getElementById(hideWings).style.display="none";
+    }
+
+    
+    
         var on = false;
         function toggleSideBar(){
             var side = document.getElementById('sidebar');
