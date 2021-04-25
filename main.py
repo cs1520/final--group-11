@@ -346,6 +346,33 @@ def store_allwings():
         wing["type"] = w["type"]
         datastore_client.put(wing) 
 
+@app.route("/rating-results", methods=["POST"])
+def rating_results():
+    rating = request.args.get('rating')
+    #wingName = request.args.get('wingName')
+    wingName = "wingwing"
+    print("Inside rating results"  )   
+    store_rating(rating, wingName)
+
+def store_rating(rating, wingName):
+    wing_nameuser = wingName+get_user()
+    wing_rating_key = datastore_client.key("rating", wing_nameuser)  
+    wing_rating = datastore.Entity(wing_rating_key)
+    wing_rating["rating"] = rating
+    wing_rating["user"] = get_user()
+    wing_rating["wingName"] = "wing"
+        # wing_rating.update(
+        #     {
+        #         "user"     : get_user(),
+        #         "rating"   : rating,
+        #         "wingName" : wingName,
+        #     }
+        # )
+    print("")
+    print("got here")
+    print("")
+    datastore_client.put(wing_rating)
+
 @app.route('/login', methods = ['GET'])
 def login():     
     print('Hit login GET route!')

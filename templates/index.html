@@ -7,6 +7,7 @@
     <meta name="google-signin-client_id" content="1092993779160-b5l7640cfd4e0te7b50o3sopu4ledgjo.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="/static/logout.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 
 <!--
@@ -63,15 +64,87 @@
       
       <div class = "row justify-content-around">
       {% for i in picks %}
-        <div class = "col-sm-5 mb-3"><div class = "card">
-            <h4><b>{{i.name}} </b></h4>
-            <p> {{i.description}} </p>
-        </div></div>
+        <div class = "col-sm-5 mb-3">
+            <button id="0" type="button" onclick="openRatingForm()"> <!-- class="flavorBtn">  onclick="iveBeenClicked(this)"> -->
+                <div class = "card">
+                <h4><b>{{i.name}} </b></h4>
+                <p> {{i.description}} </p>
+                </div>
+            </button>
+        </div>
       {% endfor %}
       </div>
   </div>
   </div> 
+  <div class="form-popup-radio" id="ratingForm">
+        <form action="/action_page.php" class="form-container-radio">
+            <h5>Please rate the wing (on a scale of 1-5)!</h5>
+            <input type="radio" id="1" name="rating" value="1">
+            <label for="1">1 :(</label><br>
+            <input type="radio" id="2" name="rating" value="2">
+            <label for="2">2</label><br>
+            <input type="radio" id="3" name="rating" value="3">
+            <label for="3">3</label><br>
+            <input type="radio" id="4" name="rating" value="4">
+            <label for="4">4</label><br>
+            <input type="radio" id="5" name="rating" value="5">
+            <label for="5">5 :)</label>
+            <p></p>
+            <button type="button" class="btn" onclick="submitRatingForm()">Submit</button>
+            <button type="button" class="btn cancel" onclick="closeRatingForm()">Close</button>
+        </form>
+    </div>
 </body>
+<script>
+    function openRatingForm() {         
+        document.getElementById("ratingForm").style.display = "block";
+    }
+    function closeRatingForm() {
+        document.getElementById("ratingForm").style.display = "none";
+    }
+    /*function checkWingName() {
+        return document.getElementByName("wingwing");
+    }   */ 
+    function checkRating() {
+        rating = "0"
+        if (document.getElementById("1").checked) {
+            rating = "1";
+        }
+        else if (document.getElementById("2").checked) {
+            rating = "2";
+        }
+        else if (document.getElementById("3").checked) {
+            rating = "3";
+        }
+        else if (document.getElementById("4").checked) {
+            rating = "4";
+        }
+        else if (document.getElementById("5").checked) {
+            rating = "5";
+        }
+        return rating;
+    }    
+    function submitRatingForm() {
+        closeRatingForm()
+        rating = checkRating();    
+        //wingName = checkWingName();
+        $.ajax(
+        {
+            type:'POST',
+            url:'/rating-results?rating='+rating, //+'&wingName='+wingName,
+            dataType: "json",
+            success:function(data){   
+                alert("solid solid solid");                
+            }
+        }
+        ).done(function(){
+        });           
+    }
+    //check if user has rated wing and wipe their rating if they did 
+    //store rating 
+    //store count of ratings 
+    //store total stars 
+</script>
 <script>
         var on = false;
         function toggleSideBar(){
@@ -92,8 +165,10 @@
         
     </script>
 
-    <!-- Bootstrap stuff -->
+    <!-- Bootstrap stuff 
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    -->
+    
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </html>
