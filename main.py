@@ -209,6 +209,8 @@ def profile_results():
     print("Inside profile results"  )    
     do_you_like_these_wings(magic_num, spice_num)
     store_survey(magic_num, spice_num)
+    users_wings = get_wings()
+    return redirect("/")
 
 @app.route("/help")
 def help():
@@ -433,4 +435,4 @@ def logout():
     return redirect("/login")
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(host='127.0.0.1', port=8080, debug=True)
