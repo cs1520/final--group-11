@@ -169,6 +169,25 @@ def profile_results():
 def get_user():
     return session.get("user", None)
 
+@app.route("/rating-results", methods=["POST"])
+def rating_results():
+    rating = request.args.get('rating')
+    print("Inside rating results"  )   
+    store_rating(rating)
+
+def store_rating(rating):
+    wing_rating_key = datastore_client.key("rating")   
+    wing_rating = datastore.Entity(key=wing_rating_key)
+    user = get_user()
+    wing_rating["user"] = user
+    wing_rating["wing"] = "wing" #get_wing()
+    wing_rating["rating"] = rating
+    print("")
+    print("got here")
+    print("")
+    datastore_client.put(wing_rating)
+
+
 def store_survey(magic_num, spice_num):
     wing_survey_key = datastore_client.key("Wing Survey")   
     wing_survey = datastore.Entity(key=wing_survey_key)
