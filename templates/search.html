@@ -110,7 +110,14 @@
                         <img src="/static/specialty.png" alt = "Signature" width = "10%" title = "Signature Wing"> 
                     {% endif %} 
                 </div>
-            </div></div>
+            <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
+                <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+            </div>  
+            </div></div>        
         {% endfor %}
     </div>
   </div>
@@ -134,6 +141,59 @@
             }        
         }
         
+        function ratingBuisness(ele)
+        {
+            var elName = ele.id.substr(6);
+                    
+            var num = ele.id.substr(4,1);
+                        
+            var sta1 = document.getElementById('star1'+'_'+elName);
+            var sta2 = document.getElementById('star2'+'_'+elName);
+            var sta3 = document.getElementById('star3'+'_'+elName);
+            var sta4 = document.getElementById('star4'+'_'+elName);
+            var sta5 = document.getElementById('star5'+'_'+elName);
+            if(num == 1)
+            {
+                sta1.innerHTML = "&starf;";
+                sta2.innerHTML = "&star;";
+                sta3.innerHTML = "&star;";
+                sta4.innerHTML = "&star;";
+                sta5.innerHTML = "&star;";
+            }
+            if(num == 2)
+            {
+                sta1.innerHTML = "&starf;";
+                sta2.innerHTML = "&starf;";
+                sta3.innerHTML = "&star;";
+                sta4.innerHTML = "&star;";
+                sta5.innerHTML = "&star;";
+            }
+            if (num == 3)
+            {
+                sta1.innerHTML = "&starf;";
+                sta2.innerHTML = "&starf;";
+                sta3.innerHTML = "&starf;";
+                sta4.innerHTML = "&star;";
+                sta5.innerHTML = "&star;";
+            }
+            if (num == 4)
+            {
+                sta1.innerHTML = "&starf;";
+                sta2.innerHTML = "&starf;";
+                sta3.innerHTML = "&starf;";
+                sta4.innerHTML = "&starf;";
+                sta5.innerHTML = "&star;";
+            }
+            if (num ==5)
+            {
+                sta1.innerHTML = "&starf;";
+                sta2.innerHTML = "&starf;";
+                sta3.innerHTML = "&starf;";
+                sta4.innerHTML = "&starf;";
+                sta5.innerHTML = "&starf;";
+            }
+        }
+
     </script>
 
 <!-- Bootstrap stuff -->
