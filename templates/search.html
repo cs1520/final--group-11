@@ -123,7 +123,43 @@
         {% for w in wings | sort(attribute='name')%}
             <div class ="col-sm-6 mb-3" > <div class= "card">
             <div>{{ w['name'] }}</div>
-            <p>Description: {{ w['description'] }}</p> 
+                {% if w['type'] == "Signature" %}   
+                    <div>Description: {{ w['description'] }}</div>  
+                {% endif %} 
+                <div class="column">
+                    {% if w['spiceMoistNumber'] == "10" %} 
+                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
+                    {% elif w['spiceMoistNumber'] == "9" %} 
+                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
+                    {% elif w['spiceMoistNumber'] == "8" %} 
+                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
+                    {% endif %}
+                    
+                    {% if w['spiceMoistNumber'] == "10" %}   
+                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
+                    {% elif w['spiceMoistNumber'] == "8" %}   
+                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
+                    {% elif w['spiceMoistNumber'] == "6" %}   
+                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
+                    {% elif w['spiceMoistNumber'] == "4" %}   
+                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
+                    {% endif %}
+                    
+                    {% if w['spiceMoistNumber'] == "9" %}   
+                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
+                    {% elif w['spiceMoistNumber'] == "8" %}   
+                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
+                    {% elif w['spiceMoistNumber'] == "5" %}   
+                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
+                    {% elif w['spiceMoistNumber'] == "4" %}   
+                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet">  
+                    {% endif %} 
+
+
+                    {% if w['type'] == "Signature" %}  
+                        <img src="/static/specialty.png" alt = "Signature" width = "10%" title = "Signature Wing"> 
+                    {% endif %} 
+                </div>
             </div></div>
         {% endfor %}
     </div>
