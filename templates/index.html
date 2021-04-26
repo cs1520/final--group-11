@@ -59,23 +59,73 @@
     <h1>Welcome to Which Wings</h1>
   </div>
 
-  <div class = "container" style="max-width: 800px;">
-      <div class = "row justify-content-center" style= "padding-bottom: 20px;-webkit-text-stroke-width: .10px; -webkit-text-stroke-color: rgb(255, 255, 255); color:black"><h2>Your top picks:</h2></div>
-      
-      <div class = "row justify-content-around">
-      {% for i in picks %}
-        <div class = "col-sm-5 mb-3">
-            <button id="0" type="button" onclick="openRatingForm()"> <!-- class="flavorBtn">  onclick="iveBeenClicked(this)"> -->
-                <div class = "card">
-                <h4><b>{{i.name}} </b></h4>
-                <p> {{i.description}} </p>
-                </div>
-            </button>
-        </div>
-      {% endfor %}
-      </div>
-  </div>
+<div class = "container" style="max-width: 800px;">
+    <div class = "row justify-content-center" style= "padding-bottom: 20px;-webkit-text-stroke-width: .10px; -webkit-text-stroke-color: rgb(255, 255, 255); color:black"><h2>Your top picks:</h2></div>
+    
+    <div class = "row justify-content-around">
+    {% for w in picks %}
+    <div class = "col-sm-5 mb-3"><div class = "card">
+        <h4><b>{{w.name}} </b></h4>
+        <p> {{w.description}} </p>
+
+        <div class = "row justify-content-center rate" style = "font-size: 25; cursor: default;">
+        {% if w['name'] in rat_dic.keys() %}
+            {% if rat_dic[w['name']] == 1 %}
+            <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+            <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+            <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+            <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+            <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+        
+            {% elif rat_dic[w['name']] == 2 %}
+            <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+            <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+            <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+            <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+            <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+
+            {% elif rat_dic[w['name']] == 3 %}
+            <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+            <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+            <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+            <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+            <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+
+            {% elif rat_dic[w['name']] == 4 %}
+            <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+            <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+            <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+            <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+            <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+        
+            {% elif rat_dic[w['name']] == 5 %}
+            <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+            <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+            <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+            <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+            <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+        
+            {% endif %}
+        {% else %}
+            <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+            <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+            <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+            <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+            <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+        {% endif %}
+    </div> 
+
+    </div></div>
+
+
+    {% endfor %}
+    </div>
+</div>
+</div> 
+
   </div> 
+
+</body>
   <div class="form-popup-radio" id="ratingForm">
         <form action="/action_page.php" class="form-container-radio">
             <h5>Please rate the wing (on a scale of 1-5)!</h5>
@@ -94,7 +144,7 @@
             <button type="button" class="btn cancel" onclick="closeRatingForm()">Close</button>
         </form>
     </div>
-</body>
+
 <script>
     function openRatingForm() {         
         document.getElementById("ratingForm").style.display = "block";

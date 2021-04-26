@@ -20,11 +20,11 @@ app.secret_key = "donttellanyone123qwertyuiopasdfghjklzxcvbnm"
 GOOGLE_CLIENT_ID = "1092993779160-54l6ss5eajl9fd6aluj3a12lmk8ddfom.apps.googleusercontent.com"
 GOOGLE_CLIENT_SECRET = "2SKveyYZqJ1rHmNKpOh8jeGl"
                 
-all_wings = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ranch", "magicNumber": "4194372", "spiceMoistNumber": "10", "type": "Signature"},   
-                {"name": "Ain't My Faulks", "description": "Butter, Dry BBQ, Dry Garlic, Dry Ranch", "magicNumber": "4196418", "spiceMoistNumber": "6", "type": "Signature"},
-                {"name": "B.A.D.", "description": "Butter, Atomic Dust", "magicNumber": "65", "spiceMoistNumber": "10", "type": "Signature"},
-                {"name": "Baby Blues", "description": "Blue Cheese, Frank's Red Hot, Cayenne", "magicNumber": "264", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Big Easy", "description": "Big Shot Bob's Louisiana Licker", "magicNumber": "268435456", "spiceMoistNumber": "5", "type": "Signature"},
+all_wings = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ranch", "magicNumber": "4194372", "spiceMoistNumber": "10", "type": "Signature", "Rating":0, "numRatings":0},   
+                {"name": "Ain't My Faulks", "description": "Butter, Dry BBQ, Dry Garlic, Dry Ranch", "magicNumber": "4196418", "spiceMoistNumber": "6", "type": "Signature", "Rating":0, "numRatings":0},
+                {"name": "B.A.D.", "description": "Butter, Atomic Dust", "magicNumber": "65", "spiceMoistNumber": "10", "type": "Signature", "Rating":0, "numRatings":0},
+                {"name": "Baby Blues", "description": "Blue Cheese, Frank's Red Hot, Cayenne", "magicNumber": "264", "spiceMoistNumber": "9", "type": "Signature", "Rating":0, "numRatings":0},
+                {"name": "Big Easy", "description": "Big Shot Bob's Louisiana Licker", "magicNumber": "268435456", "spiceMoistNumber": "5", "type": "Signature", "Rating":0, "numRatings":0},
                 {"name": "BigFineWoman2000", "description": "Dark BBQ, Black Magic", "magicNumber": "6", "spiceMoistNumber": "9", "type": "Signature"},
                 {"name": "BigFineWoman3000", "description": "Dark BBQ, Black Magic, Upgraded", "magicNumber": "6", "spiceMoistNumber": "9", "type": "Signature"},
                 {"name": "The Big Picture", "description": "Salt, Butter, Parmesan", "magicNumber": "1048640", "spiceMoistNumber": "6", "type": "Signature"},
@@ -136,7 +136,24 @@ def home():
     """Return a simple HTML page."""
     print("Home Page route!")
     users_wings = get_wings()
-    return render_template("index.html", picks=users_wings)
+    rating_dict = dict()
+    for wing in users_wings:
+       rating_dict[wing["name"]]= getStars(wing)
+
+    return render_template("index.html", picks=users_wings, rat_dic=rating_dict)
+
+def getStars(wing):
+    query = datastore_client.query(kind="rating")
+    all_the_ratings = query.fetch()
+    totalStars = 0
+    totalRatings = 0
+    for r in all_the_ratings:
+        if r["wingName"] == wing["name"]: 
+            totalRatings = totalRatings + 1
+            totalStars = totalStars + int(r["rating"])
+    if totalRatings == 0:
+        return 0
+    return round(totalStars/totalRatings)
 
 @app.route("/search")
 def search():
@@ -171,8 +188,14 @@ def search_results():
             #print("passed!")
             #print(w["name"])
             test_wings.append(w)
+    query = datastore_client.query(kind="rating")
+    all_the_ratings = query.fetch()
+    rating_dict = dict()
+    for r in all_the_ratings:
+        if r["user"] == get_user():    
+            rating_dict[r["wingName"]]=r["rating"]
 
-    return render_template("search.html", wings=test_wings)
+    return render_template("search.html", wings=test_wings, rat_dic=rating_dict)
 
 @app.route("/profile")
 def profile():
@@ -349,8 +372,7 @@ def store_allwings():
 @app.route("/rating-results", methods=["POST"])
 def rating_results():
     rating = request.args.get('rating')
-    #wingName = request.args.get('wingName')
-    wingName = "wingwing"
+    wingName = request.args.get('wingName')
     print("Inside rating results"  )   
     store_rating(rating, wingName)
 
@@ -360,14 +382,21 @@ def store_rating(rating, wingName):
     wing_rating = datastore.Entity(wing_rating_key)
     wing_rating["rating"] = rating
     wing_rating["user"] = get_user()
-    wing_rating["wingName"] = "wing"
-        # wing_rating.update(
-        #     {
-        #         "user"     : get_user(),
-        #         "rating"   : rating,
-        #         "wingName" : wingName,
-        #     }
-        # )
+    wing_rating["wingName"] = wingName
+
+    # print("")
+    # print("got here 2")
+    # print("")
+    # q = datastore_client.query(kind="wings")
+    # q.add_filter("user", "=", get_user)
+    # w_1 = q.fetch()
+    # for w in w_1:
+    #     wings_key = datastore_client.key("wings", wingName)
+    #     wings = datastore.Entity(wings_key)
+    #     wings["rating"]=(w["rating"]*w["numRatings"]+rating)/(w["numRatings"]+1)
+    #     wings["numRatings"] = w["numRatings"] + 1
+    #     datastore_client.put(wings)
+
     print("")
     print("got here")
     print("")
