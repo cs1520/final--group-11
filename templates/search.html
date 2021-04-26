@@ -5,6 +5,7 @@
     <meta name="google-signin-client_id" content="1092993779160-b5l7640cfd4e0te7b50o3sopu4ledgjo.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="/static/logout.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 
 <!--
@@ -115,7 +116,54 @@
                         <img src="/static/specialty.png" alt = "Signature" width = "10%" title = "Signature Wing"> 
                     {% endif %} 
                 </div>
-            </div></div>
+            <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
+                {% if w['name'] in rat_dic.keys() %}
+                    {% if rat_dic[w['name']] == "1" %}
+                    
+                    <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                
+                    {% elif rat_dic[w['name']] == "2" %}
+                    <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+
+                    {% elif rat_dic[w['name']] == "3" %}
+                    <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+
+                    {% elif rat_dic[w['name']] == "4" %}
+                    <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                
+                    {% elif rat_dic[w['name']] == "5" %}
+                    <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                
+                    {% endif %}
+                {% else %}
+                    <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                {% endif %}
+            </div>  
+            </div></div>        
         {% endfor %}
     </div>
 
@@ -160,6 +208,53 @@
                         <img src="/static/specialty.png" alt = "Signature" width = "10%" title = "Signature Wing"> 
                     {% endif %} 
                 </div>
+<div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
+                {% if w['name'] in rat_dic.keys() %}
+                    {% if rat_dic[w['name']] == "1" %}
+                    
+                    <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                
+                    {% elif rat_dic[w['name']] == "2" %}
+                    <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+
+                    {% elif rat_dic[w['name']] == "3" %}
+                    <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+
+                    {% elif rat_dic[w['name']] == "4" %}
+                    <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                
+                    {% elif rat_dic[w['name']] == "5" %}
+                    <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                    <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
+                
+                    {% endif %}
+                {% else %}
+                    <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                    <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
+                {% endif %}
+            </div>                
             </div></div>
         {% endfor %}
     </div>
@@ -167,6 +262,27 @@
   </div>
 </body>
 
+
+<script> 
+    function storeRating(elName, num) {    
+        //wingName = checkWingName();
+        $.ajax(
+        {
+            type:'POST',
+            url:'/rating-results?rating='+num+'&wingName='+elName,
+            dataType: "json",
+            success:function(data){   
+                alert("solid solid solid");                
+            }
+        }
+        ).done(function(){
+        });           
+    }
+    //check if user has rated wing and wipe their rating if they did 
+    //store rating 
+    //store count of ratings 
+    //store total stars 
+</script>
 <script>
     
     function sortWings(showWings, hideWings){
@@ -193,10 +309,66 @@
             }        
         }
         
+        function ratingBuisness(ele)
+        {
+            var elName = ele.id.substr(6);
+                    
+            var num = ele.id.substr(4,1);
+                        
+            var sta1 = document.getElementById('star1'+'_'+elName);
+            var sta2 = document.getElementById('star2'+'_'+elName);
+            var sta3 = document.getElementById('star3'+'_'+elName);
+            var sta4 = document.getElementById('star4'+'_'+elName);
+            var sta5 = document.getElementById('star5'+'_'+elName);
+            if(num == 1)
+            {
+                sta1.innerHTML = "&starf;";
+                sta2.innerHTML = "&star;";
+                sta3.innerHTML = "&star;";
+                sta4.innerHTML = "&star;";
+                sta5.innerHTML = "&star;";
+            }
+            if(num == 2)
+            {
+                sta1.innerHTML = "&starf;";
+                sta2.innerHTML = "&starf;";
+                sta3.innerHTML = "&star;";
+                sta4.innerHTML = "&star;";
+                sta5.innerHTML = "&star;";
+            }
+            if (num == 3)
+            {
+                sta1.innerHTML = "&starf;";
+                sta2.innerHTML = "&starf;";
+                sta3.innerHTML = "&starf;";
+                sta4.innerHTML = "&star;";
+                sta5.innerHTML = "&star;";
+            }
+            if (num == 4)
+            {
+                sta1.innerHTML = "&starf;";
+                sta2.innerHTML = "&starf;";
+                sta3.innerHTML = "&starf;";
+                sta4.innerHTML = "&starf;";
+                sta5.innerHTML = "&star;";
+            }
+            if (num ==5)
+            {
+                sta1.innerHTML = "&starf;";
+                sta2.innerHTML = "&starf;";
+                sta3.innerHTML = "&starf;";
+                sta4.innerHTML = "&starf;";
+                sta5.innerHTML = "&starf;";
+            }
+            console.log("attempting storeRating()");            
+            storeRating(elName, num);
+        }
+
     </script>
 
-<!-- Bootstrap stuff -->
+<!-- Bootstrap stuff 
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </html>
