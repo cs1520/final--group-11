@@ -33,6 +33,7 @@
         <div class="row justify-content-center"><a href="/">Home</a></div>
         <div class="row justify-content-center"><a href="/search">Search</a></div>
         <div class="row justify-content-center"><a href="/profile">Profile</a></div>
+        <div class="row justify-content-center"><a href="/help">Help</a></div>
         <div class = "row navbar-right justify-content-center">
             {% if session['logged_in']  %}
             <a href="/logout" onclick="signOut();">Logout</a>
@@ -45,27 +46,136 @@
 
   <div class = "searchMid">
     <h1>Search</h1>
-    <p>Please type in a wing name or flavor preferences to search for. Flavor preferences must be separate by a comma.</p>
+    <p>Please type in a wing name or flavor preferences to search for. Flavor preferences must be separated by a comma.</p>
     <div class="search-container">
-        <form action="/search-results/" method="POST">
+        <form action="/search-results/" method="POST">           
+                <table class = "row justify-content-center">    
+                    <tr>
+                        <th style="text-align:center;"><img src="/static/hot.png" alt = "Hot" width = "33%" title = "Hot"></th>
+                        <th style="text-align:center;"><img src="/static/dry.png" alt = "Dry" width = "33%" title = "Dry"></th>
+                        <th style="text-align:center;"><img src="/static/wet.png" alt = "Wet" width = "33%" title = "Wet"></th>
+                        <th style="text-align:center;"><img src="/static/specialty.png" alt = "Signature" width = "33%" title = "Signature Wing"></th>
+                    </tr>      
+                    <tr>            
+                        <td align = "center">Hot</td>              
+                        <td align = "center">Dry</td>              
+                        <td align = "center">Wet</td>              
+                        <td align = "center">Signature Wing</td> 
+                    </tr> 
+                </table>
+                <p></p>
         <input type="text" placeholder="Search..." name="searchterm">
         <button type="submit">Submit</button>
+        <br>
+        <br>
+        <a onclick="sortWings('wingsN', 'wings')" href="#"><img src="/static/sort.png">Sort by Name</a>
+        <a onclick="sortWings('wings', 'wingsN')" href="#"><img src="/static/sort.png">Sort by Rating</a>
         </form>
     </div>
   
 
-    <div class = "row justify-content-center">
+    <div id=wings class = "row justify-content-center" style="display:inline-flex">
         {% for w in wings %}
             <div class ="col-sm-6 mb-3" > <div class= "card">
             <div>{{ w['name'] }}</div>
-            <p>Description: {{ w['description'] }}</p> 
+                {% if w['type'] == "Signature" %}   
+                    <div>Description: {{ w['description'] }}</div>  
+                {% endif %} 
+                <div class="column">
+                    {% if w['spiceMoistNumber'] == "10" %} 
+                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
+                    {% elif w['spiceMoistNumber'] == "9" %} 
+                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
+                    {% elif w['spiceMoistNumber'] == "8" %} 
+                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
+                    {% endif %}
+                    
+                    {% if w['spiceMoistNumber'] == "10" %}   
+                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
+                    {% elif w['spiceMoistNumber'] == "8" %}   
+                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
+                    {% elif w['spiceMoistNumber'] == "6" %}   
+                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
+                    {% elif w['spiceMoistNumber'] == "4" %}   
+                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
+                    {% endif %}
+                    
+                    {% if w['spiceMoistNumber'] == "9" %}   
+                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
+                    {% elif w['spiceMoistNumber'] == "8" %}   
+                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
+                    {% elif w['spiceMoistNumber'] == "5" %}   
+                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
+                    {% elif w['spiceMoistNumber'] == "4" %}   
+                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet">  
+                    {% endif %} 
+
+
+                    {% if w['type'] == "Signature" %}  
+                        <img src="/static/specialty.png" alt = "Signature" width = "10%" title = "Signature Wing"> 
+                    {% endif %} 
+                </div>
             </div></div>
         {% endfor %}
     </div>
+
+    <div id=wingsN class = "row justify-content-center" style="display:none">
+        {% for w in wings | sort(attribute='name')%}
+            <div class ="col-sm-6 mb-3" > <div class= "card">
+            <div>{{ w['name'] }}</div>
+                {% if w['type'] == "Signature" %}   
+                    <div>Description: {{ w['description'] }}</div>  
+                {% endif %} 
+                <div class="column">
+                    {% if w['spiceMoistNumber'] == "10" %} 
+                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
+                    {% elif w['spiceMoistNumber'] == "9" %} 
+                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
+                    {% elif w['spiceMoistNumber'] == "8" %} 
+                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
+                    {% endif %}
+                    
+                    {% if w['spiceMoistNumber'] == "10" %}   
+                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
+                    {% elif w['spiceMoistNumber'] == "8" %}   
+                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
+                    {% elif w['spiceMoistNumber'] == "6" %}   
+                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
+                    {% elif w['spiceMoistNumber'] == "4" %}   
+                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
+                    {% endif %}
+                    
+                    {% if w['spiceMoistNumber'] == "9" %}   
+                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
+                    {% elif w['spiceMoistNumber'] == "8" %}   
+                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
+                    {% elif w['spiceMoistNumber'] == "5" %}   
+                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
+                    {% elif w['spiceMoistNumber'] == "4" %}   
+                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet">  
+                    {% endif %} 
+
+
+                    {% if w['type'] == "Signature" %}  
+                        <img src="/static/specialty.png" alt = "Signature" width = "10%" title = "Signature Wing"> 
+                    {% endif %} 
+                </div>
+            </div></div>
+        {% endfor %}
+    </div>
+
   </div>
 </body>
 
 <script>
+    
+    function sortWings(showWings, hideWings){
+        document.getElementById(showWings).style.display="inline-flex";
+        document.getElementById(hideWings).style.display="none";
+    }
+
+    
+    
         var on = false;
         function toggleSideBar(){
             var side = document.getElementById('sidebar');

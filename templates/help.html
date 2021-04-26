@@ -1,0 +1,184 @@
+<html>
+
+<head>
+    <title>Which Wings</title>
+    <link href="/static/style.css" rel="stylesheet">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="1092993779160-b5l7640cfd4e0te7b50o3sopu4ledgjo.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="/static/logout.js"></script>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+
+<body>
+
+   <div id = "sidebar" class = "sidebar">
+        <div class="tBars" onclick="toggleSideBar()">
+            <span></span> 
+            <span></span>
+            <span></span>            
+        </div>
+        
+        <div class="row justify-content-center"><a href="/" class="blink_home">Home</a></div>
+        <div class="row justify-content-center"><a href="/search" class="blink_search">Search</a></div>
+        <div class="row justify-content-center"><a href="/profile" class="blink_profile">Profile</a></div>
+        <div class="row justify-content-center"><a href="/help">Help</a></div>
+        <div class = "row navbar-right justify-content-center">
+            {% if session['logged_in']  %}
+            <a href="/logout" onclick="signOut();" class="blink_login">Logout</a>
+            {% else %}
+            <a href="/login" class="blink_login">Login</a>
+            {% endif %}
+        </div>           
+        
+    </div>
+
+    <div class="searchMid">  
+        <div class= "row justify-content-center" style= "padding-top: 20px; -webkit-text-stroke-width: .10px; -webkit-text-stroke-color: rgb(255, 255, 255); color:black">
+            <h1>Help</h1>
+        </div>
+        <p>
+            Welcome to WhichWings, a website to help you decide which Big Shot Bob's wings you should order!
+        </p>
+        <ul>
+            <li>To start, <a onclick="loginH()" href="#">login in or create an account.</a></li>
+            <li>
+                If it's your first time here or if you'd like to reset your preferences, go to the <a onclick="profileH()" href="#">Profile page</a> and click "Take Survey". 
+                This will help us get to know your wing preferences better to help us pick out the best wings for you.
+            </li>
+            <li>
+                After the survey, you will be return to the <a onclick="homeH()" href="#">Home page</a> to view your results!
+            </li>
+            <li>
+                If you'd like to search any specific wing names or flavors, head over to our <a onclick="searchH()" href="#">Search page.</a>
+            </li>
+        </ul>
+       
+    </div>
+</body>
+
+
+    <script>
+        var on = false;
+        var log;
+        var prof; 
+        var home;
+        var sear;
+
+        function toggleSideBar(){
+            var side = document.getElementById('sidebar');
+            
+            if(on)
+            {
+                console.log("off");
+                side.style.left = "-200px";
+                on = false;
+            }
+            else{
+                console.log("on");
+                side.style.left = "0px";
+                on = true;
+            }        
+        }
+
+        function loginH(){
+            clearInterval(prof)
+            clearInterval(home)
+            clearInterval(sear)
+
+            var side = document.getElementById('sidebar');
+            
+            if(!on){
+                console.log("on");
+                side.style.left = "0px";
+                on = true;
+            }
+
+            function blinkerL(){
+                $('.blink_login').fadeOut(500)
+                $('.blink_login').fadeIn(500)
+            }
+
+            log = setInterval(blinkerL,1000)
+            
+        } 
+
+        function profileH(){
+            clearInterval(log)
+            clearInterval(home)
+            clearInterval(sear)
+            
+            var side = document.getElementById('sidebar');
+            
+            if(!on){
+                console.log("on");
+                side.style.left = "0px";
+                on = true;
+            }
+
+            function blinkerP(){
+                $('.blink_profile').fadeOut(500)
+                $('.blink_profile').fadeIn(500)
+            }
+
+            prof = setInterval(blinkerP,1000)
+            
+        }
+        
+        function homeH(){
+            clearInterval(log)
+            clearInterval(prof)
+            clearInterval(sear)
+            
+            var side = document.getElementById('sidebar');
+            
+            if(!on){
+                console.log("on");
+                side.style.left = "0px";
+                on = true;
+            }
+
+            function blinkerH(){
+                $('.blink_home').fadeOut(500)
+                $('.blink_home').fadeIn(500)
+            }
+
+            home = setInterval(blinkerH,1000)
+            
+        } 
+
+        function searchH(){
+            clearInterval(log)
+            clearInterval(home)
+            clearInterval(prof)
+            
+            var side = document.getElementById('sidebar');
+            
+            if(!on){
+                console.log("on");
+                side.style.left = "0px";
+                on = true;
+            }
+
+            function blinkerS(){
+                $('.blink_search').fadeOut(500)
+                $('.blink_search').fadeIn(500)
+            }
+
+            sear = setInterval(blinkerS,1000)
+            
+        }
+
+        
+        
+    </script>
+
+    <!-- Bootstrap stuff -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</html>

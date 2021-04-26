@@ -64,6 +64,7 @@
         <div class="row justify-content-center"><a href="/">Home</a></div>
         <div class="row justify-content-center"><a href="/search">Search</a></div>
         <div class="row justify-content-center"><a href="/profile">Profile</a></div>
+        <div class="row justify-content-center"><a href="/help">Help</a></div>
         <div class = "row navbar-right justify-content-center">
             {% if session['logged_in']  %}
             <a href="/logout" onclick="signOut();">Logout</a>
@@ -247,9 +248,14 @@
                 {
                     type:'POST',
                     url:'/profile-results?mwn='+magicWingNumber+'&smp='+spiceMositurePreference,
-                    dataType: "json",
-                    success:function(data){   
-                        alert("nice nice nice");                
+                    async: false,
+                    success:function(){   
+                        //alert("nice nice nice");
+                        document.location.href="/"               
+                    },
+                    error:function(){
+                        //alert("whoops");
+                        document.location.href="/" 
                     }
                 }
             ).done(function(){
