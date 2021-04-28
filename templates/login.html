@@ -1,0 +1,163 @@
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<html>
+
+<head>
+    <title>Which Wings</title>
+    <link href="/static/style.css" rel="stylesheet">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="1092993779160-54l6ss5eajl9fd6aluj3a12lmk8ddfom.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="/static/logout.js"></script>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head> 
+
+<!--
+<div class="topnav">
+    <a href="/">Home</a>
+    <a href="/search">Search</a>
+    <a href="/profile">Profile</a>
+    <div class = "navbar-right">
+        <a href="/login" class = "active">Login</a>
+        <a href="/logout" onclick="signOut();">Logout</a>
+    </div>  
+</div>
+-->
+
+<body {% if not session['logged_in'] %} onload='signOut()' {% endif %} >
+    <div id = "sidebar" class = "sidebar">
+        <div class="tBars" onclick="toggleSideBar()">
+            <span></span> 
+            <span></span>
+            <span></span>            
+        </div>
+        
+        <div class="row justify-content-center"><a href="/">Home</a></div>
+        <div class="row justify-content-center"><a href="/search">Search</a></div>
+        <div class="row justify-content-center"><a href="/profile">Profile</a></div>
+        <div class="row justify-content-center"><a href="/help">Help</a></div>
+        <div class = "row navbar-right justify-content-center">
+            {% if session['logged_in'] %}
+            <a href="/logout" onclick="signOut();">Logout</a>
+            {% else %}
+            <a href="/login">Login</a>
+            {% endif %}
+        </div>        
+        
+    </div>
+<div class="loginMid">
+<h1>Welcome to Which Wings</h1>
+<br>
+<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+<br>
+<script>
+function onSignIn(googleUser) {
+    let profile = googleUser.getBasicProfile();
+    let idToken = googleUser.getAuthResponse().id_token;
+    let name = profile.getName();
+    let email = profile.getEmail();
+    localStorage.setItem("name", name);
+    console.log('Email: ' + profile.getEmail());
+    console.log('Name: ' + name);
+    console.log('ID token: ' + idToken);
+    $.ajax(
+        {
+            type:'POST',
+            url:'/google-login-results?name='+name+'&email='+email,
+            dataType: "json",
+            success:function(data){                      
+            }
+        }
+    ).done(function(){
+    });    
+    
+    //console.log('ID: ' + profile.getId()); 
+    //console.log('Name: ' + profile.getName());
+    //console.log('Image URL: ' + profile.getImageUrl());
+    //console.log('Email: ' + profile.getEmail()); 
+}
+</script> 
+<button><a onclick="document.getElementById('popUpLogin').style.display='block'">Login</a></button>
+    <div id="popUpLogin" class="popUpLogin">
+        <form class="popUpLogin-content" action="/login-user" method="post">
+            <div class="container">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Username" name="Username" required>
+                    <br>
+                <label for="psw"><b>Password  </b></label>
+                <input type="password" placeholder="Password" name="Password" required>
+                    <br>
+                <button type="submit">Login</button>
+                    <br><br>
+            </div>
+        </form>
+    </div>
+
+    <br><br>
+    <button onclick="document.getElementById('popUpCreateAccount').style.display='block'" class="newAccount">Create Account</button>
+    <br>
+
+    <div id="popUpCreateAccount" class="popUpCreateAccount">
+        <form class="popUpCreateAccount-content" action="/create-user" method="post">
+            <div class="container">
+                <label for="new_Username"><b>Username</b></label>
+                <input type="text" placeholder="Username" id="new_Username" name="new_Username" required>
+                    <br>
+                <label for="psw"><b>Password  </b></label>
+                <input type="password" placeholder="Password" id="new_Password" name="new_Password" required>
+                    <br>
+                <label for="psw"><b>Confirm Password  </b></label>
+                <input type="password" placeholder="Password" name="new_Password" required>
+                    <br>
+                <button type="submit">Create Account</button>
+                    <br>
+            </div>
+        </form>
+    </div>
+    <script>//close login popup if user clicks outside of it
+    var popUpLogin = document.getElementById('popUpLogin');
+    var popUpCreateAccount = document.getElementById('popUpCreateAccount');
+    window.onclick = function(event) 
+    {
+        if (event.target == popUpLogin) {
+            popUpLogin.style.display = "none";
+        }
+        if (event.target == popUpCreateAccount) {
+            popUpLogin.style.display = "none";
+            popUpCreateAccount.style.display = "none";
+        }
+    }
+    </script>  
+    
+    <script>
+        var new_Username = document.getElementById("new_Username")        
+        var new_Password = document.getElementById("new_Password")
+    </script>   
+
+    <script>
+        var on = false;
+        function toggleSideBar(){
+            var side = document.getElementById('sidebar');
+            
+            if(on)
+            {
+                console.log("off");
+                side.style.left = "-200px";
+                on = false;
+            }
+            else{
+                console.log("on");
+                side.style.left = "0px";
+                on = true;
+            }        
+        }
+        
+    </script>
+
+</div>   
+</body>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</html>
