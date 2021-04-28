@@ -425,16 +425,49 @@ def get_wings():
 
 def get_3wings():
     user = get_user() 
-    q = datastore_client.query(kind="Wing Pref")
+    q = datastore_client.query(kind="rating")
     q.add_filter("user", "=", user)
     wings = q.fetch()
     users_wings = []
     count = 0
     for w in wings:
-        if count<3:
-            wing_entry = {"name":w["wing_name"], "description":w["wing_description"]}        
+        if count<3 and w["rating"] == str(5):
+            wing_entry = {"name":w["wingName"]}          
             users_wings.append(wing_entry)
             count = count + 1
+    q = datastore_client.query(kind="rating")
+    q.add_filter("user", "=", user)
+    wings = q.fetch()
+    for w in wings:
+        if count<3 and w["rating"] == str(4):
+            wing_entry = {"name":w["wingName"]}         
+            users_wings.append(wing_entry)
+            count = count + 1
+    q = datastore_client.query(kind="rating")
+    q.add_filter("user", "=", user)
+    wings = q.fetch()
+    for w in wings:
+        if count<3 and w["rating"] == str(3):
+            wing_entry = {"name":w["wingName"]}          
+            users_wings.append(wing_entry)
+            count = count + 1
+    q = datastore_client.query(kind="rating")
+    q.add_filter("user", "=", user)
+    wings = q.fetch()
+    for w in wings:
+        if count<3 and w["rating"] == str(2):
+            wing_entry = {"name":w["wingName"]}        
+            users_wings.append(wing_entry)
+            count = count + 1
+    q = datastore_client.query(kind="rating")
+    q.add_filter("user", "=", user)
+    wings = q.fetch()
+    for w in wings:
+        if count<3 and w["rating"] == str(1):
+            wing_entry = {"name":w["wingName"]}          
+            users_wings.append(wing_entry)
+            count = count + 1
+
     #print(users_wings)
     return users_wings
 
