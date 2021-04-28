@@ -48,6 +48,9 @@
     </div>
 <div class="loginMid">
 <h1>Welcome to Which Wings</h1>
+    {% if error %}
+        <span class="error">{{error}}</span>
+    {% endif %}
 <br>
 <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
 <br>

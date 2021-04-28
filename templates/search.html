@@ -47,7 +47,7 @@
 
   <div class = "searchMid">
     <h1>Search</h1>
-    <p>Please type in a wing name or flavor preferences to search for. Flavor preferences must be separated by a comma.</p>
+    <p>Please type in a wing name or flavor preferences to search for. Flavor preferences must be separated by a comma. Rate your favorite (or least favorite) wings!</p>
     <div class="search-container">
         <form action="/search-results/" method="POST">           
                 <table class = "row justify-content-center">    
@@ -71,14 +71,15 @@
         <br>
         <a onclick="sortWings('wingsN', 'wings', 'wingsR')" href="#"><img src="/static/sort.png">Sort by Name</a>
         <a onclick="sortWings('wings', 'wingsN', 'wingsR')" href="#"><img src="/static/sort.png">Sort by Global Rating</a>
+        {% if session['logged_in']  %}
         <a onclick="sortWings('wingsR', 'wings', 'wingsN')" href="#"><img src="/static/sort.png">Sort by User Rating</a>
+        {% endif %}
         </form>
     </div>
   
 
     <div id=wings class = "row justify-content-center" style="display:inline-flex">
-        {% for w in wings %}
-            {% if g_rating_dict[w['name']] == 5%}
+        {% for w in wings | sort(attribute='rating', reverse = True)%}
             <div class ="col-sm-6 mb-3" > <div class= "card">
             <div>{{ w['name'] }}</div>
                 {% if w['type'] == "Signature" %}   
@@ -119,8 +120,9 @@
                     {% endif %} 
                 </div>
             <div>
-                Rating: {{g_rating_dict[w['name']]}}/5
-            </div>                
+                Rating: {{ w['rating'] }}/5
+            </div>
+            {% if session['logged_in']  %}                
             <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
                 {% if w['name'] in rat_dic.keys() %}
                     {% if rat_dic[w['name']] == "1" %}
@@ -167,484 +169,14 @@
                     <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
                     <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
                 {% endif %}
-            </div>  
-            </div></div> 
-            {% endif %}     
-        {% endfor %}
-        {% for w in wings %}
-            {% if g_rating_dict[w['name']] == 4%}
-            <div class ="col-sm-6 mb-3" > <div class= "card">
-            <div>{{ w['name'] }}</div>
-                {% if w['type'] == "Signature" %}   
-                    <div>Description: {{ w['description'] }}</div>  
-                {% endif %} 
-                <div class="column">
-                    {% if w['spiceMoistNumber'] == "10" %} 
-                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
-                    {% elif w['spiceMoistNumber'] == "9" %} 
-                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
-                    {% elif w['spiceMoistNumber'] == "8" %} 
-                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
-                    {% endif %}
-                    
-                    {% if w['spiceMoistNumber'] == "10" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% elif w['spiceMoistNumber'] == "8" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% elif w['spiceMoistNumber'] == "6" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% elif w['spiceMoistNumber'] == "4" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% endif %}
-                    
-                    {% if w['spiceMoistNumber'] == "9" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
-                    {% elif w['spiceMoistNumber'] == "8" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
-                    {% elif w['spiceMoistNumber'] == "5" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
-                    {% elif w['spiceMoistNumber'] == "4" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet">  
-                    {% endif %} 
-
-
-                    {% if w['type'] == "Signature" %}  
-                        <img src="/static/specialty.png" alt = "Signature" width = "10%" title = "Signature Wing"> 
-                    {% endif %} 
-                </div>
-            <div>
-                Rating: {{g_rating_dict[w['name']]}}/5
-            </div>                
-            <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
-                {% if w['name'] in rat_dic.keys() %}
-                    {% if rat_dic[w['name']] == "1" %}
-                    
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                
-                    {% elif rat_dic[w['name']] == "2" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-
-                    {% elif rat_dic[w['name']] == "3" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-
-                    {% elif rat_dic[w['name']] == "4" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                
-                    {% elif rat_dic[w['name']] == "5" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                
-                    {% endif %}
-                {% else %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                {% endif %}
-            </div>  
-            </div></div> 
-            {% endif %}     
-        {% endfor %}
-        {% for w in wings %}
-            {% if g_rating_dict[w['name']] == 3%}
-            <div class ="col-sm-6 mb-3" > <div class= "card">
-            <div>{{ w['name'] }}</div>
-                {% if w['type'] == "Signature" %}   
-                    <div>Description: {{ w['description'] }}</div>  
-                {% endif %} 
-                <div class="column">
-                    {% if w['spiceMoistNumber'] == "10" %} 
-                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
-                    {% elif w['spiceMoistNumber'] == "9" %} 
-                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
-                    {% elif w['spiceMoistNumber'] == "8" %} 
-                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
-                    {% endif %}
-                    
-                    {% if w['spiceMoistNumber'] == "10" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% elif w['spiceMoistNumber'] == "8" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% elif w['spiceMoistNumber'] == "6" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% elif w['spiceMoistNumber'] == "4" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% endif %}
-                    
-                    {% if w['spiceMoistNumber'] == "9" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
-                    {% elif w['spiceMoistNumber'] == "8" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
-                    {% elif w['spiceMoistNumber'] == "5" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
-                    {% elif w['spiceMoistNumber'] == "4" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet">  
-                    {% endif %} 
-
-
-                    {% if w['type'] == "Signature" %}  
-                        <img src="/static/specialty.png" alt = "Signature" width = "10%" title = "Signature Wing"> 
-                    {% endif %} 
-                </div>
-            <div>
-                Rating: {{g_rating_dict[w['name']]}}/5
-            </div>                
-            <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
-                {% if w['name'] in rat_dic.keys() %}
-                    {% if rat_dic[w['name']] == "1" %}
-                    
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                
-                    {% elif rat_dic[w['name']] == "2" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-
-                    {% elif rat_dic[w['name']] == "3" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-
-                    {% elif rat_dic[w['name']] == "4" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                
-                    {% elif rat_dic[w['name']] == "5" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                
-                    {% endif %}
-                {% else %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                {% endif %}
-            </div>  
-            </div></div> 
-            {% endif %}     
-        {% endfor %}
-        {% for w in wings %}
-            {% if g_rating_dict[w['name']] == 2%}
-            <div class ="col-sm-6 mb-3" > <div class= "card">
-            <div>{{ w['name'] }}</div>
-                {% if w['type'] == "Signature" %}   
-                    <div>Description: {{ w['description'] }}</div>  
-                {% endif %} 
-                <div class="column">
-                    {% if w['spiceMoistNumber'] == "10" %} 
-                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
-                    {% elif w['spiceMoistNumber'] == "9" %} 
-                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
-                    {% elif w['spiceMoistNumber'] == "8" %} 
-                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
-                    {% endif %}
-                    
-                    {% if w['spiceMoistNumber'] == "10" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% elif w['spiceMoistNumber'] == "8" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% elif w['spiceMoistNumber'] == "6" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% elif w['spiceMoistNumber'] == "4" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% endif %}
-                    
-                    {% if w['spiceMoistNumber'] == "9" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
-                    {% elif w['spiceMoistNumber'] == "8" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
-                    {% elif w['spiceMoistNumber'] == "5" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
-                    {% elif w['spiceMoistNumber'] == "4" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet">  
-                    {% endif %} 
-
-
-                    {% if w['type'] == "Signature" %}  
-                        <img src="/static/specialty.png" alt = "Signature" width = "10%" title = "Signature Wing"> 
-                    {% endif %} 
-                </div>
-            <div>
-                Rating: {{g_rating_dict[w['name']]}}/5
-            </div>                
-            <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
-                {% if w['name'] in rat_dic.keys() %}
-                    {% if rat_dic[w['name']] == "1" %}
-                    
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                
-                    {% elif rat_dic[w['name']] == "2" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-
-                    {% elif rat_dic[w['name']] == "3" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-
-                    {% elif rat_dic[w['name']] == "4" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                
-                    {% elif rat_dic[w['name']] == "5" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                
-                    {% endif %}
-                {% else %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                {% endif %}
-            </div>  
-            </div></div> 
-            {% endif %}     
-        {% endfor %}
-        {% for w in wings %}
-            {% if g_rating_dict[w['name']] == 1%}
-            <div class ="col-sm-6 mb-3" > <div class= "card">
-            <div>{{ w['name'] }}</div>
-                {% if w['type'] == "Signature" %}   
-                    <div>Description: {{ w['description'] }}</div>  
-                {% endif %} 
-                <div class="column">
-                    {% if w['spiceMoistNumber'] == "10" %} 
-                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
-                    {% elif w['spiceMoistNumber'] == "9" %} 
-                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
-                    {% elif w['spiceMoistNumber'] == "8" %} 
-                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
-                    {% endif %}
-                    
-                    {% if w['spiceMoistNumber'] == "10" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% elif w['spiceMoistNumber'] == "8" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% elif w['spiceMoistNumber'] == "6" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% elif w['spiceMoistNumber'] == "4" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% endif %}
-                    
-                    {% if w['spiceMoistNumber'] == "9" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
-                    {% elif w['spiceMoistNumber'] == "8" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
-                    {% elif w['spiceMoistNumber'] == "5" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
-                    {% elif w['spiceMoistNumber'] == "4" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet">  
-                    {% endif %} 
-
-
-                    {% if w['type'] == "Signature" %}  
-                        <img src="/static/specialty.png" alt = "Signature" width = "10%" title = "Signature Wing"> 
-                    {% endif %} 
-                </div>
-            <div>
-                Rating: {{g_rating_dict[w['name']]}}/5
-            </div>                
-            <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
-                {% if w['name'] in rat_dic.keys() %}
-                    {% if rat_dic[w['name']] == "1" %}
-                    
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                
-                    {% elif rat_dic[w['name']] == "2" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-
-                    {% elif rat_dic[w['name']] == "3" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-
-                    {% elif rat_dic[w['name']] == "4" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                
-                    {% elif rat_dic[w['name']] == "5" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                
-                    {% endif %}
-                {% else %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                {% endif %}
-            </div>  
-            </div></div> 
-            {% endif %}     
-        {% endfor %}
-        {% for w in wings %}
-            {% if g_rating_dict[w['name']] == 0%}
-            <div class ="col-sm-6 mb-3" > <div class= "card">
-            <div>{{ w['name'] }}</div>
-                {% if w['type'] == "Signature" %}   
-                    <div>Description: {{ w['description'] }}</div>  
-                {% endif %} 
-                <div class="column">
-                    {% if w['spiceMoistNumber'] == "10" %} 
-                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
-                    {% elif w['spiceMoistNumber'] == "9" %} 
-                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
-                    {% elif w['spiceMoistNumber'] == "8" %} 
-                        <img src="/static/hot.png" alt = "Hot" width = "10%" title = "Hot">
-                    {% endif %}
-                    
-                    {% if w['spiceMoistNumber'] == "10" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% elif w['spiceMoistNumber'] == "8" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% elif w['spiceMoistNumber'] == "6" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% elif w['spiceMoistNumber'] == "4" %}   
-                        <img src="/static/dry.png" alt = "Dry" width = "10%" title = "Dry">  
-                    {% endif %}
-                    
-                    {% if w['spiceMoistNumber'] == "9" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
-                    {% elif w['spiceMoistNumber'] == "8" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
-                    {% elif w['spiceMoistNumber'] == "5" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet"> 
-                    {% elif w['spiceMoistNumber'] == "4" %}   
-                        <img src="/static/wet.png" alt = "Wet" width = "10%" title = "Wet">  
-                    {% endif %} 
-
-
-                    {% if w['type'] == "Signature" %}  
-                        <img src="/static/specialty.png" alt = "Signature" width = "10%" title = "Signature Wing"> 
-                    {% endif %} 
-                </div>
-            <div>
-                Rating: {{g_rating_dict[w['name']]}}/5
-            </div>                
-            <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
-                {% if w['name'] in rat_dic.keys() %}
-                    {% if rat_dic[w['name']] == "1" %}
-                    
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                
-                    {% elif rat_dic[w['name']] == "2" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-
-                    {% elif rat_dic[w['name']] == "3" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-
-                    {% elif rat_dic[w['name']] == "4" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                
-                    {% elif rat_dic[w['name']] == "5" %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
-                
-                    {% endif %}
-                {% else %}
-                    <div class = "col-xs-1" id = "starG1_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                    <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-                {% endif %}
-            </div>  
-            </div></div> 
-            {% endif %}     
-        {% endfor %}        
+            </div> 
+            {% endif %} 
+            </div></div>     
+        {% endfor %}       
     </div>
 
     <!-- sort by user rating start -->
-
+    {% if session['logged_in']  %}
     <div id=wingsR class = "row justify-content-center" style="display:none">
         {% for w in wings %}
             {% if rat_dic[w['name']] == "5"%}
@@ -688,7 +220,7 @@
                     {% endif %} 
                 </div>
             <div>
-                Rating: {{g_rating_dict[w['name']]}}/5
+                Rating: {{w['rating']}}/5
             </div>                
             <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
                 {% if w['name'] in rat_dic.keys() %}
@@ -782,7 +314,7 @@
                     {% endif %} 
                 </div>
             <div>
-                Rating: {{g_rating_dict[w['name']]}}/5
+                Rating: {{w['rating']}}/5
             </div>                
             <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
                 {% if w['name'] in rat_dic.keys() %}
@@ -876,7 +408,7 @@
                     {% endif %} 
                 </div>
             <div>
-                Rating: {{g_rating_dict[w['name']]}}/5
+                Rating: {{w['rating']}}/5
             </div>                
             <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
                 {% if w['name'] in rat_dic.keys() %}
@@ -970,7 +502,7 @@
                     {% endif %} 
                 </div>
             <div>
-                Rating: {{g_rating_dict[w['name']]}}/5
+                Rating: {{w['rating']}}/5
             </div>                
             <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
                 {% if w['name'] in rat_dic.keys() %}
@@ -1064,7 +596,7 @@
                     {% endif %} 
                 </div>
             <div>
-                Rating: {{g_rating_dict[w['name']]}}/5
+                Rating: {{w['rating']}}/5
             </div>                
             <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
                 {% if w['name'] in rat_dic.keys() %}
@@ -1117,7 +649,8 @@
             {% endif %}     
         {% endfor %}
         {% for w in wings %}
-            {% if rat_dic[w['name']] == "0"%}
+            {% if rat_dic[w['name']] is defined %}
+            {% else %}
             <div class ="col-sm-6 mb-3" > <div class= "card">
             <div>{{ w['name'] }}</div>
                 {% if w['type'] == "Signature" %}   
@@ -1158,7 +691,7 @@
                     {% endif %} 
                 </div>
             <div>
-                Rating: {{g_rating_dict[w['name']]}}/5
+                Rating: {{w['rating']}}/5
             </div>                
             <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
                 {% if w['name'] in rat_dic.keys() %}
@@ -1211,7 +744,7 @@
             {% endif %}     
         {% endfor %}
     </div>
-
+    {% endif %}
     <!-- sort by user rating end -->
 
     <div id=wingsN class = "row justify-content-center" style="display:none">
@@ -1256,8 +789,9 @@
                     {% endif %} 
                 </div>
                 <div>
-                Rating: {{g_rating_dict[w['name']]}}/5
-                </div>           
+                Rating: {{ w['rating'] }}/5
+                </div> 
+            {% if session['logged_in']  %}          
             <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
                 {% if w['name'] in rat_dic.keys() %}
                     {% if rat_dic[w['name']] == "1" %}
@@ -1304,12 +838,13 @@
                     <div class = "col-xs-1" id = "starN4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
                     <div class = "col-xs-1" id = "starN5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
                 {% endif %}
-            </div>                
+            </div> 
+            {% endif %}               
             </div></div>
         {% endfor %}
     </div>
 
-  </div>
+  </div> 
 </body>
 
 
@@ -1336,7 +871,7 @@
         document.getElementById(showWings).style.display="inline-flex";
         document.getElementById(hideWings1).style.display="none";
         document.getElementById(hideWings2).style.display="none";
-        javascript:window.location.reload();
+        //javascript:window.location.reload();
     }
 
     function sortWingsByRating(rating_dict){

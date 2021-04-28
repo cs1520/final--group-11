@@ -31,27 +31,6 @@
 </div>
 -->
 
-<div id = "sidebar" class = "sidebar">
-    <div class="tBars" onclick="toggleSideBar()">
-        <span></span> 
-        <span></span>
-        <span></span>            
-    </div>
-    
-    <div class="row justify-content-center"><a href="/">Home</a></div>
-    <div class="row justify-content-center"><a href="/search">Search</a></div>
-    <div class="row justify-content-center"><a href="/profile">Profile</a></div>
-    <div class = "row navbar-right justify-content-center">
-        {% if session['logged_in'] %}
-        <a href="/logout" onclick="signOut();">Logout</a>
-        {% else %}
-        <a href="/login">Login</a>
-        {% endif %}
-    </div>        
-    
-</div>
-
-<body>
 
 <body>
     <div id = "sidebar" class = "sidebar">

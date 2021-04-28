@@ -56,7 +56,6 @@ body {
 {
     max-width: 40%;
     margin: 0 auto;
-    height: 100%;
 
 
 }
@@ -223,6 +222,7 @@ body {
   right: 40%;
   border: 3px solid #f1f1f1;
   z-index: 9;
+  background-color: rgb(255, 255, 255);
 }
 .form-popup-button-list {
   display: none;
@@ -234,6 +234,7 @@ body {
   border: 3px solid #f1f1f1;
   z-index: 9;
   overflow: auto;
+  background-color: rgb(255, 255, 255);
 }
 
 /* Add styles to the form container */
