@@ -383,7 +383,7 @@ def do_you_like_these_wings(mwn, smp):
     for w in all_the_wings:
         if (int(w["spiceMoistNumber"]) & int(smp)) == 0:
             if (int(w["magicNumber"]) & int(mwn)) == 0:
-                store_wing_pref(user,w["name"],w["description"], w["rating"])
+                store_wing_pref(user,w["name"],w["description"])
                 print(w["name"])
 
 
@@ -520,7 +520,7 @@ def login():
     user = get_user() 
     if user:
         redirect("/") 
-    return render_template('login.html') #auth =true ? 
+    return render_template('login.html', error=[]) #auth =true ? 
 
 
 @app.route('/login-user', methods = ['POST'])
@@ -534,7 +534,7 @@ def login_user():
     user = userstorage.verify_password(username, password)
     if not user:
         print("not user")
-        return render_template("login.html")
+        return render_template('login.html', error="Sorry, the username or password you entered is incorrect. Please try again.") 
     session["user"] = username
     session['logged_in'] = True
     print("yes user")
@@ -557,9 +557,9 @@ def create_user():
     password = request.args.get('new_Password') or request.form.get('new_Password')
     print(password)
     userstorage = UserStorage(datastore_client)
-    if uname in userstorage.list_existing_users():
+    if uname in userstorage.list_existing_users():        
         print('a user with that name already exists')
-        return redirect('/login') 
+        return render_template('login.html', error="Sorry, a user with that name already exists! Please try again.") 
     user_to_store = generate_user(uname, password)
     user_key = datastore_client.key("Login", user_to_store.username)
     user = datastore.Entity(key=user_key)
@@ -568,6 +568,7 @@ def create_user():
     user["salt"] = user_to_store.salt
     datastore_client.put(user)
     session['user']=uname
+    session['logged_in'] = True
     return redirect('/profile')
 
 

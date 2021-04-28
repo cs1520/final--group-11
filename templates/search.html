@@ -47,7 +47,7 @@
 
   <div class = "searchMid">
     <h1>Search</h1>
-    <p>Please type in a wing name or flavor preferences to search for. Flavor preferences must be separated by a comma.</p>
+    <p>Please type in a wing name or flavor preferences to search for. Flavor preferences must be separated by a comma. Rate your favorite (or least favorite) wings!</p>
     <div class="search-container">
         <form action="/search-results/" method="POST">           
                 <table class = "row justify-content-center">    
@@ -71,7 +71,9 @@
         <br>
         <a onclick="sortWings('wingsN', 'wings', 'wingsR')" href="#"><img src="/static/sort.png">Sort by Name</a>
         <a onclick="sortWings('wings', 'wingsN', 'wingsR')" href="#"><img src="/static/sort.png">Sort by Global Rating</a>
+        {% if session['logged_in']  %}
         <a onclick="sortWings('wingsR', 'wings', 'wingsN')" href="#"><img src="/static/sort.png">Sort by User Rating</a>
+        {% endif %}
         </form>
     </div>
   
@@ -119,7 +121,8 @@
                 </div>
             <div>
                 Rating: {{ w['rating'] }}/5
-            </div>                
+            </div>
+            {% if session['logged_in']  %}                
             <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
                 {% if w['name'] in rat_dic.keys() %}
                     {% if rat_dic[w['name']] == "1" %}
@@ -166,13 +169,14 @@
                     <div class = "col-xs-1" id = "starG4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
                     <div class = "col-xs-1" id = "starG5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
                 {% endif %}
-            </div>  
+            </div> 
+            {% endif %} 
             </div></div>     
         {% endfor %}       
     </div>
 
     <!-- sort by user rating start -->
-
+    {% if session['logged_in']  %}
     <div id=wingsR class = "row justify-content-center" style="display:none">
         {% for w in wings %}
             {% if rat_dic[w['name']] == "5"%}
@@ -740,7 +744,7 @@
             {% endif %}     
         {% endfor %}
     </div>
-
+    {% endif %}
     <!-- sort by user rating end -->
 
     <div id=wingsN class = "row justify-content-center" style="display:none">
@@ -786,7 +790,8 @@
                 </div>
                 <div>
                 Rating: {{ w['rating'] }}/5
-                </div>           
+                </div> 
+            {% if session['logged_in']  %}          
             <div class = "row justify-content-center rate" style = "font-size: 25; cursor: pointer;">
                 {% if w['name'] in rat_dic.keys() %}
                     {% if rat_dic[w['name']] == "1" %}
@@ -833,7 +838,8 @@
                     <div class = "col-xs-1" id = "starN4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
                     <div class = "col-xs-1" id = "starN5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
                 {% endif %}
-            </div>                
+            </div> 
+            {% endif %}               
             </div></div>
         {% endfor %}
     </div>
