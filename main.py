@@ -155,19 +155,21 @@ def home():
     return render_template("index.html", picks=users_wings, rat_dic=rating_dict)
 
 def getS(wing):
+    #print(wing["name"])
     query = datastore_client.query(kind="Wings")
     all_the_wings = query.fetch()
     for w in all_the_wings:
         if w["name"] == wing["name"]: 
+            #print(w["rating"])
             return w["rating"]
 
-def storeS(wing):
+def storeS(wingName):
     query = datastore_client.query(kind="rating")
     all_the_ratings = query.fetch()
     totalStars = 0
     totalRatings = 0
     for r in all_the_ratings:
-        if r["wingName"] == wing["name"]: 
+        if r["wingName"] == wingName: 
             totalRatings = totalRatings + 1
             totalStars = totalStars + int(r["rating"])
     if totalRatings == 0:
@@ -175,9 +177,9 @@ def storeS(wing):
         return 0
 
     rating = round(totalStars/totalRatings)
-    print(wing["name"])
-    curr_w = datastore_client.get(key=datastore_client.key("Wings", wing["name"]))
-    ww = datastore.Entity(key=datastore_client.key("Wings", wing["name"]))
+    #print(wingName)
+    curr_w = datastore_client.get(key=datastore_client.key("Wings", wingName))
+    ww = datastore.Entity(key=datastore_client.key("Wings", wingName))
     print(curr_w["name"])    
     ww["name"] = curr_w["name"]
     ww["description"] = curr_w["description"]
@@ -510,6 +512,7 @@ def rating_results():
     wingName = request.args.get('wingName')
     print("Inside rating results"  )   
     store_rating(rating, wingName)
+    storeS(wingName)
 
 def get_rating():
     query = datastore_client.query(kind="rating")
