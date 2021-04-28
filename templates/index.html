@@ -72,13 +72,12 @@
 
         <div class = "row justify-content-center rate" style = "font-size: 25; cursor: default;">
         {% if w['name'] in rat_dic.keys() %}
-            {% if rat_dic[w['name']] == 1 %}
+            {% if w.rating == 1 %}
             <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
             <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
             <div class = "col-xs-1" id = "star3_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
             <div class = "col-xs-1" id = "star4_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
             <div class = "col-xs-1" id = "star5_{{w['name']}}" onclick = ratingBuisness(this)>&star;</div>
-        group
             {% elif rat_dic[w['name']] == 2 %}
             <div class = "col-xs-1" id = "star1_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>
             <div class = "col-xs-1" id = "star2_{{w['name']}}" onclick = ratingBuisness(this)>&starf;</div>

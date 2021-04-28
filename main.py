@@ -33,18 +33,159 @@ GOOGLE_CLIENT_SECRET = "2SKveyYZqJ1rHmNKpOh8jeGl"
 # FLASK_APP=main.py FLASK_ENV=development flask run
 #http://whichwings.ue.r.appspot.com
 
+all_wings = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ranch", "magicNumber": "4194372", "spiceMoistNumber": "10", "type": "Signature", "rating": 0},   
+                {"name": "Ain't My Faulks", "description": "Butter, Dry BBQ, Dry Garlic, Dry Ranch", "magicNumber": "4196418", "spiceMoistNumber": "6", "type": "Signature", "rating": 0},
+                {"name": "B.A.D.", "description": "Butter, Atomic Dust", "magicNumber": "65", "spiceMoistNumber": "10", "type": "Signature", "rating": 0},
+                {"name": "Baby Blues", "description": "Blue Cheese, Frank's Red Hot, Cayenne", "magicNumber": "264", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Big Easy", "description": "Big Shot Bob's Louisiana Licker", "magicNumber": "268435456", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "BigFineWoman2000", "description": "Dark BBQ, Black Magic", "magicNumber": "6", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "BigFineWoman3000", "description": "Dark BBQ, Black Magic, Upgraded", "magicNumber": "6", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "The Big Picture", "description": "Salt, Butter, Parmesan", "magicNumber": "1048640", "spiceMoistNumber": "6", "type": "Signature", "rating": 0},
+                {"name": "Big Sexy", "description": "Mark's Signature Flavor", "magicNumber": "268435456", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Black and Gold", "description": "Gold BBQ, Black Magic", "magicNumber": "6", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Black and Mild", "description": "Black Magic, Mild Sauce", "magicNumber": "4", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Black and Yellow", "description": "Black Magic, Sweet, Honey Mustard", "magicNumber": "33562628", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Black Frank White", "description": "Black Magic, Frank's Red Hot, Ranch", "magicNumber": "4194308", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Black Magic", "description": "Black Magic, Cajun, Butter", "magicNumber": "196", "spiceMoistNumber": "10", "type": "Signature", "rating": 0},
+                {"name": "Black Opts", "description": "The Special Wing Sauce of Cory Freeman", "magicNumber": "268435456", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Cash Club", "description": "Ranch, Garlic, Butter, Parmesan", "magicNumber": "5244992", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "The Color Purple", "description": "Raspberry, Garlic", "magicNumber": "8390656", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Cool Runnings", "description": "Jamaican Jerk, Ranch", "magicNumber": "4227136", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Coraopolis Cajun", "description": "Cajun, Mild", "magicNumber": "128", "spiceMoistNumber": "10", "type": "Signature", "rating": 0},
+                {"name": "Coraopolis Gunslinger", "description": "Jalapeno, Ranch", "magicNumber": "4210688", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Eye of the Tiger", "description": "Talk of Beaver Falls, Ranch", "magicNumber": "272629760", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Flaming Flamingo", "description": "Garlic, Chili, Ranch, Hot", "magicNumber": "4196864", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Flossin' Season", "description": "Ranch, Lawry's Seasoned Salt", "magicNumber": "4259840", "spiceMoistNumber": "6", "type": "Signature", "rating": 0},
+                {"name": "Frank Sinatra", "description": "Frank's Red Hot, Blue Cheese, Parmesan", "magicNumber": "1048584", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Frank White", "description": "Frank's Red Hot, Ranch", "magicNumber": "4194304", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Frankie Valli", "description": "Frank's Red Hot, Ranch, Parmesan", "magicNumber": "5242880", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Game Changer", "description": "Butter, Parmesan, Ranch", "magicNumber": "5242944", "spiceMoistNumber": "6", "type": "Signature", "rating": 0},
+                {"name": "Gold Fire", "description": "Hot, Gold BBQ", "magicNumber": "2", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Honey Bunny", "description": "Sweet, Hot, Chili, Ranch", "magicNumber": "37749248", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Jamaican Frank", "description": "Hot, Jamaican Jerk", "magicNumber": "32832", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Jamaican Jerk", "description": "Jerk Seasoning, Butter", "magicNumber": "32832", "spiceMoistNumber": "6", "type": "Signature", "rating": 0},
+                {"name": "Lady Luck", "description": "Hot Sauce, Ranch", "magicNumber": "4194304", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Lake Show", "description": "Raspberry, Honey Mustard", "magicNumber": "8396800", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Lebron to the Lakers", "description": "Black Magic, Raspberry, Honey Mustard", "magicNumber": "8396804", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Magic Man", "description": "Hot Sauce, Black Magic", "magicNumber": "4", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Mean Joe Greene", "description": "Black Magic, Gold BBQ, Jalapeno", "magicNumber": "16390", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Mister C's", "description": "Black Magic, Parmesan", "magicNumber": "1048580", "spiceMoistNumber": "10", "type": "Signature", "rating": 0},
+                {"name": "The Most Interesting Flavor in the World", "description": "Not Hot, Very Interesting", "magicNumber": "268435456", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Mr. Northside", "description": "Honey Mustard, BBQ", "magicNumber": "8194", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Napoleon", "description": "Sweet, Buffalo", "magicNumber": "33554464", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Napoleon Cajun", "description": "Sweet, Buffalo, Cajun", "magicNumber": "33554592", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Napoleon Complex", "description": "Sweet, Buffalo, Big Shot Bobs Seasoning", "magicNumber": "33554480", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Napoleon Dynamite", "description": "Sweet, Buffalo, Cayenne", "magicNumber": "33554720", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Napoleon Garlic", "description": "Sweet, Buffalo, Garlic", "magicNumber": "33556512", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Ole School", "description": "Big Shot Bobs Seasoning, Medium", "magicNumber": "16", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Ox's", "description": "BBQ, Jerk Seasoning", "magicNumber": "32770", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Pigeon Wings", "description": "Sweet, Buffalo, Garlic, Parmesan", "magicNumber": "34605088", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Polish Hill Strangler", "description": "Honey Mustard, Cayenne", "magicNumber": "8448", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Pookie", "description": "Talk of Beaver Falls, Sweet, Buffalo, Garlic, Parmesan", "magicNumber": "303040544", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Primetime", "description": "Sweet, Hot, Garlic, Golds BBQ", "magicNumber": "33556482", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Showtime", "description": "Salt, Butter", "magicNumber": "64", "spiceMoistNumber": "6", "type": "Signature", "rating": 0},
+                {"name": "Steel City", "description": "Mild, Buffalo, Ranch, Parmesan", "magicNumber": "5242912", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Superfly T.N.T.", "description": "Hot, Jamaican Jerk, Ranch", "magicNumber": "4227072", "spiceMoistNumber": "10", "type": "Signature", "rating": 0},
+                {"name": "Talk of Beaver Falls", "description": "Hot, Tangy", "magicNumber": "268435456", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Three Rivers", "description": "Honey Mustard, Ranch, BBQ", "magicNumber": "4202498", "spiceMoistNumber": "5", "type": "Signature", "rating": 0},
+                {"name": "Thunderlips", "description": "Ranch, Atomic Dust", "magicNumber": "4194305", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Too Easy", "description": "Salt, Pepper, Hot Sauce", "magicNumber": "2097152", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Uncle Nick's", "description": "Hot, Spicy, Garlic, Honey, BBQ", "magicNumber": "6146", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Uncle Rico's", "description": "Sweet, Spicy, Garlic, Honey Mustard", "magicNumber": "33564672", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Walk of Beaver Falls", "description": "Talk of Beaver Falls, Hot", "magicNumber": "268435456", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "Westview Connection", "description": "Big Shot Bobs Seasoning, Cajun, Garlic, Jalapeno", "magicNumber": "18576", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "William Henry Harrison", "description": "Jamaican Jerk, Parmesan", "magicNumber": "1081408", "spiceMoistNumber": "6", "type": "Signature", "rating": 0},
+                {"name": "Wink & Gun", "description": "Hot, Sweet, Ranch", "magicNumber": "37748736", "spiceMoistNumber": "9", "type": "Signature", "rating": 0},
+                {"name": "BBQ", "description": "", "magicNumber": "2", "spiceMoistNumber": "4", "type": "Classic", "rating": 0},
+                {"name": "BBQ Ranch", "description": "", "magicNumber": "4194306", "spiceMoistNumber": "5", "type": "Classic", "rating": 0},
+                {"name": "Bob's Honey Mustard", "description": "", "magicNumber": "8192", "spiceMoistNumber": "5", "type": "Classic", "rating": 0},
+                {"name": "Bob's Signature Hot", "description": "", "magicNumber": "768", "spiceMoistNumber": "9", "type": "Classic", "rating": 0},
+                {"name": "Cajun", "description": "", "magicNumber": "128", "spiceMoistNumber": "8", "type": "Classic", "rating": 0},
+                {"name": "Cajun Garlic", "description": "", "magicNumber": "2176", "spiceMoistNumber": "8", "type": "Classic", "rating": 0},
+                {"name": "Cajun Ranch", "description": "", "magicNumber": "4194432", "spiceMoistNumber": "8", "type": "Classic", "rating": 0},
+                {"name": "Dark BBQ", "description": "", "magicNumber": "2", "spiceMoistNumber": "5", "type": "Classic", "rating": 0},
+                {"name": "Frank's Red Hot", "description": "", "magicNumber": "768", "spiceMoistNumber": "9", "type": "Classic", "rating": 0},
+                {"name": "Garlic Butter", "description": "", "magicNumber": "2112", "spiceMoistNumber": "6", "type": "Classic", "rating": 0},
+                {"name": "Garlic Butter Parmesan", "description": "", "magicNumber": "1050688", "spiceMoistNumber": "6", "type": "Classic", "rating": 0},
+                {"name": "Garlic Parmesan", "description": "", "magicNumber": "1050624", "spiceMoistNumber": "6", "type": "Classic", "rating": 0},
+                {"name": "Garlic Ranch", "description": "", "magicNumber": "4196352", "spiceMoistNumber": "4", "type": "Classic", "rating": 0},
+                {"name": "Gold BBQ", "description": "", "magicNumber": "2", "spiceMoistNumber": "5", "type": "Classic", "rating": 0},
+                {"name": "Honey BBQ", "description": "", "magicNumber": "4098", "spiceMoistNumber": "5", "type": "Classic", "rating": 0},
+                {"name": "Honey Cajun", "description": "", "magicNumber": "4224", "spiceMoistNumber": "9", "type": "Classic", "rating": 0},
+                {"name": "Honey Dijon", "description": "", "magicNumber": "5120", "spiceMoistNumber": "5", "type": "Classic", "rating": 0},
+                {"name": "Honey Garlic", "description": "", "magicNumber": "6144", "spiceMoistNumber": "5", "type": "Classic", "rating": 0},
+                {"name": "Honey Old Bay", "description": "", "magicNumber": "528384", "spiceMoistNumber": "5", "type": "Classic", "rating": 0},
+                {"name": "Honey Ranch", "description": "", "magicNumber": "4198400", "spiceMoistNumber": "5", "type": "Classic", "rating": 0},
+                {"name": "Hot Cajun", "description": "", "magicNumber": "128", "spiceMoistNumber": "10", "type": "Classic", "rating": 0},
+                {"name": "Hot Garlic", "description": "", "magicNumber": "2048", "spiceMoistNumber": "8", "type": "Classic", "rating": 0},
+                {"name": "Hot Garlic Parmesan", "description": "", "magicNumber": "1050624", "spiceMoistNumber": "10", "type": "Classic", "rating": 0},
+                {"name": "Hot Honey", "description": "", "magicNumber": "4096", "spiceMoistNumber": "9", "type": "Classic", "rating": 0},
+                {"name": "Hot Honey Garlic", "description": "", "magicNumber": "6144", "spiceMoistNumber": "9", "type": "Classic", "rating": 0},
+                {"name": "Hot Old Bay", "description": "", "magicNumber": "524288", "spiceMoistNumber": "10", "type": "Classic", "rating": 0},
+                {"name": "Hot Ranch", "description": "", "magicNumber": "4194304", "spiceMoistNumber": "9", "type": "Classic", "rating": 0},
+                {"name": "Hottest of the Hot", "description": "", "magicNumber": "384", "spiceMoistNumber": "9", "type": "Classic", "rating": 0},
+                {"name": "Lemon Pepper", "description": "", "magicNumber": "2228224", "spiceMoistNumber": "6", "type": "Classic", "rating": 0},
+                {"name": "Lemon Pepper Parmesan", "description": "", "magicNumber": "3276800", "spiceMoistNumber": "6", "type": "Classic", "rating": 0},
+                {"name": "Lemon Pepper Ranch", "description": "", "magicNumber": "6422528", "spiceMoistNumber": "6", "type": "Classic", "rating": 0},
+                {"name": "Medium Garlic Parmesan", "description": "", "magicNumber": "1050624", "spiceMoistNumber": "6", "type": "Classic", "rating": 0},
+                {"name": "Mild Garlic Parmesan", "description": "", "magicNumber": "1050624", "spiceMoistNumber": "6", "type": "Classic", "rating": 0},
+                {"name": "Mild Old Bay", "description": "", "magicNumber": "524288", "spiceMoistNumber": "6", "type": "Classic", "rating": 0},
+                {"name": "Mild Ranch", "description": "", "magicNumber": "4194304", "spiceMoistNumber": "5", "type": "Classic", "rating": 0},
+                {"name": "Montreal", "description": "", "magicNumber": "262144", "spiceMoistNumber": "4", "type": "Classic", "rating": 0},
+                {"name": "Old Bay", "description": "", "magicNumber": "524288", "spiceMoistNumber": "4", "type": "Classic", "rating": 0},
+                {"name": "Old Bay Ranch", "description": "", "magicNumber": "4718592", "spiceMoistNumber": "5", "type": "Classic", "rating": 0},
+                {"name": "Peppercorn Ranch", "description": "", "magicNumber": "6291456", "spiceMoistNumber": "5", "type": "Classic", "rating": 0},
+                {"name": "Peppercorn Ranch Parmesan", "description": "", "magicNumber": "7340032", "spiceMoistNumber": "5", "type": "Classic", "rating": 0},
+                {"name": "Ranch", "description": "", "magicNumber": "4194304", "spiceMoistNumber": "4", "type": "Classic", "rating": 0},
+                {"name": "Salt and Pepper", "description": "", "magicNumber": "2097152", "spiceMoistNumber": "6", "type": "Classic", "rating": 0},
+                {"name": "Salt and Vinegar", "description": "", "magicNumber": "134217728", "spiceMoistNumber": "6", "type": "Classic", "rating": 0},
+                {"name": "Seasoned", "description": "", "magicNumber": "16777216", "spiceMoistNumber": "6", "type": "Classic", "rating": 0},
+                {"name": "Teriyaki", "description": "", "magicNumber": "67108864", "spiceMoistNumber": "5", "type": "Classic", "rating": 0}]
 
 @app.route("/")
 def home():
     """Return a simple HTML page."""
-    print("Home Page route!")
+    print("Home Page route!") 
+    #store_allwings()
     users_wings = get_wings()
     rating_dict = dict()
     for wing in users_wings:
-       rating_dict[wing["name"]]= getAndStoreStars(wing)
-
+        rating_dict[wing["name"]]= getS(wing)
+        
     return render_template("index.html", picks=users_wings, rat_dic=rating_dict)
 
+def getS(wing):
+    query = datastore_client.query(kind="Wings")
+    all_the_wings = query.fetch()
+    for w in all_the_wings:
+        if w["name"] == wing["name"]: 
+            return w["rating"]
+
+def storeS(wing):
+    query = datastore_client.query(kind="rating")
+    all_the_ratings = query.fetch()
+    totalStars = 0
+    totalRatings = 0
+    for r in all_the_ratings:
+        if r["wingName"] == wing["name"]: 
+            totalRatings = totalRatings + 1
+            totalStars = totalStars + int(r["rating"])
+    if totalRatings == 0:
+        rating = 0
+        return 0
+
+    rating = round(totalStars/totalRatings)
+    print(wing["name"])
+    curr_w = datastore_client.get(key=datastore_client.key("Wings", wing["name"]))
+    ww = datastore.Entity(key=datastore_client.key("Wings", wing["name"]))
+    print(curr_w["name"])    
+    ww["name"] = curr_w["name"]
+    ww["description"] = curr_w["description"]
+    ww["magicNumber"] = curr_w["magicNumber"]
+    ww["spiceMoistNumber"] = curr_w["spiceMoistNumber"] 
+    ww["type"] = curr_w["type"]
+    ww["rating"]= rating
+    datastore_client.put(ww) 
 
 def getAndStoreStars(wing):
     query = datastore_client.query(kind="rating")
@@ -77,6 +218,7 @@ def getAndStoreStars(wing):
     # )
     # datastore_client.put(w)
 
+
     return round(rating)
     
 
@@ -84,13 +226,13 @@ def getAndStoreStars(wing):
 def search():
     """Return a simple HTML page."""
     print("Search route!")
-    global_rating_dictionary = dict()
-    q = datastore_client.query(kind="Wings")
-    all_the_wings = q.fetch()
-    for wing in all_the_wings:
-       global_rating_dictionary[wing["name"]]= getAndStoreStars(wing)
+    #global_rating_dictionary = dict()
+    #q = datastore_client.query(kind="Wings")
+    #all_the_wings = q.fetch()
+    #for wing in all_the_wings:
+       #global_rating_dictionary[wing["name"]]= getAndStoreStars(wing)
        
-    return render_template("search.html", wings=[], g_rating_dict=global_rating_dictionary)
+    return render_template("search.html", wings=[])
 
 
 @app.route("/search-results/", methods=["POST"])
@@ -105,7 +247,7 @@ def search_results():
     q = datastore_client.query(kind="Wings")
     all_the_wings = q.fetch()
     for w in all_the_wings:
-        global_rating_dict[w["name"]]= getAndStoreStars(w)
+        #global_rating_dict[w["name"]]= getAndStoreStars(w)
         name_PR = 0
         des_PR = 0
         tot_des_PR = 0
@@ -122,14 +264,10 @@ def search_results():
             #print("passed!")
             #print(w["name"])
             test_wings.append(w)
-    query = datastore_client.query(kind="rating")
-    all_the_ratings = query.fetch()
-    user_rating_dict = dict()
-    for r in all_the_ratings:
-        if r["user"] == get_user():    
-            user_rating_dict[r["wingName"]]=r["rating"]
 
-    return render_template("search.html", wings=test_wings, rat_dic=user_rating_dict, g_rating_dict = global_rating_dict)
+    user_rating_dict = get_rating()
+
+    return render_template("search.html", wings=test_wings, rat_dic=user_rating_dict)
 
 def get_global_rating_dict(all_the_wings):
     global_rating_dict = dict()
@@ -175,7 +313,7 @@ def profile_results():
     print("Inside profile results"  )    
     do_you_like_these_wings(magic_num, spice_num)
     store_survey(magic_num, spice_num)
-    #users_wings = get_wings()
+
     return redirect("/")
 
 
@@ -245,7 +383,7 @@ def do_you_like_these_wings(mwn, smp):
     for w in all_the_wings:
         if (int(w["spiceMoistNumber"]) & int(smp)) == 0:
             if (int(w["magicNumber"]) & int(mwn)) == 0:
-                store_wing_pref(user,w["name"],w["description"])
+                store_wing_pref(user,w["name"],w["description"], w["rating"])
                 print(w["name"])
 
 
@@ -322,13 +460,14 @@ def delete_wings():
 # store all the wings       
 def store_allwings():
     for w in all_wings:
-        wing_key = datastore_client.key("Wings")
+        wing_key = datastore_client.key("Wings", w["name"])
         wing = datastore.Entity(key=wing_key)
         wing["name"] = w["name"]
         wing["description"] = w["description"]
         wing["magicNumber"] = w["magicNumber"]
         wing["spiceMoistNumber"] = w["spiceMoistNumber"] 
         wing["type"] = w["type"]
+        wing["rating"] = w["rating"]
         datastore_client.put(wing) 
 
 
@@ -339,6 +478,14 @@ def rating_results():
     print("Inside rating results"  )   
     store_rating(rating, wingName)
 
+def get_rating():
+    query = datastore_client.query(kind="rating")
+    all_the_ratings = query.fetch()
+    user_rating_dict = dict()
+    for r in all_the_ratings:
+        if r["user"] == get_user():    
+            user_rating_dict[r["wingName"]]=str(r["rating"])
+    return user_rating_dict
 
 def store_rating(rating, wingName):
     wing_nameuser = wingName+get_user()
@@ -460,115 +607,7 @@ def logout():
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8080, debug=True)
 
-    all_wings = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ranch", "magicNumber": "4194372", "spiceMoistNumber": "10", "type": "Signature"},   
-                {"name": "Ain't My Faulks", "description": "Butter, Dry BBQ, Dry Garlic, Dry Ranch", "magicNumber": "4196418", "spiceMoistNumber": "6", "type": "Signature"},
-                {"name": "B.A.D.", "description": "Butter, Atomic Dust", "magicNumber": "65", "spiceMoistNumber": "10", "type": "Signature" },
-                {"name": "Baby Blues", "description": "Blue Cheese, Frank's Red Hot, Cayenne", "magicNumber": "264", "spiceMoistNumber": "9", "type": "Signature" },
-                {"name": "Big Easy", "description": "Big Shot Bob's Louisiana Licker", "magicNumber": "268435456", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "BigFineWoman2000", "description": "Dark BBQ, Black Magic", "magicNumber": "6", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "BigFineWoman3000", "description": "Dark BBQ, Black Magic, Upgraded", "magicNumber": "6", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "The Big Picture", "description": "Salt, Butter, Parmesan", "magicNumber": "1048640", "spiceMoistNumber": "6", "type": "Signature"},
-                {"name": "Big Sexy", "description": "Mark's Signature Flavor", "magicNumber": "268435456", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Black and Gold", "description": "Gold BBQ, Black Magic", "magicNumber": "6", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Black and Mild", "description": "Black Magic, Mild Sauce", "magicNumber": "4", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Black and Yellow", "description": "Black Magic, Sweet, Honey Mustard", "magicNumber": "33562628", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Black Frank White", "description": "Black Magic, Frank's Red Hot, Ranch", "magicNumber": "4194308", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Black Magic", "description": "Black Magic, Cajun, Butter", "magicNumber": "196", "spiceMoistNumber": "10", "type": "Signature"},
-                {"name": "Black Opts", "description": "The Special Wing Sauce of Cory Freeman", "magicNumber": "268435456", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Cash Club", "description": "Ranch, Garlic, Butter, Parmesan", "magicNumber": "5244992", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "The Color Purple", "description": "Raspberry, Garlic", "magicNumber": "8390656", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Cool Runnings", "description": "Jamaican Jerk, Ranch", "magicNumber": "4227136", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Coraopolis Cajun", "description": "Cajun, Mild", "magicNumber": "128", "spiceMoistNumber": "10", "type": "Signature"},
-                {"name": "Coraopolis Gunslinger", "description": "Jalapeno, Ranch", "magicNumber": "4210688", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Eye of the Tiger", "description": "Talk of Beaver Falls, Ranch", "magicNumber": "272629760", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Flaming Flamingo", "description": "Garlic, Chili, Ranch, Hot", "magicNumber": "4196864", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Flossin' Season", "description": "Ranch, Lawry's Seasoned Salt", "magicNumber": "4259840", "spiceMoistNumber": "6", "type": "Signature"},
-                {"name": "Frank Sinatra", "description": "Frank's Red Hot, Blue Cheese, Parmesan", "magicNumber": "1048584", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Frank White", "description": "Frank's Red Hot, Ranch", "magicNumber": "4194304", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Frankie Valli", "description": "Frank's Red Hot, Ranch, Parmesan", "magicNumber": "5242880", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Game Changer", "description": "Butter, Parmesan, Ranch", "magicNumber": "5242944", "spiceMoistNumber": "6", "type": "Signature"},
-                {"name": "Gold Fire", "description": "Hot, Gold BBQ", "magicNumber": "2", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Honey Bunny", "description": "Sweet, Hot, Chili, Ranch", "magicNumber": "37749248", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Jamaican Frank", "description": "Hot, Jamaican Jerk", "magicNumber": "32832", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Jamaican Jerk", "description": "Jerk Seasoning, Butter", "magicNumber": "32832", "spiceMoistNumber": "6", "type": "Signature"},
-                {"name": "Lady Luck", "description": "Hot Sauce, Ranch", "magicNumber": "4194304", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Lake Show", "description": "Raspberry, Honey Mustard", "magicNumber": "8396800", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Lebron to the Lakers", "description": "Black Magic, Raspberry, Honey Mustard", "magicNumber": "8396804", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Magic Man", "description": "Hot Sauce, Black Magic", "magicNumber": "4", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Mean Joe Greene", "description": "Black Magic, Gold BBQ, Jalapeno", "magicNumber": "16390", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Mister C's", "description": "Black Magic, Parmesan", "magicNumber": "1048580", "spiceMoistNumber": "10", "type": "Signature"},
-                {"name": "The Most Interesting Flavor in the World", "description": "Not Hot, Very Interesting", "magicNumber": "268435456", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Mr. Northside", "description": "Honey Mustard, BBQ", "magicNumber": "8194", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Napoleon", "description": "Sweet, Buffalo", "magicNumber": "33554464", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Napoleon Cajun", "description": "Sweet, Buffalo, Cajun", "magicNumber": "33554592", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Napoleon Complex", "description": "Sweet, Buffalo, Big Shot Bobs Seasoning", "magicNumber": "33554480", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Napoleon Dynamite", "description": "Sweet, Buffalo, Cayenne", "magicNumber": "33554720", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Napoleon Garlic", "description": "Sweet, Buffalo, Garlic", "magicNumber": "33556512", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Ole School", "description": "Big Shot Bobs Seasoning, Medium", "magicNumber": "16", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Ox's", "description": "BBQ, Jerk Seasoning", "magicNumber": "32770", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Pigeon Wings", "description": "Sweet, Buffalo, Garlic, Parmesan", "magicNumber": "34605088", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Polish Hill Strangler", "description": "Honey Mustard, Cayenne", "magicNumber": "8448", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Pookie", "description": "Talk of Beaver Falls, Sweet, Buffalo, Garlic, Parmesan", "magicNumber": "303040544", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Primetime", "description": "Sweet, Hot, Garlic, Golds BBQ", "magicNumber": "33556482", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Showtime", "description": "Salt, Butter", "magicNumber": "64", "spiceMoistNumber": "6", "type": "Signature"},
-                {"name": "Steel City", "description": "Mild, Buffalo, Ranch, Parmesan", "magicNumber": "5242912", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Superfly T.N.T.", "description": "Hot, Jamaican Jerk, Ranch", "magicNumber": "4227072", "spiceMoistNumber": "10", "type": "Signature"},
-                {"name": "Talk of Beaver Falls", "description": "Hot, Tangy", "magicNumber": "268435456", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Three Rivers", "description": "Honey Mustard, Ranch, BBQ", "magicNumber": "4202498", "spiceMoistNumber": "5", "type": "Signature"},
-                {"name": "Thunderlips", "description": "Ranch, Atomic Dust", "magicNumber": "4194305", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Too Easy", "description": "Salt, Pepper, Hot Sauce", "magicNumber": "2097152", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Uncle Nick's", "description": "Hot, Spicy, Garlic, Honey, BBQ", "magicNumber": "6146", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Uncle Rico's", "description": "Sweet, Spicy, Garlic, Honey Mustard", "magicNumber": "33564672", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Walk of Beaver Falls", "description": "Talk of Beaver Falls, Hot", "magicNumber": "268435456", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "Westview Connection", "description": "Big Shot Bobs Seasoning, Cajun, Garlic, Jalapeno", "magicNumber": "18576", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "William Henry Harrison", "description": "Jamaican Jerk, Parmesan", "magicNumber": "1081408", "spiceMoistNumber": "6", "type": "Signature"},
-                {"name": "Wink & Gun", "description": "Hot, Sweet, Ranch", "magicNumber": "37748736", "spiceMoistNumber": "9", "type": "Signature"},
-                {"name": "BBQ", "description": "", "magicNumber": "2", "spiceMoistNumber": "4", "type": "Classic"},
-                {"name": "BBQ Ranch", "description": "", "magicNumber": "4194306", "spiceMoistNumber": "5", "type": "Classic"},
-                {"name": "Bob's Honey Mustard", "description": "", "magicNumber": "8192", "spiceMoistNumber": "5", "type": "Classic"},
-                {"name": "Bob's Signature Hot", "description": "", "magicNumber": "768", "spiceMoistNumber": "9", "type": "Classic"},
-                {"name": "Cajun", "description": "", "magicNumber": "128", "spiceMoistNumber": "8", "type": "Classic"},
-                {"name": "Cajun Garlic", "description": "", "magicNumber": "2176", "spiceMoistNumber": "8", "type": "Classic"},
-                {"name": "Cajun Ranch", "description": "", "magicNumber": "4194432", "spiceMoistNumber": "8", "type": "Classic"},
-                {"name": "Dark BBQ", "description": "", "magicNumber": "2", "spiceMoistNumber": "5", "type": "Classic"},
-                {"name": "Frank's Red Hot", "description": "", "magicNumber": "768", "spiceMoistNumber": "9", "type": "Classic"},
-                {"name": "Garlic Butter", "description": "", "magicNumber": "2112", "spiceMoistNumber": "6", "type": "Classic"},
-                {"name": "Garlic Butter Parmesan", "description": "", "magicNumber": "1050688", "spiceMoistNumber": "6", "type": "Classic"},
-                {"name": "Garlic Parmesan", "description": "", "magicNumber": "1050624", "spiceMoistNumber": "6", "type": "Classic"},
-                {"name": "Garlic Ranch", "description": "", "magicNumber": "4196352", "spiceMoistNumber": "4", "type": "Classic"},
-                {"name": "Gold BBQ", "description": "", "magicNumber": "2", "spiceMoistNumber": "5", "type": "Classic"},
-                {"name": "Honey BBQ", "description": "", "magicNumber": "4098", "spiceMoistNumber": "5", "type": "Classic"},
-                {"name": "Honey Cajun", "description": "", "magicNumber": "4224", "spiceMoistNumber": "9", "type": "Classic"},
-                {"name": "Honey Dijon", "description": "", "magicNumber": "5120", "spiceMoistNumber": "5", "type": "Classic"},
-                {"name": "Honey Garlic", "description": "", "magicNumber": "6144", "spiceMoistNumber": "5", "type": "Classic"},
-                {"name": "Honey Old Bay", "description": "", "magicNumber": "528384", "spiceMoistNumber": "5", "type": "Classic"},
-                {"name": "Honey Ranch", "description": "", "magicNumber": "4198400", "spiceMoistNumber": "5", "type": "Classic"},
-                {"name": "Hot Cajun", "description": "", "magicNumber": "128", "spiceMoistNumber": "10", "type": "Classic"},
-                {"name": "Hot Garlic", "description": "", "magicNumber": "2048", "spiceMoistNumber": "8", "type": "Classic"},
-                {"name": "Hot Garlic Parmesan", "description": "", "magicNumber": "1050624", "spiceMoistNumber": "10", "type": "Classic"},
-                {"name": "Hot Honey", "description": "", "magicNumber": "4096", "spiceMoistNumber": "9", "type": "Classic"},
-                {"name": "Hot Honey Garlic", "description": "", "magicNumber": "6144", "spiceMoistNumber": "9", "type": "Classic"},
-                {"name": "Hot Old Bay", "description": "", "magicNumber": "524288", "spiceMoistNumber": "10", "type": "Classic"},
-                {"name": "Hot Ranch", "description": "", "magicNumber": "4194304", "spiceMoistNumber": "9", "type": "Classic"},
-                {"name": "Hottest of the Hot", "description": "", "magicNumber": "384", "spiceMoistNumber": "9", "type": "Classic"},
-                {"name": "Lemon Pepper", "description": "", "magicNumber": "2228224", "spiceMoistNumber": "6", "type": "Classic"},
-                {"name": "Lemon Pepper Parmesan", "description": "", "magicNumber": "3276800", "spiceMoistNumber": "6", "type": "Classic"},
-                {"name": "Lemon Pepper Ranch", "description": "", "magicNumber": "6422528", "spiceMoistNumber": "6", "type": "Classic"},
-                {"name": "Medium Garlic Parmesan", "description": "", "magicNumber": "1050624", "spiceMoistNumber": "6", "type": "Classic"},
-                {"name": "Mild Garlic Parmesan", "description": "", "magicNumber": "1050624", "spiceMoistNumber": "6", "type": "Classic"},
-                {"name": "Mild Old Bay", "description": "", "magicNumber": "524288", "spiceMoistNumber": "6", "type": "Classic"},
-                {"name": "Mild Ranch", "description": "", "magicNumber": "4194304", "spiceMoistNumber": "5", "type": "Classic"},
-                {"name": "Montreal", "description": "", "magicNumber": "262144", "spiceMoistNumber": "4", "type": "Classic"},
-                {"name": "Old Bay", "description": "", "magicNumber": "524288", "spiceMoistNumber": "4", "type": "Classic"},
-                {"name": "Old Bay Ranch", "description": "", "magicNumber": "4718592", "spiceMoistNumber": "5", "type": "Classic"},
-                {"name": "Peppercorn Ranch", "description": "", "magicNumber": "6291456", "spiceMoistNumber": "5", "type": "Classic"},
-                {"name": "Peppercorn Ranch Parmesan", "description": "", "magicNumber": "7340032", "spiceMoistNumber": "5", "type": "Classic"},
-                {"name": "Ranch", "description": "", "magicNumber": "4194304", "spiceMoistNumber": "4", "type": "Classic"},
-                {"name": "Salt and Pepper", "description": "", "magicNumber": "2097152", "spiceMoistNumber": "6", "type": "Classic"},
-                {"name": "Salt and Vinegar", "description": "", "magicNumber": "134217728", "spiceMoistNumber": "6", "type": "Classic"},
-                {"name": "Seasoned", "description": "", "magicNumber": "16777216", "spiceMoistNumber": "6", "type": "Classic"},
-                {"name": "Teriyaki", "description": "", "magicNumber": "67108864", "spiceMoistNumber": "5", "type": "Classic"}]
-all_wings_testing = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ranch", "magicNumber": "4194372", "spiceMoistNumber": "10", "type": "Signature", "Rating":0, "numRatings":0},   
+    all_wings_testing = [{"name": "Ace Boogie", "description": "Black Magic, Butter, Dry Ranch", "magicNumber": "4194372", "spiceMoistNumber": "10", "type": "Signature", "Rating":0, "numRatings":0},   
                 {"name": "Ain't My Faulks", "description": "Butter, Dry BBQ, Dry Garlic, Dry Ranch", "magicNumber": "4196418", "spiceMoistNumber": "6", "type": "Signature", "Rating":0, "numRatings":0},
                 {"name": "B.A.D.", "description": "Butter, Atomic Dust", "magicNumber": "65", "spiceMoistNumber": "10", "type": "Signature", "Rating":0, "numRatings":0},
                 {"name": "Baby Blues", "description": "Blue Cheese, Frank's Red Hot, Cayenne", "magicNumber": "264", "spiceMoistNumber": "9", "type": "Signature", "Rating":0, "numRatings":0},
